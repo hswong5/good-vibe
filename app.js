@@ -1,5 +1,8 @@
 // GoodVibe Quotes — app.js
-// Uses keyless Unsplash source URLs — no API key needed, safe for public repos
+
+const UNSPLASH_KEY = 'BeiZCxytv05mSYWinomK2fkvxApldAMOd8uYu0iVgXk';
+const CACHE_PREFIX = 'gv_img_';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in ms
 
 const state = {
   quotes: [],
@@ -7,7 +10,8 @@ const state = {
   currentQuote: null,
 };
 
-const imageCache = {};
+// In-memory cache for this session
+const memCache = {};
 
 async function loadQuotes() {
   const res = await fetch('quotes.json');
@@ -28,22 +32,52 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Keyless Unsplash source image fetching
+// Get image URL — checks localStorage first, then fetches from Unsplash API
 async function getImageUrl(keywords) {
-  const key = keywords.join('|');
-  if (imageCache[key]) return imageCache[key];
-  const query = encodeURIComponent(pickRandom(keywords));
-  const url = `https://source.unsplash.com/featured/1600x900/?${query}`;
-  imageCache[key] = url;
-  return url;
+  const keyword = pickRandom(keywords);
+  const cacheKey = CACHE_PREFIX + keyword;
+
+  // 1. Check in-memory cache
+  if (memCache[cacheKey]) return memCache[cacheKey];
+
+  // 2. Check localStorage cache (persists 24hrs)
+  try {
+    const stored = localStorage.getItem(cacheKey);
+    if (stored) {
+      const { url, ts } = JSON.parse(stored);
+      if (Date.now() - ts < CACHE_TTL) {
+        memCache[cacheKey] = url;
+        return url;
+      }
+    }
+  } catch(e) {}
+
+  // 3. Fetch from Unsplash API
+  try {
+    const res = await fetch(
+      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&content_filter=high`,
+      { headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` } }
+    );
+    if (!res.ok) throw new Error('Unsplash error');
+    const data = await res.json();
+    const url = data.urls.regular; // ~1080px wide, optimised
+    // Save to both caches
+    memCache[cacheKey] = url;
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ url, ts: Date.now() }));
+    } catch(e) {}
+    return url;
+  } catch(e) {
+    return null; // Fall back to gradient
+  }
 }
 
 function fallbackGradient(category) {
   const gradients = {
     Motivation: 'linear-gradient(135deg,#f6941c,#e0524d)',
-    Healing: 'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
-    Hustle: 'linear-gradient(135deg,#2c3e50,#4b6cb7)',
-    Calm: 'linear-gradient(135deg,#a8e6cf,#3d84a8)',
+    Healing:    'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
+    Hustle:     'linear-gradient(135deg,#2c3e50,#4b6cb7)',
+    Calm:       'linear-gradient(135deg,#a8e6cf,#3d84a8)',
   };
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
