@@ -1,6 +1,4 @@
 // GoodVibe Quotes — app.js
-// Set your own free Unsplash Access Key at https://unsplash.com/developers
-const UNSPLASH_ACCESS_KEY = 'YOUR_UNSPLASH_ACCESS_KEY';
 
 const state = {
   quotes: [],          // flattened list: {quote, author, category, keywords}
@@ -29,30 +27,14 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// --- Unsplash image fetching with graceful fallback ---
+// --- Unsplash keyless image fetching ---
 async function getImageUrl(keywords) {
   const key = keywords.join('|');
   if (imageCache[key]) return imageCache[key];
-
-  // Fallback gradient placeholder if no API key configured or request fails
-  const fallback = null;
-
-  if (!UNSPLASH_ACCESS_KEY || UNSPLASH_ACCESS_KEY === 'YOUR_UNSPLASH_ACCESS_KEY') {
-    return fallback;
-  }
-
   const query = encodeURIComponent(pickRandom(keywords));
-  try {
-    const res = await fetch(`https://api.unsplash.com/photos/random?query=${query}&orientation=landscape&client_id=${UNSPLASH_ACCESS_KEY}`);
-    if (!res.ok) throw new Error('Unsplash request failed');
-    const data = await res.json();
-    const url = data.urls && data.urls.regular;
-    imageCache[key] = url;
-    return url;
-  } catch (err) {
-    console.warn('Unsplash fetch failed, using fallback', err);
-    return fallback;
-  }
+  const url = `https://source.unsplash.com/featured/1600x900/?${query}`;
+  imageCache[key] = url;
+  return url;
 }
 
 // Deterministic pleasant gradient fallback based on category
