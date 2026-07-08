@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodVibe Quotes — Motivation, Healing, Hustle & Calm</title>
+<meta name="description" content="Inspiring quotes for Motivation, Healing, Hustle, and Calm. Free daily quote images with beautiful backgrounds.">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">GoodVibe</div>
+  <nav class="category-nav">
+    <button class="nav-btn active" data-category="All">All</button>
+    <button class="nav-btn" data-category="Motivation">Motivation</button>
+    <button class="nav-btn" data-category="Healing">Healing</button>
+    <button class="nav-btn" data-category="Hustle">Hustle</button>
+    <button class="nav-btn" data-category="Calm">Calm</button>
+  </nav>
+</header>
+
+<main>
+  <section id="quote-card" class="quote-card">
+    <div class="quote-bg" id="quote-bg"></div>
+    <div class="quote-overlay"></div>
+    <div class="quote-content">
+      <span class="quote-tag" id="quote-tag">Motivation</span>
+      <p class="quote-text" id="quote-text">Loading your daily dose of inspiration...</p>
+      <p class="quote-author" id="quote-author"></p>
+      <div class="quote-actions">
+        <button id="btn-new" title="New quote">New Quote</button>
+        <button id="btn-copy" title="Copy quote">Copy</button>
+        <button id="btn-download" title="Download as image">Save Image</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-slot ad-slot-mid" id="ad-mid">
+    <!-- AdSense unit goes here after approval -->
+    <span class="ad-placeholder">Ad space</span>
+  </div>
+
+  <section class="grid-section">
+    <h2 id="grid-title">All Quotes</h2>
+    <div id="quote-grid" class="quote-grid"></div>
+  </section>
+
+  <div class="ad-slot ad-slot-bottom" id="ad-bottom">
+    <span class="ad-placeholder">Ad space</span>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 GoodVibe Quotes. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
+  <p><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></p>
+</footer>
+
+<canvas id="export-canvas" style="display:none;"></canvas>
+<script src="app.js"></script>
+</body>
+</html>

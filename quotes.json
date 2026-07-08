@@ -1,0 +1,910 @@
+{
+  "Motivation": [
+    {
+      "quote": "Where there is a will, there is a way.",
+      "author": "Proverb",
+      "keywords": [
+        "mountain peak sunrise",
+        "hiking trail",
+        "path forward"
+      ]
+    },
+    {
+      "quote": "The journey of a thousand miles begins with a single step.",
+      "author": "Lao Tzu",
+      "keywords": [
+        "single footstep sand",
+        "long road",
+        "first step journey"
+      ]
+    },
+    {
+      "quote": "Fortune favors the bold.",
+      "author": "Latin Proverb",
+      "keywords": [
+        "cliff jump silhouette",
+        "bold adventurer",
+        "courage climb"
+      ]
+    },
+    {
+      "quote": "Believe you can and you're halfway there.",
+      "author": "Theodore Roosevelt",
+      "keywords": [
+        "sunrise mountain",
+        "open road",
+        "confident stride"
+      ]
+    },
+    {
+      "quote": "The best way out is always through.",
+      "author": "Robert Frost",
+      "keywords": [
+        "forest path light",
+        "tunnel light",
+        "walking through fog"
+      ]
+    },
+    {
+      "quote": "Well begun is half done.",
+      "author": "Proverb",
+      "keywords": [
+        "morning sunrise",
+        "fresh start desk",
+        "new beginning"
+      ]
+    },
+    {
+      "quote": "Every great achievement was once considered impossible.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "mountain summit",
+        "rocket launch",
+        "victory silhouette"
+      ]
+    },
+    {
+      "quote": "A river cuts through rock not because of its power but its persistence.",
+      "author": "Proverb",
+      "keywords": [
+        "river canyon",
+        "flowing water rock",
+        "grand canyon river"
+      ]
+    },
+    {
+      "quote": "Little strokes fell great oaks.",
+      "author": "Benjamin Franklin",
+      "keywords": [
+        "oak tree forest",
+        "chopping wood",
+        "old tree sunlight"
+      ]
+    },
+    {
+      "quote": "Energy and persistence conquer all things.",
+      "author": "Benjamin Franklin",
+      "keywords": [
+        "marathon runner",
+        "sunrise finish line",
+        "climbing stairs"
+      ]
+    },
+    {
+      "quote": "It is never too late to be what you might have been.",
+      "author": "George Eliot",
+      "keywords": [
+        "open horizon",
+        "sunset road",
+        "new chapter book"
+      ]
+    },
+    {
+      "quote": "Great things are done by a series of small things brought together.",
+      "author": "Vincent van Gogh",
+      "keywords": [
+        "puzzle pieces",
+        "building blocks",
+        "stacked stones"
+      ]
+    },
+    {
+      "quote": "The harder the conflict, the more glorious the triumph.",
+      "author": "Thomas Paine",
+      "keywords": [
+        "storm clearing sky",
+        "mountain victory",
+        "sunrise after storm"
+      ]
+    },
+    {
+      "quote": "Strive not to be a success, but rather to be of value.",
+      "author": "Albert Einstein",
+      "keywords": [
+        "helping hands",
+        "team collaboration",
+        "giving hand sunset"
+      ]
+    },
+    {
+      "quote": "What we think, we become.",
+      "author": "Buddha",
+      "keywords": [
+        "meditation sunrise",
+        "calm mind lake",
+        "peaceful monk"
+      ]
+    },
+    {
+      "quote": "Do not wait; the time will never be just right.",
+      "author": "Napoleon Hill",
+      "keywords": [
+        "clock sunrise",
+        "running forward",
+        "open door light"
+      ]
+    },
+    {
+      "quote": "You miss 100% of the shots you don't take.",
+      "author": "Traditional Sports Saying",
+      "keywords": [
+        "basketball hoop",
+        "archery target",
+        "goal net"
+      ]
+    },
+    {
+      "quote": "A ship in harbor is safe, but that is not what ships are built for.",
+      "author": "John A. Shedd",
+      "keywords": [
+        "ship ocean horizon",
+        "sailing boat sea",
+        "open ocean sunrise"
+      ]
+    },
+    {
+      "quote": "The only limit to our realization of tomorrow is our doubts of today.",
+      "author": "Franklin D. Roosevelt",
+      "keywords": [
+        "sunrise horizon",
+        "open field sky",
+        "bright future light"
+      ]
+    },
+    {
+      "quote": "Vision without action is merely a dream.",
+      "author": "Joel A. Barker",
+      "keywords": [
+        "dreamer sky clouds",
+        "planning desk",
+        "goal chart"
+      ]
+    },
+    {
+      "quote": "He who is not courageous enough to take risks will accomplish nothing in life.",
+      "author": "Muhammad Ali",
+      "keywords": [
+        "boxing ring",
+        "leap of faith",
+        "cliff edge courage"
+      ]
+    },
+    {
+      "quote": "Success is the sum of small efforts repeated day in and day out.",
+      "author": "Robert Collier",
+      "keywords": [
+        "daily routine sunrise",
+        "calendar planner",
+        "consistent training"
+      ]
+    },
+    {
+      "quote": "The future belongs to those who prepare for it today.",
+      "author": "Malcolm X",
+      "keywords": [
+        "study desk light",
+        "sunrise workspace",
+        "planning notebook"
+      ]
+    },
+    {
+      "quote": "Difficulties strengthen the mind, as labor does the body.",
+      "author": "Seneca",
+      "keywords": [
+        "gym training",
+        "strong tree roots",
+        "weightlifting silhouette"
+      ]
+    },
+    {
+      "quote": "Great works are performed not by strength but by perseverance.",
+      "author": "Samuel Johnson",
+      "keywords": [
+        "marathon finish",
+        "climbing mountain",
+        "endurance runner"
+      ]
+    }
+  ],
+  "Healing": [
+    {
+      "quote": "This too shall pass.",
+      "author": "Traditional Proverb",
+      "keywords": [
+        "calm sunrise clouds",
+        "gentle rain window",
+        "soft morning light"
+      ]
+    },
+    {
+      "quote": "Time heals all wounds.",
+      "author": "Proverb",
+      "keywords": [
+        "healing hands nature",
+        "sunrise over water",
+        "growing plant light"
+      ]
+    },
+    {
+      "quote": "After the storm comes the calm.",
+      "author": "Proverb",
+      "keywords": [
+        "rainbow after rain",
+        "calm sky clearing",
+        "peaceful beach storm"
+      ]
+    },
+    {
+      "quote": "The wound is the place where the Light enters you.",
+      "author": "Rumi",
+      "keywords": [
+        "sunlight through leaves",
+        "light through clouds",
+        "healing glow"
+      ]
+    },
+    {
+      "quote": "Every day may not be good, but there is good in every day.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "sunrise hope",
+        "flower bloom light",
+        "morning dew"
+      ]
+    },
+    {
+      "quote": "Out of suffering have emerged the strongest souls.",
+      "author": "Khalil Gibran",
+      "keywords": [
+        "lotus flower pond",
+        "resilient tree",
+        "sunrise strength"
+      ]
+    },
+    {
+      "quote": "Tomorrow is a new day.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "sunrise new day",
+        "fresh morning sky",
+        "hopeful dawn"
+      ]
+    },
+    {
+      "quote": "The soul that sees beauty may sometimes walk alone.",
+      "author": "Johann Wolfgang von Goethe",
+      "keywords": [
+        "solitary path nature",
+        "quiet forest walk",
+        "peaceful solitude"
+      ]
+    },
+    {
+      "quote": "Peace comes from within.",
+      "author": "Buddha",
+      "keywords": [
+        "meditation calm water",
+        "zen garden",
+        "inner peace nature"
+      ]
+    },
+    {
+      "quote": "A calm sea does not make a skilled sailor.",
+      "author": "Proverb",
+      "keywords": [
+        "calm ocean waves",
+        "gentle sea sunrise",
+        "peaceful harbor"
+      ]
+    },
+    {
+      "quote": "Even the darkest night will end and the sun will rise.",
+      "author": "Victor Hugo",
+      "keywords": [
+        "sunrise darkness",
+        "dawn breaking",
+        "light after dark"
+      ]
+    },
+    {
+      "quote": "Health is the greatest gift, contentment the greatest wealth.",
+      "author": "Buddha",
+      "keywords": [
+        "nature health",
+        "peaceful garden",
+        "wellness sunrise"
+      ]
+    },
+    {
+      "quote": "The best remedy for those who are afraid, lonely, or unhappy is to go outside.",
+      "author": "Anne Frank",
+      "keywords": [
+        "forest sunlight walk",
+        "open nature field",
+        "peaceful outdoors"
+      ]
+    },
+    {
+      "quote": "In the middle of winter, I found there was, within me, an invincible summer.",
+      "author": "Albert Camus",
+      "keywords": [
+        "winter sunlight snow",
+        "warm light snow",
+        "inner strength nature"
+      ]
+    },
+    {
+      "quote": "Slow and steady wins the race.",
+      "author": "Aesop's Fables",
+      "keywords": [
+        "tortoise nature path",
+        "slow river flow",
+        "gentle steady walk"
+      ]
+    },
+    {
+      "quote": "Grief is the price we pay for love.",
+      "author": "Queen Elizabeth II (traditional saying)",
+      "keywords": [
+        "quiet candle light",
+        "gentle memorial flowers",
+        "soft grief light"
+      ]
+    },
+    {
+      "quote": "Rest when you're weary, refresh and renew yourself.",
+      "author": "Ralph Waldo Emerson",
+      "keywords": [
+        "hammock nature",
+        "resting by lake",
+        "peaceful nap outdoors"
+      ]
+    },
+    {
+      "quote": "Simplicity is the ultimate sophistication.",
+      "author": "Leonardo da Vinci",
+      "keywords": [
+        "minimalist nature",
+        "simple zen stones",
+        "clean calm space"
+      ]
+    },
+    {
+      "quote": "Nature does not hurry, yet everything is accomplished.",
+      "author": "Lao Tzu",
+      "keywords": [
+        "slow flowing stream",
+        "growing plant time",
+        "quiet forest patience"
+      ]
+    },
+    {
+      "quote": "Where there is love there is life.",
+      "author": "Mahatma Gandhi",
+      "keywords": [
+        "heart nature light",
+        "gentle sunrise love",
+        "warm family light"
+      ]
+    },
+    {
+      "quote": "The wound heals, the mark remains.",
+      "author": "Old Proverb",
+      "keywords": [
+        "tree scar bark",
+        "healed nature texture",
+        "resilient old tree"
+      ]
+    },
+    {
+      "quote": "Calm mind brings inner strength and self-confidence.",
+      "author": "Dalai Lama",
+      "keywords": [
+        "meditation mountain",
+        "calm lake reflection",
+        "peaceful yoga nature"
+      ]
+    },
+    {
+      "quote": "You yourself, as much as anybody, deserve your love and affection.",
+      "author": "Buddha",
+      "keywords": [
+        "self care nature",
+        "gentle light portrait",
+        "quiet reflection water"
+      ]
+    },
+    {
+      "quote": "The greatest healing therapy is friendship and love.",
+      "author": "Hubert H. Humphrey",
+      "keywords": [
+        "friends sunset",
+        "hands together nature",
+        "warm gathering light"
+      ]
+    },
+    {
+      "quote": "Softly and gently, the heart mends with time.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "soft sunrise heart",
+        "gentle healing flower",
+        "quiet dawn calm"
+      ]
+    }
+  ],
+  "Hustle": [
+    {
+      "quote": "The early bird catches the worm.",
+      "author": "Proverb",
+      "keywords": [
+        "sunrise city",
+        "early morning run",
+        "dawn work desk"
+      ]
+    },
+    {
+      "quote": "No pain, no gain.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "gym workout",
+        "sweat training",
+        "weightlifting effort"
+      ]
+    },
+    {
+      "quote": "Fortune favors the diligent.",
+      "author": "Proverb",
+      "keywords": [
+        "busy office work",
+        "focused study desk",
+        "hardworking hands"
+      ]
+    },
+    {
+      "quote": "God helps those who help themselves.",
+      "author": "Proverb",
+      "keywords": [
+        "sunrise work",
+        "building construction",
+        "hands working"
+      ]
+    },
+    {
+      "quote": "A smooth sea never made a skilled sailor.",
+      "author": "Proverb",
+      "keywords": [
+        "storm ocean waves",
+        "sailing challenge",
+        "ship rough sea"
+      ]
+    },
+    {
+      "quote": "Sweat now, shine later.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "gym training sweat",
+        "sunset workout",
+        "athlete effort"
+      ]
+    },
+    {
+      "quote": "Dream big, work hard, stay focused.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "city skyline night",
+        "focused desk work",
+        "ambitious sunrise"
+      ]
+    },
+    {
+      "quote": "Genius is one percent inspiration and ninety-nine percent perspiration.",
+      "author": "Thomas Edison",
+      "keywords": [
+        "workshop invention",
+        "laboratory work",
+        "inventor desk"
+      ]
+    },
+    {
+      "quote": "There are no shortcuts to any place worth going.",
+      "author": "Beverly Sills",
+      "keywords": [
+        "mountain trail long",
+        "climbing effort",
+        "steep path work"
+      ]
+    },
+    {
+      "quote": "Action is the foundational key to all success.",
+      "author": "Pablo Picasso",
+      "keywords": [
+        "hands working art",
+        "busy workshop",
+        "focused craftsman"
+      ]
+    },
+    {
+      "quote": "Opportunities don't happen, you create them.",
+      "author": "Chris Grosser",
+      "keywords": [
+        "entrepreneur city",
+        "building business",
+        "sunrise city hustle"
+      ]
+    },
+    {
+      "quote": "The way to get started is to quit talking and begin doing.",
+      "author": "Walt Disney",
+      "keywords": [
+        "work desk focus",
+        "typing laptop hustle",
+        "action office"
+      ]
+    },
+    {
+      "quote": "Hard work beats talent when talent doesn't work hard.",
+      "author": "Tim Notke",
+      "keywords": [
+        "athlete training",
+        "gym determination",
+        "sports practice"
+      ]
+    },
+    {
+      "quote": "Rise and grind.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "sunrise city hustle",
+        "morning coffee work",
+        "early gym"
+      ]
+    },
+    {
+      "quote": "Success usually comes to those who are too busy to be looking for it.",
+      "author": "Henry David Thoreau",
+      "keywords": [
+        "busy office desk",
+        "focused work city",
+        "productive workspace"
+      ]
+    },
+    {
+      "quote": "The man who moves a mountain begins by carrying away small stones.",
+      "author": "Confucius",
+      "keywords": [
+        "mountain labor",
+        "construction work",
+        "stone carrying"
+      ]
+    },
+    {
+      "quote": "Well done is better than well said.",
+      "author": "Benjamin Franklin",
+      "keywords": [
+        "hands building",
+        "craftsman work",
+        "action workshop"
+      ]
+    },
+    {
+      "quote": "Don't watch the clock; do what it does. Keep going.",
+      "author": "Sam Levenson",
+      "keywords": [
+        "clock city sunrise",
+        "running determination",
+        "continuous work"
+      ]
+    },
+    {
+      "quote": "It is not the mountain we conquer, but ourselves.",
+      "author": "Sir Edmund Hillary",
+      "keywords": [
+        "mountain climbing effort",
+        "summit hiker",
+        "endurance climb"
+      ]
+    },
+    {
+      "quote": "The only place where success comes before work is in the dictionary.",
+      "author": "Vidal Sassoon",
+      "keywords": [
+        "office grind",
+        "typing work desk",
+        "busy entrepreneur"
+      ]
+    },
+    {
+      "quote": "Diligence is the mother of good fortune.",
+      "author": "Miguel de Cervantes",
+      "keywords": [
+        "farmer field work",
+        "harvest labor",
+        "sunrise farming"
+      ]
+    },
+    {
+      "quote": "Work hard in silence, let success make the noise.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "quiet focused work",
+        "night city lights",
+        "solo dedication desk"
+      ]
+    },
+    {
+      "quote": "The expert in anything was once a beginner.",
+      "author": "Helen Hayes",
+      "keywords": [
+        "learning practice",
+        "student workspace",
+        "skill building"
+      ]
+    },
+    {
+      "quote": "Perseverance is not a long race; it is many short races one after the other.",
+      "author": "Walter Elliot",
+      "keywords": [
+        "running track training",
+        "marathon steps",
+        "sprint effort"
+      ]
+    },
+    {
+      "quote": "A goal without a plan is just a wish.",
+      "author": "Antoine de Saint-Exupery",
+      "keywords": [
+        "planning desk map",
+        "strategy notebook",
+        "goal chart office"
+      ]
+    }
+  ],
+  "Calm": [
+    {
+      "quote": "This too shall pass.",
+      "author": "Traditional Proverb",
+      "keywords": [
+        "calm sky clouds",
+        "peaceful sunset",
+        "gentle breeze field"
+      ]
+    },
+    {
+      "quote": "Still waters run deep.",
+      "author": "Proverb",
+      "keywords": [
+        "calm lake reflection",
+        "still water forest",
+        "quiet pond"
+      ]
+    },
+    {
+      "quote": "Peace begins with a smile.",
+      "author": "Mother Teresa",
+      "keywords": [
+        "sunrise smile nature",
+        "gentle light face",
+        "calm morning warmth"
+      ]
+    },
+    {
+      "quote": "Silence is a source of great strength.",
+      "author": "Lao Tzu",
+      "keywords": [
+        "quiet forest mist",
+        "silent mountain",
+        "still lake dawn"
+      ]
+    },
+    {
+      "quote": "The quieter you become, the more you can hear.",
+      "author": "Ram Dass (traditional attribution)",
+      "keywords": [
+        "quiet nature sound",
+        "still forest listening",
+        "calm meditation nature"
+      ]
+    },
+    {
+      "quote": "Within you, there is a stillness and a sanctuary.",
+      "author": "Hermann Hesse",
+      "keywords": [
+        "zen garden calm",
+        "quiet temple",
+        "peaceful sanctuary nature"
+      ]
+    },
+    {
+      "quote": "Calmness is the cradle of power.",
+      "author": "Josiah Gilbert Holland",
+      "keywords": [
+        "calm sunrise mountain",
+        "peaceful strength nature",
+        "still water power"
+      ]
+    },
+    {
+      "quote": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.",
+      "author": "Oprah Winfrey (traditional saying)",
+      "keywords": [
+        "deep breath nature",
+        "meditation calm light",
+        "present moment sky"
+      ]
+    },
+    {
+      "quote": "In the midst of movement and chaos, keep stillness inside of you.",
+      "author": "Deepak Chopra",
+      "keywords": [
+        "still lake chaos",
+        "calm center nature",
+        "quiet eye storm"
+      ]
+    },
+    {
+      "quote": "Nature always wears the colors of the spirit.",
+      "author": "Ralph Waldo Emerson",
+      "keywords": [
+        "autumn forest calm",
+        "colorful nature peace",
+        "serene landscape"
+      ]
+    },
+    {
+      "quote": "Quiet the mind, and the soul will speak.",
+      "author": "Ma Jaya Sati Bhagavati",
+      "keywords": [
+        "meditation quiet",
+        "still mind nature",
+        "calm soul light"
+      ]
+    },
+    {
+      "quote": "Wherever you are, be all there.",
+      "author": "Jim Elliot",
+      "keywords": [
+        "present moment nature",
+        "mindful sunrise",
+        "calm focus outdoors"
+      ]
+    },
+    {
+      "quote": "The mind is like water; when it's turbulent, it's difficult to see. When it's calm, everything becomes clear.",
+      "author": "Prasad Mahes",
+      "keywords": [
+        "calm water clarity",
+        "clear lake reflection",
+        "still pond mirror"
+      ]
+    },
+    {
+      "quote": "Let nature be your teacher.",
+      "author": "William Wordsworth",
+      "keywords": [
+        "forest learning calm",
+        "nature classroom peace",
+        "quiet woods light"
+      ]
+    },
+    {
+      "quote": "Serenity is not freedom from the storm, but peace amid the storm.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "storm calm eye",
+        "peaceful storm light",
+        "serene amid clouds"
+      ]
+    },
+    {
+      "quote": "One kind word can change someone's entire day.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "gentle kindness nature",
+        "soft light gesture",
+        "warm calm hands"
+      ]
+    },
+    {
+      "quote": "A quiet mind is able to hear intuition over fear.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "calm meditation quiet",
+        "still mind forest",
+        "peaceful intuition nature"
+      ]
+    },
+    {
+      "quote": "Simplify, then add lightness.",
+      "author": "Colin Chapman",
+      "keywords": [
+        "minimalist calm space",
+        "simple light room",
+        "clean serene design"
+      ]
+    },
+    {
+      "quote": "Slow down and everything you are chasing will come around and catch you.",
+      "author": "John De Paola",
+      "keywords": [
+        "slow walk nature",
+        "gentle path calm",
+        "peaceful stroll forest"
+      ]
+    },
+    {
+      "quote": "The soul always knows what to do to heal itself. The challenge is to silence the mind.",
+      "author": "Caroline Myss",
+      "keywords": [
+        "silent meditation nature",
+        "healing calm light",
+        "quiet soul water"
+      ]
+    },
+    {
+      "quote": "Almost everything will work again if you unplug it for a few minutes, including you.",
+      "author": "Anne Lamott",
+      "keywords": [
+        "rest calm nature",
+        "unplug quiet retreat",
+        "peaceful pause outdoors"
+      ]
+    },
+    {
+      "quote": "Gratitude turns what we have into enough.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "sunset gratitude",
+        "peaceful thankful nature",
+        "calm warm light"
+      ]
+    },
+    {
+      "quote": "The present moment is the only moment available to us.",
+      "author": "Thich Nhat Hanh",
+      "keywords": [
+        "present nature calm",
+        "mindful moment light",
+        "quiet awareness forest"
+      ]
+    },
+    {
+      "quote": "Sit in reflection when possible; let your soul catch up with your body.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "quiet reflection nature",
+        "calm sitting light",
+        "peaceful pause water"
+      ]
+    },
+    {
+      "quote": "Home is where the heart finds its peace.",
+      "author": "Traditional Saying",
+      "keywords": [
+        "cozy home calm",
+        "peaceful house light",
+        "warm home nature"
+      ]
+    }
+  ]
+}
