@@ -1,10 +1,9 @@
-// GoodVibe Quotes — app.js
-// Uses keyless Unsplash source URLs — no API key needed, safe for public repos
-
+// GoodVibe Daily — app.js
 const state = {
   quotes: [],
   currentCategory: 'All',
   currentQuote: null,
+  likes: JSON.parse(localStorage.getItem('gv_likes') || '{}'),
 };
 
 const imageCache = {};
@@ -28,7 +27,22 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Keyless Unsplash source image fetching
+function quoteKey(item) {
+  return `${item.category}::${item.quote.slice(0, 30)}`;
+}
+
+function getLikes(item) {
+  return state.likes[quoteKey(item)] || 0;
+}
+
+function toggleLike(item) {
+  const key = quoteKey(item);
+  const current = state.likes[key] || 0;
+  // Toggle: if already liked (odd = liked), unlike; if even, like
+  state.likes[key] = current % 2 === 0 ? current + 1 : current - 1;
+  localStorage.setItem('gv_likes', JSON.stringify(state.likes));
+}
+
 async function getImageUrl(keywords) {
   const key = keywords.join('|');
   if (imageCache[key]) return imageCache[key];
@@ -41,9 +55,9 @@ async function getImageUrl(keywords) {
 function fallbackGradient(category) {
   const gradients = {
     Motivation: 'linear-gradient(135deg,#f6941c,#e0524d)',
-    Healing: 'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
-    Hustle: 'linear-gradient(135deg,#2c3e50,#4b6cb7)',
-    Calm: 'linear-gradient(135deg,#a8e6cf,#3d84a8)',
+    Healing:    'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
+    Hustle:     'linear-gradient(135deg,#2c3e50,#4b6cb7)',
+    Calm:       'linear-gradient(135deg,#a8e6cf,#3d84a8)',
   };
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
@@ -58,6 +72,12 @@ async function renderHero(item) {
   bgEl.style.background = fallbackGradient(item.category);
   const url = await getImageUrl(item.keywords);
   if (url) bgEl.style.backgroundImage = `url('${url}')`;
+  // Update like button
+  const liked = getLikes(item) % 2 !== 0;
+  const likeBtn = document.getElementById('btn-like');
+  const likeCount = document.getElementById('like-count');
+  likeBtn.classList.toggle('liked', liked);
+  likeBtn.innerHTML = `${liked ? '❤️' : '🤍'} <span id="like-count">${getLikes(item)}</span>`;
 }
 
 function newRandomQuote() {
@@ -68,10 +88,14 @@ function newRandomQuote() {
 
 function renderGrid() {
   const grid = document.getElementById('quote-grid');
+  const filtered = filteredQuotes();
   document.getElementById('grid-title').textContent =
     state.currentCategory === 'All' ? 'All Quotes' : `${state.currentCategory} Quotes`;
+  const countEl = document.getElementById('grid-count');
+  if (countEl) countEl.textContent = `${filtered.length} quotes`;
   grid.innerHTML = '';
-  filteredQuotes().forEach(item => {
+  filtered.forEach(item => {
+    const liked = getLikes(item) % 2 !== 0;
     const card = document.createElement('div');
     card.className = 'grid-card';
     card.style.background = fallbackGradient(item.category);
@@ -80,8 +104,25 @@ function renderGrid() {
       <div class="grid-overlay"></div>
       <div class="grid-content">
         <div class="grid-quote-text">"${item.quote}"</div>
-        <div class="grid-tag">${item.category}</div>
+        <div class="grid-footer">
+          <div class="grid-tag">${item.category}</div>
+          <button class="grid-like ${liked ? 'liked' : ''}" data-key="${quoteKey(item)}">${liked ? '❤️' : '🤍'} ${getLikes(item)}</button>
+        </div>
       </div>`;
+    card.querySelector('.grid-like').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLike(item);
+      const btn = card.querySelector('.grid-like');
+      const nowLiked = getLikes(item) % 2 !== 0;
+      btn.className = `grid-like ${nowLiked ? 'liked' : ''}`;
+      btn.innerHTML = `${nowLiked ? '❤️' : '🤍'} ${getLikes(item)}`;
+      // Update hero if same quote
+      if (state.currentQuote && quoteKey(state.currentQuote) === quoteKey(item)) {
+        const likeBtn = document.getElementById('btn-like');
+        likeBtn.classList.toggle('liked', nowLiked);
+        likeBtn.innerHTML = `${nowLiked ? '❤️' : '🤍'} <span id="like-count">${getLikes(item)}</span>`;
+      }
+    });
     card.addEventListener('click', () => {
       renderHero(item);
       document.getElementById('quote-card').scrollIntoView({ behavior: 'smooth' });
@@ -99,6 +140,7 @@ function renderGrid() {
 }
 
 function setupNav() {
+  // Header nav
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -108,21 +150,68 @@ function setupNav() {
       renderGrid();
     });
   });
+  // Category cards
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const cat = card.dataset.category;
+      state.currentCategory = cat;
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.category === cat);
+      });
+      newRandomQuote();
+      renderGrid();
+      document.getElementById('quote-card').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 }
 
 function setupActions() {
   document.getElementById('btn-new').addEventListener('click', newRandomQuote);
+
+  document.getElementById('btn-like').addEventListener('click', () => {
+    if (!state.currentQuote) return;
+    toggleLike(state.currentQuote);
+    const liked = getLikes(state.currentQuote) % 2 !== 0;
+    const btn = document.getElementById('btn-like');
+    btn.classList.toggle('liked', liked);
+    btn.innerHTML = `${liked ? '❤️' : '🤍'} <span id="like-count">${getLikes(state.currentQuote)}</span>`;
+    renderGrid();
+  });
+
   document.getElementById('btn-copy').addEventListener('click', () => {
     if (!state.currentQuote) return;
     const text = `"${state.currentQuote.quote}" — ${state.currentQuote.author}`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btn-copy');
-      const orig = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = orig; }, 1500);
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✅ Copied!';
+      setTimeout(() => { btn.innerHTML = orig; }, 1500);
     });
   });
+
   document.getElementById('btn-download').addEventListener('click', downloadQuoteImage);
+
+  // Modal
+  document.getElementById('btn-open-submit').addEventListener('click', () => {
+    document.getElementById('modal-overlay').classList.add('open');
+  });
+  document.getElementById('modal-close').addEventListener('click', () => {
+    document.getElementById('modal-overlay').classList.remove('open');
+  });
+  document.getElementById('modal-overlay').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+  });
+  document.getElementById('submit-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('submit-form').style.display = 'none';
+    document.getElementById('submit-success').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('submit-form').style.display = 'flex';
+      document.getElementById('submit-success').style.display = 'none';
+      document.getElementById('submit-form').reset();
+    }, 3000);
+  });
 }
 
 async function downloadQuoteImage() {
@@ -146,8 +235,11 @@ async function downloadQuoteImage() {
     wrapText(ctx, `"${state.currentQuote.quote}"`, W/2, H/2 - 40, W - 160, 60);
     ctx.font = '28px sans-serif';
     ctx.fillText(`— ${state.currentQuote.author || ''}`, W/2, H/2 + 160);
+    ctx.font = '22px sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    ctx.fillText('goodvibedaily.com', W/2, H - 50);
     const link = document.createElement('a');
-    link.download = 'goodvibe-quote.png';
+    link.download = 'goodvibedaily-quote.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   }
@@ -160,7 +252,7 @@ async function downloadQuoteImage() {
     img.src = bgUrl;
   } else {
     const g = ctx.createLinearGradient(0, 0, W, H);
-    g.addColorStop(0, '#e0a458'); g.addColorStop(1, '#333');
+    g.addColorStop(0, '#e0a458'); g.addColorStop(1, '#e05c8a');
     ctx.fillStyle = g; ctx.fillRect(0,0,W,H); drawText();
   }
 }

@@ -3,27 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoodVibe Quotes — Motivation, Healing, Hustle & Calm</title>
+<title>GoodVibe Daily — Motivation, Healing, Hustle & Calm Quotes</title>
 <meta name="description" content="Inspiring quotes for Motivation, Healing, Hustle, and Calm. Free daily quote images with beautiful backgrounds.">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7148667085209307"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7148667085209307" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="logo">GoodVibe</div>
+  <div class="logo">✨ GoodVibe Daily</div>
   <nav class="category-nav">
     <button class="nav-btn active" data-category="All">All</button>
-    <button class="nav-btn" data-category="Motivation">Motivation</button>
-    <button class="nav-btn" data-category="Healing">Healing</button>
-    <button class="nav-btn" data-category="Hustle">Hustle</button>
-    <button class="nav-btn" data-category="Calm">Calm</button>
+    <button class="nav-btn" data-category="Motivation">🔥 Motivation</button>
+    <button class="nav-btn" data-category="Healing">💚 Healing</button>
+    <button class="nav-btn" data-category="Hustle">💪 Hustle</button>
+    <button class="nav-btn" data-category="Calm">🌊 Calm</button>
   </nav>
 </header>
 
+<!-- Hero Banner -->
+<section class="hero-banner">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Your Daily Dose of Good Vibes</h1>
+    <p>Quotes to motivate, heal, hustle and calm your soul</p>
+  </div>
+</section>
+
 <main>
+
+  <!-- Category Cards -->
+  <section class="category-cards">
+    <div class="cat-card" data-category="Motivation">
+      <div class="cat-bg" style="background-image:url('https://source.unsplash.com/featured/400x300/?mountain,sunrise')"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><span>🔥</span><h3>Motivation</h3><p>Rise up & conquer</p></div>
+    </div>
+    <div class="cat-card" data-category="Healing">
+      <div class="cat-bg" style="background-image:url('https://source.unsplash.com/featured/400x300/?healing,nature,light')"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><span>💚</span><h3>Healing</h3><p>Peace & restoration</p></div>
+    </div>
+    <div class="cat-card" data-category="Hustle">
+      <div class="cat-bg" style="background-image:url('https://source.unsplash.com/featured/400x300/?city,work,hustle')"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><span>💪</span><h3>Hustle</h3><p>Work hard, shine harder</p></div>
+    </div>
+    <div class="cat-card" data-category="Calm">
+      <div class="cat-bg" style="background-image:url('https://source.unsplash.com/featured/400x300/?calm,lake,zen')"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><span>🌊</span><h3>Calm</h3><p>Breathe & be present</p></div>
+    </div>
+  </section>
+
+  <!-- Main Quote Card -->
   <section id="quote-card" class="quote-card">
     <div class="quote-bg" id="quote-bg"></div>
     <div class="quote-overlay"></div>
@@ -32,31 +67,74 @@
       <p class="quote-text" id="quote-text">Loading your daily dose of inspiration...</p>
       <p class="quote-author" id="quote-author"></p>
       <div class="quote-actions">
-        <button id="btn-new" title="New quote">New Quote</button>
-        <button id="btn-copy" title="Copy quote">Copy</button>
-        <button id="btn-download" title="Download as image">Save Image</button>
+        <button id="btn-new" title="New quote">✨ New Quote</button>
+        <button id="btn-like" title="Like this quote">🤍 <span id="like-count">0</span></button>
+        <button id="btn-copy" title="Copy quote">📋 Copy</button>
+        <button id="btn-download" title="Download as image">💾 Save Image</button>
       </div>
     </div>
   </section>
 
+  <!-- Ad Slot -->
   <div class="ad-slot ad-slot-mid" id="ad-mid">
-    <!-- AdSense unit goes here after approval -->
-    <span class="ad-placeholder">Ad space</span>
+    <span class="ad-placeholder">Advertisement</span>
   </div>
 
+  <!-- Quote Grid -->
   <section class="grid-section">
-    <h2 id="grid-title">All Quotes</h2>
+    <div class="grid-header">
+      <h2 id="grid-title">All Quotes</h2>
+      <span class="grid-count" id="grid-count"></span>
+    </div>
     <div id="quote-grid" class="quote-grid"></div>
   </section>
 
+  <!-- Ad Slot Bottom -->
   <div class="ad-slot ad-slot-bottom" id="ad-bottom">
-    <span class="ad-placeholder">Ad space</span>
+    <span class="ad-placeholder">Advertisement</span>
   </div>
+
+  <!-- Submit Quote CTA -->
+  <section class="submit-cta">
+    <div class="submit-cta-inner">
+      <h2>Have a quote to share?</h2>
+      <p>Submit your favourite quote and inspire the community</p>
+      <button class="btn-submit-quote" id="btn-open-submit">✍️ Submit a Quote</button>
+    </div>
+  </section>
+
 </main>
 
+<!-- Submit Quote Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <h2>Share Your Quote</h2>
+    <p class="modal-sub">Coming soon — user accounts & community quotes!</p>
+    <form class="submit-form" id="submit-form">
+      <input type="text" id="input-quote" placeholder="Enter your quote..." maxlength="300" required />
+      <input type="text" id="input-author" placeholder="Author (or your username)" maxlength="80" required />
+      <select id="input-category">
+        <option value="Motivation">🔥 Motivation</option>
+        <option value="Healing">💚 Healing</option>
+        <option value="Hustle">💪 Hustle</option>
+        <option value="Calm">🌊 Calm</option>
+      </select>
+      <button type="submit" class="btn-modal-submit">Submit Quote</button>
+    </form>
+    <div class="submit-success" id="submit-success" style="display:none">
+      <p>🎉 Thanks! Your quote has been received. We'll review and add it soon.</p>
+    </div>
+  </div>
+</div>
+
 <footer class="site-footer">
-  <p>&copy; 2026 GoodVibe Quotes. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
-  <p><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></p>
+  <div class="footer-inner">
+    <div class="footer-brand">✨ GoodVibe Daily</div>
+    <p>Spreading good vibes, one quote at a time 💛</p>
+    <p><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></p>
+    <p class="footer-copy">&copy; 2026 GoodVibe Daily. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
+  </div>
 </footer>
 
 <canvas id="export-canvas" style="display:none;"></canvas>
