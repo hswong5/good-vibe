@@ -2,7 +2,7 @@
 
 const UNSPLASH_KEY = 'BeiZCxytv05mSYWinomK2fkvxApldAMOd8uYu0iVgXk';
 const CACHE_PREFIX = 'gv_img_';
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours in ms
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
 const state = {
   quotes: [],
@@ -10,8 +10,7 @@ const state = {
   currentQuote: null,
 };
 
-// In-memory cache for this session
-const memCache = {};
+const memCache = {}; // { keyword: { small, regular } }
 
 async function loadQuotes() {
   const res = await fetch('quotes.json');
@@ -32,27 +31,24 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Get image URL — checks localStorage first, then fetches from Unsplash API
-async function getImageUrl(keywords) {
+// Returns { small, regular } URLs — checks cache first
+async function getImageUrls(keywords) {
   const keyword = pickRandom(keywords);
   const cacheKey = CACHE_PREFIX + keyword;
 
-  // 1. Check in-memory cache
   if (memCache[cacheKey]) return memCache[cacheKey];
 
-  // 2. Check localStorage cache (persists 24hrs)
   try {
     const stored = localStorage.getItem(cacheKey);
     if (stored) {
-      const { url, ts } = JSON.parse(stored);
+      const { urls, ts } = JSON.parse(stored);
       if (Date.now() - ts < CACHE_TTL) {
-        memCache[cacheKey] = url;
-        return url;
+        memCache[cacheKey] = urls;
+        return urls;
       }
     }
   } catch(e) {}
 
-  // 3. Fetch from Unsplash API
   try {
     const res = await fetch(
       `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&content_filter=high`,
@@ -60,16 +56,33 @@ async function getImageUrl(keywords) {
     );
     if (!res.ok) throw new Error('Unsplash error');
     const data = await res.json();
-    const url = data.urls.regular; // ~1080px wide, optimised
-    // Save to both caches
-    memCache[cacheKey] = url;
+    const urls = { small: data.urls.small, regular: data.urls.regular };
+    memCache[cacheKey] = urls;
     try {
-      localStorage.setItem(cacheKey, JSON.stringify({ url, ts: Date.now() }));
+      localStorage.setItem(cacheKey, JSON.stringify({ urls, ts: Date.now() }));
     } catch(e) {}
-    return url;
+    return urls;
   } catch(e) {
-    return null; // Fall back to gradient
+    return null;
   }
+}
+
+// Blur-up: show small instantly, swap to regular when loaded
+function applyBlurUp(el, urls) {
+  if (!urls) return;
+  // Step 1: show small (blurry) immediately
+  el.style.backgroundImage = `url('${urls.small}')`;
+  el.style.filter = 'blur(8px)';
+  el.style.transform = 'scale(1.04)';
+  el.style.transition = 'filter 0.5s ease, transform 0.5s ease';
+  // Step 2: load full-res in background, swap when ready
+  const img = new Image();
+  img.onload = () => {
+    el.style.backgroundImage = `url('${urls.regular}')`;
+    el.style.filter = 'none';
+    el.style.transform = 'scale(1)';
+  };
+  img.src = urls.regular;
 }
 
 function fallbackGradient(category) {
@@ -82,16 +95,32 @@ function fallbackGradient(category) {
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
 
-async function renderHero(item) {
+async function renderHero(item, preloadedUrls) {
   state.currentQuote = item;
   document.getElementById('quote-tag').textContent = item.category;
   document.getElementById('quote-text').textContent = `"${item.quote}"`;
   document.getElementById('quote-author').textContent = item.author || '';
   const bgEl = document.getElementById('quote-bg');
+  // Instantly show gradient
   bgEl.style.backgroundImage = '';
+  bgEl.style.filter = 'none';
+  bgEl.style.transform = 'scale(1)';
   bgEl.style.background = fallbackGradient(item.category);
-  const url = await getImageUrl(item.keywords);
-  if (url) bgEl.style.backgroundImage = `url('${url}')`;
+  // Use preloaded urls if available, else fetch
+  const urls = preloadedUrls || await getImageUrls(item.keywords);
+  applyBlurUp(bgEl, urls);
+  // Preload next random quote's photo in background
+  preloadNext();
+}
+
+function preloadNext() {
+  const pool = filteredQuotes();
+  if (pool.length < 2) return;
+  // Pick a random quote that isn't the current one
+  const others = pool.filter(q => q !== state.currentQuote);
+  const next = pickRandom(others);
+  // Fire and forget — just warms up the cache
+  getImageUrls(next.keywords);
 }
 
 function newRandomQuote() {
@@ -123,8 +152,8 @@ function renderGrid() {
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
-        const url = await getImageUrl(item.keywords);
-        if (url) card.querySelector('.grid-bg').style.backgroundImage = `url('${url}')`;
+        const urls = await getImageUrls(item.keywords);
+        applyBlurUp(card.querySelector('.grid-bg'), urls);
         observer.disconnect();
       }
     });
