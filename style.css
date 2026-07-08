@@ -5,7 +5,6 @@
   --color-dark: #1a1a1a;
   --color-light: #f7f5f2;
   --color-accent: #e0a458;
-  --color-muted: #888;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,35 +13,28 @@ body {
   font-family: var(--font-sans);
   background: var(--color-light);
   color: var(--color-dark);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* ── HEADER ── */
 .site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 20px 40px;
+  padding: 20px 32px;
   background: #fff;
-  border-bottom: 1px solid #ece9e4;
+  border-bottom: 1px solid #eee;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
 }
 
 .logo {
   font-family: var(--font-serif);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  letter-spacing: 0.3px;
-  color: var(--color-dark);
-}
-
-.logo span {
-  color: var(--color-accent);
+  letter-spacing: 0.5px;
 }
 
 .category-nav {
@@ -54,48 +46,38 @@ body {
 .nav-btn {
   border: 1px solid #ddd;
   background: transparent;
-  padding: 7px 18px;
+  padding: 8px 16px;
   border-radius: 999px;
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #555;
-  transition: all 0.2s ease;
-  letter-spacing: 0.2px;
-}
-.nav-btn:hover {
-  background: #f5f2ee;
-  border-color: #ccc;
   color: var(--color-dark);
+  transition: all 0.2s ease;
 }
+
+.nav-btn:hover { background: #f0eee9; }
+
 .nav-btn.active {
   background: var(--color-dark);
   color: #fff;
   border-color: var(--color-dark);
 }
 
-/* ── MAIN ── */
 main {
-  max-width: 1020px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 24px 72px;
+  padding: 32px 20px 60px;
 }
 
-/* ── QUOTE CARD ── */
 .quote-card {
   position: relative;
-  min-height: 430px;
-  border-radius: 22px;
+  min-height: 420px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.13);
-  margin-bottom: 36px;
-  transition: box-shadow 0.3s ease;
-}
-.quote-card:hover {
-  box-shadow: 0 14px 52px rgba(0,0,0,0.18);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
 }
 
 .quote-bg {
@@ -103,17 +85,14 @@ main {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s ease, opacity 0.5s ease;
+  transition: opacity 0.6s ease;
   background-color: #333;
-}
-.quote-card:hover .quote-bg {
-  transform: scale(1.03);
 }
 
 .quote-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.58) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%);
 }
 
 .quote-content {
@@ -121,120 +100,114 @@ main {
   z-index: 2;
   color: #fff;
   text-align: center;
-  padding: 44px 36px;
+  padding: 40px 32px;
   max-width: 700px;
 }
 
 .quote-tag {
   display: inline-block;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.35);
-  padding: 4px 16px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 4px 14px;
   border-radius: 999px;
-  font-size: 0.75rem;
-  letter-spacing: 1.8px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .quote-text {
   font-family: var(--font-serif);
-  font-size: 1.85rem;
+  font-size: 1.8rem;
   font-style: italic;
-  line-height: 1.45;
-  margin-bottom: 18px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  line-height: 1.4;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 .quote-author {
-  font-size: 0.98rem;
-  opacity: 0.88;
-  margin-bottom: 28px;
-  letter-spacing: 0.4px;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 24px;
 }
+
 .quote-author::before { content: '— '; }
 
 .quote-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .quote-actions button {
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.5);
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 18px;
   border-radius: 999px;
   cursor: pointer;
-  font-size: 0.88rem;
-  backdrop-filter: blur(6px);
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-.quote-actions button:hover {
-  background: rgba(255,255,255,0.26);
-  transform: translateY(-1px);
+  font-size: 0.9rem;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease;
 }
 
-/* ── AD SLOT ── */
+.quote-actions button:hover { background: rgba(255,255,255,0.3); }
+
 .ad-slot {
-  margin: 28px 0;
+  margin: 32px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 90px;
-  background: #edeae4;
-  border: 1px dashed #d0ccc6;
-  border-radius: 10px;
+  background: #efece6;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
 }
-.ad-placeholder { color: #bbb; font-size: 0.8rem; letter-spacing: 0.5px; }
 
-/* ── GRID ── */
+.ad-placeholder {
+  color: #999;
+  font-size: 0.85rem;
+}
+
 .grid-section h2 {
   font-family: var(--font-serif);
-  font-size: 1.45rem;
-  margin-bottom: 22px;
-  color: var(--color-dark);
-  letter-spacing: 0.2px;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
 }
 
 .quote-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
 
 .grid-card {
   position: relative;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
-  min-height: 225px;
+  min-height: 220px;
   display: flex;
   align-items: flex-end;
   cursor: pointer;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.09);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
 }
-.grid-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.16);
-}
+
+.grid-card:hover { transform: translateY(-4px); }
 
 .grid-card .grid-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-color: #444;
-  transition: transform 0.4s ease;
+  background-color: #333;
 }
-.grid-card:hover .grid-bg { transform: scale(1.05); }
 
 .grid-card .grid-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.02) 25%, rgba(0,0,0,0.72) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.75) 100%);
 }
 
 .grid-card .grid-content {
@@ -246,34 +219,32 @@ main {
 
 .grid-card .grid-quote-text {
   font-family: var(--font-serif);
-  font-size: 0.93rem;
+  font-size: 0.95rem;
   font-style: italic;
-  line-height: 1.35;
-  margin-bottom: 7px;
+  line-height: 1.3;
+  margin-bottom: 6px;
 }
 
 .grid-card .grid-tag {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
-  opacity: 0.78;
+  letter-spacing: 1px;
+  opacity: 0.85;
 }
 
-/* ── FOOTER ── */
 .site-footer {
   text-align: center;
-  padding: 36px 20px;
-  font-size: 0.84rem;
-  color: #999;
-  border-top: 1px solid #e8e5e0;
+  padding: 32px 20px;
+  font-size: 0.85rem;
+  color: #777;
+  border-top: 1px solid #eee;
 }
-.site-footer a { color: #777; text-decoration: none; }
-.site-footer a:hover { color: var(--color-dark); text-decoration: underline; }
 
-/* ── RESPONSIVE ── */
+.site-footer a { color: #555; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+
 @media (max-width: 640px) {
-  .quote-text { font-size: 1.45rem; }
+  .quote-text { font-size: 1.4rem; }
   .quote-card { min-height: 360px; }
   .site-header { padding: 16px 20px; }
-  main { padding: 28px 16px 60px; }
 }
