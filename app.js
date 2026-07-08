@@ -1,5 +1,8 @@
 // GoodVibe Quotes — app.js
-// Uses keyless Unsplash source URLs — no API key needed, safe for public repos
+
+const UNSPLASH_KEY = 'BeiZCxytv05mSYWinomK2fkvxApldAMOd8uYu0iVgXk';
+const CACHE_PREFIX = 'gv_img_';
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
 const state = {
   quotes: [],
@@ -7,7 +10,7 @@ const state = {
   currentQuote: null,
 };
 
-const imageCache = {};
+const memCache = {}; // { keyword: { small, regular } }
 
 async function loadQuotes() {
   const res = await fetch('quotes.json');
@@ -28,36 +31,89 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Keyless Unsplash source image fetching
-async function getImageUrl(keywords) {
-  const key = keywords.join('|');
-  if (imageCache[key]) return imageCache[key];
-  const query = encodeURIComponent(pickRandom(keywords));
-  const url = `https://source.unsplash.com/featured/1600x900/?${query}`;
-  imageCache[key] = url;
-  return url;
+// Returns { small, regular } URLs — checks cache first
+async function getImageUrls(keywords) {
+  const keyword = pickRandom(keywords);
+  const cacheKey = CACHE_PREFIX + keyword;
+
+  if (memCache[cacheKey]) return memCache[cacheKey];
+
+  try {
+    const stored = localStorage.getItem(cacheKey);
+    if (stored) {
+      const { urls, ts } = JSON.parse(stored);
+      if (Date.now() - ts < CACHE_TTL) {
+        memCache[cacheKey] = urls;
+        return urls;
+      }
+    }
+  } catch(e) {}
+
+  try {
+    const res = await fetch(
+      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&content_filter=high`,
+      { headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` } }
+    );
+    if (!res.ok) throw new Error('Unsplash error');
+    const data = await res.json();
+    const urls = { small: data.urls.small, regular: data.urls.regular };
+    memCache[cacheKey] = urls;
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ urls, ts: Date.now() }));
+    } catch(e) {}
+    return urls;
+  } catch(e) {
+    return null;
+  }
+}
+
+// Blur-up: show small instantly, swap to regular when loaded
+function applyBlurUp(el, urls) {
+  if (!urls) return;
+  el.style.backgroundImage = `url('${urls.small}')`;
+  el.style.filter = 'blur(8px)';
+  el.style.transform = 'scale(1.04)';
+  el.style.transition = 'filter 0.5s ease, transform 0.5s ease';
+  const img = new Image();
+  img.onload = () => {
+    el.style.backgroundImage = `url('${urls.regular}')`;
+    el.style.filter = 'none';
+    el.style.transform = 'scale(1)';
+  };
+  img.src = urls.regular;
 }
 
 function fallbackGradient(category) {
   const gradients = {
     Motivation: 'linear-gradient(135deg,#f6941c,#e0524d)',
-    Healing: 'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
-    Hustle: 'linear-gradient(135deg,#2c3e50,#4b6cb7)',
-    Calm: 'linear-gradient(135deg,#a8e6cf,#3d84a8)',
+    Healing:    'linear-gradient(135deg,#8ec5fc,#e0c3fc)',
+    Hustle:     'linear-gradient(135deg,#2c3e50,#4b6cb7)',
+    Calm:       'linear-gradient(135deg,#a8e6cf,#3d84a8)',
   };
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
 
-async function renderHero(item) {
+async function renderHero(item, preloadedUrls) {
   state.currentQuote = item;
   document.getElementById('quote-tag').textContent = item.category;
   document.getElementById('quote-text').textContent = `"${item.quote}"`;
   document.getElementById('quote-author').textContent = item.author || '';
   const bgEl = document.getElementById('quote-bg');
   bgEl.style.backgroundImage = '';
+  bgEl.style.filter = 'none';
+  bgEl.style.transform = 'scale(1)';
   bgEl.style.background = fallbackGradient(item.category);
-  const url = await getImageUrl(item.keywords);
-  if (url) bgEl.style.backgroundImage = `url('${url}')`;
+  const urls = preloadedUrls || await getImageUrls(item.keywords);
+  applyBlurUp(bgEl, urls);
+  preloadNext();
+}
+
+function preloadNext() {
+  const pool = filteredQuotes();
+  if (pool.length < 2) return;
+  const others = pool.filter(q => q !== state.currentQuote);
+  const next = pickRandom(others);
+  getImageUrls(next.keywords);
 }
 
 function newRandomQuote() {
@@ -89,8 +145,8 @@ function renderGrid() {
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
-        const url = await getImageUrl(item.keywords);
-        if (url) card.querySelector('.grid-bg').style.backgroundImage = `url('${url}')`;
+        const urls = await getImageUrls(item.keywords);
+        applyBlurUp(card.querySelector('.grid-bg'), urls);
         observer.disconnect();
       }
     });
