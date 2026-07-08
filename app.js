@@ -2,7 +2,7 @@
 
 const UNSPLASH_KEY = 'BeiZCxytv05mSYWinomK2fkvxApldAMOd8uYu0iVgXk';
 const CACHE_PREFIX = 'gv_img_';
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL = 24 * 60 * 60 * 1000;
 
 const state = {
   quotes: [],
@@ -10,7 +10,7 @@ const state = {
   currentQuote: null,
 };
 
-const memCache = {}; // { keyword: { small, regular } }
+const memCache = {};
 
 async function loadQuotes() {
   const res = await fetch('quotes.json');
@@ -31,8 +31,8 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Returns { small, regular } URLs — checks cache first
-async function getImageUrls(keywords) {
+// Returns { small, regular, photographerName, photographerUrl } — checks cache first
+async function getImageData(keywords) {
   const keyword = pickRandom(keywords);
   const cacheKey = CACHE_PREFIX + keyword;
 
@@ -41,10 +41,10 @@ async function getImageUrls(keywords) {
   try {
     const stored = localStorage.getItem(cacheKey);
     if (stored) {
-      const { urls, ts } = JSON.parse(stored);
+      const { data, ts } = JSON.parse(stored);
       if (Date.now() - ts < CACHE_TTL) {
-        memCache[cacheKey] = urls;
-        return urls;
+        memCache[cacheKey] = data;
+        return data;
       }
     }
   } catch(e) {}
@@ -55,34 +55,46 @@ async function getImageUrls(keywords) {
       { headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` } }
     );
     if (!res.ok) throw new Error('Unsplash error');
-    const data = await res.json();
-    const urls = { small: data.urls.small, regular: data.urls.regular };
-    memCache[cacheKey] = urls;
+    const json = await res.json();
+    const data = {
+      small: json.urls.small,
+      regular: json.urls.regular,
+      photographerName: json.user.name,
+      photographerUrl: json.user.links.html + '?utm_source=goodvibedaily&utm_medium=referral',
+      photoUrl: json.links.html + '?utm_source=goodvibedaily&utm_medium=referral',
+    };
+    memCache[cacheKey] = data;
     try {
-      localStorage.setItem(cacheKey, JSON.stringify({ urls, ts: Date.now() }));
+      localStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() }));
     } catch(e) {}
-    return urls;
+    return data;
   } catch(e) {
     return null;
   }
 }
 
-// Blur-up: show small instantly, swap to regular when loaded
-function applyBlurUp(el, urls) {
-  if (!urls) return;
-  // Step 1: show small (blurry) immediately
-  el.style.backgroundImage = `url('${urls.small}')`;
+function applyBlurUp(el, data) {
+  if (!data) return;
+  el.style.backgroundImage = `url('${data.small}')`;
   el.style.filter = 'blur(8px)';
   el.style.transform = 'scale(1.04)';
   el.style.transition = 'filter 0.5s ease, transform 0.5s ease';
-  // Step 2: load full-res in background, swap when ready
   const img = new Image();
   img.onload = () => {
-    el.style.backgroundImage = `url('${urls.regular}')`;
+    el.style.backgroundImage = `url('${data.regular}')`;
     el.style.filter = 'none';
     el.style.transform = 'scale(1)';
   };
-  img.src = urls.regular;
+  img.src = data.regular;
+}
+
+function setAttribution(data) {
+  const el = document.getElementById('photo-credit');
+  if (!el) return;
+  if (!data) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = `Photo by <a href="${data.photographerUrl}" target="_blank" rel="noopener">${
+    data.photographerName}</a> on <a href="https://unsplash.com/?utm_source=goodvibedaily&utm_medium=referral" target="_blank" rel="noopener">Unsplash</a>`;
 }
 
 function fallbackGradient(category) {
@@ -95,32 +107,28 @@ function fallbackGradient(category) {
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
 
-async function renderHero(item, preloadedUrls) {
+async function renderHero(item) {
   state.currentQuote = item;
   document.getElementById('quote-tag').textContent = item.category;
   document.getElementById('quote-text').textContent = `"${item.quote}"`;
   document.getElementById('quote-author').textContent = item.author || '';
   const bgEl = document.getElementById('quote-bg');
-  // Instantly show gradient
   bgEl.style.backgroundImage = '';
   bgEl.style.filter = 'none';
   bgEl.style.transform = 'scale(1)';
   bgEl.style.background = fallbackGradient(item.category);
-  // Use preloaded urls if available, else fetch
-  const urls = preloadedUrls || await getImageUrls(item.keywords);
-  applyBlurUp(bgEl, urls);
-  // Preload next random quote's photo in background
+  setAttribution(null);
+  const data = await getImageData(item.keywords);
+  applyBlurUp(bgEl, data);
+  setAttribution(data);
   preloadNext();
 }
 
 function preloadNext() {
   const pool = filteredQuotes();
   if (pool.length < 2) return;
-  // Pick a random quote that isn't the current one
   const others = pool.filter(q => q !== state.currentQuote);
-  const next = pickRandom(others);
-  // Fire and forget — just warms up the cache
-  getImageUrls(next.keywords);
+  getImageData(pickRandom(others).keywords);
 }
 
 function newRandomQuote() {
@@ -152,8 +160,8 @@ function renderGrid() {
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
-        const urls = await getImageUrls(item.keywords);
-        applyBlurUp(card.querySelector('.grid-bg'), urls);
+        const data = await getImageData(item.keywords);
+        applyBlurUp(card.querySelector('.grid-bg'), data);
         observer.disconnect();
       }
     });

@@ -85,7 +85,6 @@ main {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 0.6s ease;
   background-color: #333;
 }
 
@@ -153,6 +152,25 @@ main {
 }
 
 .quote-actions button:hover { background: rgba(255,255,255,0.3); }
+
+/* Unsplash Attribution */
+.photo-credit {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  z-index: 3;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.75);
+  display: none;
+}
+
+.photo-credit a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.photo-credit a:hover { color: #fff; }
 
 .ad-slot {
   margin: 32px 0;
