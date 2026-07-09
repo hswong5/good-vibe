@@ -67,17 +67,36 @@ async function getImageData(keywords) {
 
 function applyBlurUp(el, data) {
   if (!data) return;
-  el.style.backgroundImage = `url('${data.small}')`;
-  el.style.filter = 'blur(8px)';
-  el.style.transform = 'scale(1.04)';
-  el.style.transition = 'filter 0.5s ease, transform 0.5s ease';
-  const img = new Image();
-  img.onload = () => {
-    el.style.backgroundImage = `url('${data.regular}')`;
-    el.style.filter = 'none';
-    el.style.transform = 'scale(1)';
+  // Preload the small (blurred) image first, then apply it; finally preload the regular image and swap in
+  const smallImg = new Image();
+  smallImg.crossOrigin = 'anonymous';
+  smallImg.onload = () => {
+    el.style.transition = 'background-image 0.3s ease, filter 0.5s ease, transform 0.5s ease';
+    el.style.backgroundImage = `url('${data.small}')`;
+    el.style.filter = 'blur(8px)';
+    el.style.transform = 'scale(1.04)';
+    // preload regular
+    const reg = new Image();
+    reg.crossOrigin = 'anonymous';
+    reg.onload = () => {
+      el.style.backgroundImage = `url('${data.regular}')`;
+      el.style.filter = 'none';
+      el.style.transform = 'scale(1)';
+    };
+    reg.src = data.regular;
   };
-  img.src = data.regular;
+  smallImg.onerror = () => {
+    // if small fails, try regular directly
+    const reg = new Image();
+    reg.crossOrigin = 'anonymous';
+    reg.onload = () => {
+      el.style.backgroundImage = `url('${data.regular}')`;
+      el.style.filter = 'none';
+      el.style.transform = 'scale(1)';
+    };
+    reg.src = data.regular;
+  };
+  smallImg.src = data.small;
 }
 
 function setAttribution(data) {
@@ -101,12 +120,14 @@ function fallbackGradient(category) {
 function getQuoteText(item) {
   const lang = I18N.get().code;
   if (lang === 'zh') return item.zh || item.quote;
+  if (lang === 'zh-Hans') return item.zh_hans || item.zh || item.quote;
   return item.quote;
 }
 
 function getQuoteAuthor(item) {
   const lang = I18N.get().code;
   if (lang === 'zh') return item.zh_author || item.author || '';
+  if (lang === 'zh-Hans') return item.zh_author_hans || item.zh_author || item.author || '';
   return item.author || '';
 }
 
@@ -205,7 +226,10 @@ function scheduleHintAutoDismiss() {
 function updateTapHintText() {
   const el = document.getElementById('tap-hint-text');
   if (!el) return;
-  el.textContent = I18N.get().code === 'zh' ? '點擊任意位置換一句' : 'Tap anywhere for next quote';
+  const code = I18N.get().code;
+  if (code === 'zh') el.textContent = '點擊任意位置換一句';
+  else if (code === 'zh-Hans') el.textContent = '点击任意位置换一句';
+  else el.textContent = 'Tap anywhere for next quote';
 }
 
 function setupActions() {
@@ -223,7 +247,10 @@ function setupActions() {
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btn-copy');
       const orig = btn.textContent;
-      btn.textContent = I18N.get().code === 'zh' ? '已複製！' : 'Copied!';
+      const code = I18N.get().code;
+      if (code === 'zh') btn.textContent = '已複製！';
+      else if (code === 'zh-Hans') btn.textContent = '已复制！';
+      else btn.textContent = 'Copied!';
       setTimeout(() => { btn.textContent = orig; }, 1500);
     });
   });
@@ -245,7 +272,8 @@ async function downloadQuoteImage() {
   canvas.width = W; canvas.height = H;
   const bgEl = document.getElementById('quote-bg');
   const bgUrl = bgEl.style.backgroundImage.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
-  const isZh = I18N.get().code === 'zh';
+  const code = I18N.get().code;
+  const isZh = code === 'zh' || code === 'zh-Hans';
 
   function drawText() {
     const overlay = ctx.createLinearGradient(0, 0, 0, H);
