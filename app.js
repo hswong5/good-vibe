@@ -8,6 +8,7 @@ const state = {
   quotes: [],
   currentCategory: 'All',
   currentQuote: null,
+  hintDismissed: false,
 };
 
 const memCache = {};
@@ -188,17 +189,33 @@ function setupNav() {
   });
 }
 
+// Dismiss the tap hint after first tap on the card
+function dismissHint() {
+  if (state.hintDismissed) return;
+  state.hintDismissed = true;
+  const hint = document.getElementById('tap-hint');
+  if (hint) hint.classList.add('hidden');
+}
+
+// Auto-dismiss hint after 4 seconds on first load
+function scheduleHintAutoDismiss() {
+  setTimeout(dismissHint, 4000);
+}
+
+function updateTapHintText() {
+  const el = document.getElementById('tap-hint-text');
+  if (!el) return;
+  el.textContent = I18N.get().code === 'zh' ? '點擊任意位置換一句' : 'Tap anywhere for next quote';
+}
+
 function setupActions() {
-  // Tap anywhere on the card → new quote (but not when clicking action buttons)
+  // Tap anywhere on the card → new quote (but not when clicking action buttons or photo credit)
   document.getElementById('quote-card').addEventListener('click', (e) => {
     if (e.target.closest('.quote-actions') || e.target.closest('.photo-credit')) return;
+    dismissHint();
     newRandomQuote();
   });
 
-  document.getElementById('btn-new').addEventListener('click', (e) => {
-    e.stopPropagation();
-    newRandomQuote();
-  });
   document.getElementById('btn-copy').addEventListener('click', (e) => {
     e.stopPropagation();
     if (!state.currentQuote) return;
@@ -215,15 +232,9 @@ function setupActions() {
     downloadQuoteImage();
   });
 
-  // Update tap hint text on lang change
-  updateTapHint();
-  document.addEventListener('langchange', updateTapHint);
-}
-
-function updateTapHint() {
-  const el = document.getElementById('tap-hint');
-  if (!el) return;
-  el.textContent = I18N.get().code === 'zh' ? '點擊任意位置換一句' : 'Tap anywhere for next quote';
+  // Set initial hint text and update on language change
+  updateTapHintText();
+  document.addEventListener('langchange', updateTapHintText);
 }
 
 async function downloadQuoteImage() {
@@ -293,4 +304,5 @@ document.addEventListener('langchange', () => {
   setupActions();
   newRandomQuote();
   renderGrid();
+  scheduleHintAutoDismiss();
 })();
