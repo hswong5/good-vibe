@@ -98,15 +98,11 @@ function fallbackGradient(category) {
 }
 
 function getQuoteText(item) {
-  const lang = I18N.get().code;
-  if (lang === 'zh') return item.zh || item.quote;
-  return item.quote;
+  return I18N.get().code === 'zh' ? (item.zh || item.quote) : item.quote;
 }
 
 function getQuoteAuthor(item) {
-  const lang = I18N.get().code;
-  if (lang === 'zh') return item.zh_author || item.author || '';
-  return item.author || '';
+  return I18N.get().code === 'zh' ? (item.zh_author || item.author || '') : (item.author || '');
 }
 
 async function renderHero(item) {
@@ -152,6 +148,8 @@ function renderGrid() {
     const card = document.createElement('div');
     card.className = 'grid-card';
     card.style.background = fallbackGradient(item.category);
+    // store item ref so langchange can update text without full rebuild
+    card._item = item;
     card.innerHTML = `
       <div class="grid-bg"></div>
       <div class="grid-overlay"></div>
@@ -195,7 +193,7 @@ function setupActions() {
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btn-copy');
       const orig = btn.textContent;
-      btn.textContent = I18N.get().code === 'zh' ? '已複製！' : 'Copied!';
+      btn.textContent = I18N.get().code === 'zh' ? '\u5df2\u8907\u88fd\uff01' : 'Copied!';
       setTimeout(() => { btn.textContent = orig; }, 1500);
     });
   });
@@ -257,15 +255,17 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   lines.forEach((l, i) => ctx.fillText(l.trim(), x, startY + i * lineHeight));
 }
 
+// On lang change: re-render hero + full grid so all text updates
 document.addEventListener('langchange', () => {
   if (state.currentQuote) renderHero(state.currentQuote);
   renderGrid();
 });
 
-(async function init() {
+// Wait for DOM + i18n to be ready before first render
+document.addEventListener('DOMContentLoaded', async () => {
   await loadQuotes();
   setupNav();
   setupActions();
   newRandomQuote();
   renderGrid();
-})();
+});
