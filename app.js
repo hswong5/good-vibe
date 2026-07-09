@@ -1,6 +1,6 @@
 // GoodVibe Quotes — app.js
 
-const UNSPLASH_KEY = 'BeiZCxytv05mSYWinomK2fkvxApldAMOd8uYu0iVgXk';
+const PEXELS_KEY = 'GLDWwN7wP8Fb9QrbXcm8kwRziSj3k1p335PrlTZQh3RehkjoxXGTtqQP';
 const CACHE_PREFIX = 'gv_img_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
@@ -31,7 +31,7 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Returns { small, regular, photographerName, photographerUrl } — checks cache first
+// Returns { small, regular, photographerName, photographerUrl } via Pexels
 async function getImageData(keywords) {
   const keyword = pickRandom(keywords);
   const cacheKey = CACHE_PREFIX + keyword;
@@ -51,17 +51,19 @@ async function getImageData(keywords) {
 
   try {
     const res = await fetch(
-      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keyword)}&orientation=landscape&content_filter=high`,
-      { headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` } }
+      `https://api.pexels.com/v1/search?query=${encodeURIComponent(keyword)}&orientation=landscape&per_page=15`,
+      { headers: { Authorization: PEXELS_KEY } }
     );
-    if (!res.ok) throw new Error('Unsplash error');
+    if (!res.ok) throw new Error('Pexels error');
     const json = await res.json();
+    if (!json.photos || !json.photos.length) return null;
+    const photo = pickRandom(json.photos);
     const data = {
-      small: json.urls.small,
-      regular: json.urls.regular,
-      photographerName: json.user.name,
-      photographerUrl: json.user.links.html + '?utm_source=goodvibedaily&utm_medium=referral',
-      photoUrl: json.links.html + '?utm_source=goodvibedaily&utm_medium=referral',
+      small: photo.src.medium,
+      regular: photo.src.large2x,
+      photographerName: photo.photographer,
+      photographerUrl: photo.photographer_url,
+      photoUrl: photo.url,
     };
     memCache[cacheKey] = data;
     try {
@@ -73,6 +75,7 @@ async function getImageData(keywords) {
   }
 }
 
+// Blur-up: show small instantly, swap to full-res when loaded
 function applyBlurUp(el, data) {
   if (!data) return;
   el.style.backgroundImage = `url('${data.small}')`;
@@ -93,8 +96,7 @@ function setAttribution(data) {
   if (!el) return;
   if (!data) { el.style.display = 'none'; return; }
   el.style.display = 'block';
-  el.innerHTML = `Photo by <a href="${data.photographerUrl}" target="_blank" rel="noopener">${
-    data.photographerName}</a> on <a href="https://unsplash.com/?utm_source=goodvibedaily&utm_medium=referral" target="_blank" rel="noopener">Unsplash</a>`;
+  el.innerHTML = `Photo by <a href="${data.photographerUrl}" target="_blank" rel="noopener">${data.photographerName}</a> on <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>`;
 }
 
 function fallbackGradient(category) {
