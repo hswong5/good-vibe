@@ -5,175 +5,325 @@
       "author": "Proverb",
       "zh": "有志者，事竟成。",
       "zh_author": "諺語",
-      "keywords": ["mountain peak sunrise", "hiking trail", "path forward"]
+      "keywords": [
+        "mountain peak sunrise",
+        "hiking trail",
+        "path forward"
+      ],
+      "zh_hans": "有志者，事竟成。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "The journey of a thousand miles begins with a single step.",
       "author": "Lao Tzu",
       "zh": "千里之行，始於足下。",
       "zh_author": "老子",
-      "keywords": ["single footstep sand", "long road", "first step journey"]
+      "keywords": [
+        "single footstep sand",
+        "long road",
+        "first step journey"
+      ],
+      "zh_hans": "千里之行，始於足下。",
+      "zh_author_hans": "老子"
     },
     {
       "quote": "Fortune favors the bold.",
       "author": "Latin Proverb",
       "zh": "勇者得天下。",
       "zh_author": "拉丁諺語",
-      "keywords": ["cliff jump silhouette", "bold adventurer", "courage climb"]
+      "keywords": [
+        "cliff jump silhouette",
+        "bold adventurer",
+        "courage climb"
+      ],
+      "zh_hans": "勇者得天下。",
+      "zh_author_hans": "拉丁諺語"
     },
     {
       "quote": "Believe you can and you're halfway there.",
       "author": "Theodore Roosevelt",
       "zh": "相信自己，你已成功一半。",
       "zh_author": "西奧多·羅斯福",
-      "keywords": ["sunrise mountain", "open road", "confident stride"]
+      "keywords": [
+        "sunrise mountain",
+        "open road",
+        "confident stride"
+      ],
+      "zh_hans": "相信自己，你已成功一半。",
+      "zh_author_hans": "西奧多·羅斯福"
     },
     {
       "quote": "The best way out is always through.",
       "author": "Robert Frost",
       "zh": "走出困境的最好方法，就是穿越它。",
       "zh_author": "羅伯特·弗羅斯特",
-      "keywords": ["forest path light", "tunnel light", "walking through fog"]
+      "keywords": [
+        "forest path light",
+        "tunnel light",
+        "walking through fog"
+      ],
+      "zh_hans": "走出困境的最好方法，就是穿越它。",
+      "zh_author_hans": "羅伯特·弗羅斯特"
     },
     {
       "quote": "Well begun is half done.",
       "author": "Proverb",
       "zh": "好的開始，是成功的一半。",
       "zh_author": "諺語",
-      "keywords": ["morning sunrise", "fresh start desk", "new beginning"]
+      "keywords": [
+        "morning sunrise",
+        "fresh start desk",
+        "new beginning"
+      ],
+      "zh_hans": "好的開始，是成功的一半。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "Every great achievement was once considered impossible.",
       "author": "Traditional Saying",
       "zh": "每一項偉大的成就，曾經都被認為是不可能的。",
       "zh_author": "傳統格言",
-      "keywords": ["mountain summit", "rocket launch", "victory silhouette"]
+      "keywords": [
+        "mountain summit",
+        "rocket launch",
+        "victory silhouette"
+      ],
+      "zh_hans": "每一項偉大的成就，曾經都被認為是不可能的。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "A river cuts through rock not because of its power but its persistence.",
       "author": "Proverb",
       "zh": "水滴石穿，非力之功，乃恆之道。",
       "zh_author": "諺語",
-      "keywords": ["river canyon", "flowing water rock", "grand canyon river"]
+      "keywords": [
+        "river canyon",
+        "flowing water rock",
+        "grand canyon river"
+      ],
+      "zh_hans": "水滴石穿，非力之功，乃恆之道。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "Little strokes fell great oaks.",
       "author": "Benjamin Franklin",
       "zh": "積少成多，滴水穿石。",
       "zh_author": "班傑明·富蘭克林",
-      "keywords": ["oak tree forest", "chopping wood", "old tree sunlight"]
+      "keywords": [
+        "oak tree forest",
+        "chopping wood",
+        "old tree sunlight"
+      ],
+      "zh_hans": "積少成多，滴水穿石。",
+      "zh_author_hans": "班傑明·富蘭克林"
     },
     {
       "quote": "Energy and persistence conquer all things.",
       "author": "Benjamin Franklin",
       "zh": "精力與毅力，可征服一切。",
       "zh_author": "班傑明·富蘭克林",
-      "keywords": ["marathon runner", "sunrise finish line", "climbing stairs"]
+      "keywords": [
+        "marathon runner",
+        "sunrise finish line",
+        "climbing stairs"
+      ],
+      "zh_hans": "精力與毅力，可征服一切。",
+      "zh_author_hans": "班傑明·富蘭克林"
     },
     {
       "quote": "It is never too late to be what you might have been.",
       "author": "George Eliot",
       "zh": "成為你本可成為的人，永遠不嫌遲。",
       "zh_author": "喬治·艾略特",
-      "keywords": ["open horizon", "sunset road", "new chapter book"]
+      "keywords": [
+        "open horizon",
+        "sunset road",
+        "new chapter book"
+      ],
+      "zh_hans": "成為你本可成為的人，永遠不嫌遲。",
+      "zh_author_hans": "喬治·艾略特"
     },
     {
       "quote": "Great things are done by a series of small things brought together.",
       "author": "Vincent van Gogh",
       "zh": "偉大之事，皆由無數小事積累而成。",
       "zh_author": "文森特·梵谷",
-      "keywords": ["puzzle pieces", "building blocks", "stacked stones"]
+      "keywords": [
+        "puzzle pieces",
+        "building blocks",
+        "stacked stones"
+      ],
+      "zh_hans": "偉大之事，皆由無數小事積累而成。",
+      "zh_author_hans": "文森特·梵谷"
     },
     {
       "quote": "The harder the conflict, the more glorious the triumph.",
       "author": "Thomas Paine",
       "zh": "衝突愈艱難，勝利愈輝煌。",
       "zh_author": "托馬斯·潘恩",
-      "keywords": ["storm clearing sky", "mountain victory", "sunrise after storm"]
+      "keywords": [
+        "storm clearing sky",
+        "mountain victory",
+        "sunrise after storm"
+      ],
+      "zh_hans": "衝突愈艱難，勝利愈輝煌。",
+      "zh_author_hans": "托馬斯·潘恩"
     },
     {
       "quote": "Strive not to be a success, but rather to be of value.",
       "author": "Albert Einstein",
       "zh": "不要追求成功，而要追求價值。",
       "zh_author": "阿爾伯特·愛因斯坦",
-      "keywords": ["helping hands", "team collaboration", "giving hand sunset"]
+      "keywords": [
+        "helping hands",
+        "team collaboration",
+        "giving hand sunset"
+      ],
+      "zh_hans": "不要追求成功，而要追求價值。",
+      "zh_author_hans": "阿爾伯特·愛因斯坦"
     },
     {
       "quote": "What we think, we become.",
       "author": "Buddha",
       "zh": "我們的思想，造就了我們自己。",
       "zh_author": "佛陀",
-      "keywords": ["meditation sunrise", "calm mind lake", "peaceful monk"]
+      "keywords": [
+        "meditation sunrise",
+        "calm mind lake",
+        "peaceful monk"
+      ],
+      "zh_hans": "我們的思想，造就了我們自己。",
+      "zh_author_hans": "佛陀"
     },
     {
       "quote": "Do not wait; the time will never be just right.",
       "author": "Napoleon Hill",
       "zh": "不要等待，時機永遠不會完美。",
       "zh_author": "拿破崙·希爾",
-      "keywords": ["clock sunrise", "running forward", "open door light"]
+      "keywords": [
+        "clock sunrise",
+        "running forward",
+        "open door light"
+      ],
+      "zh_hans": "不要等待，時機永遠不會完美。",
+      "zh_author_hans": "拿破崙·希爾"
     },
     {
       "quote": "You miss 100% of the shots you don't take.",
       "author": "Traditional Sports Saying",
       "zh": "不嘗試，就百分百失去機會。",
       "zh_author": "運動格言",
-      "keywords": ["basketball hoop", "archery target", "goal net"]
+      "keywords": [
+        "basketball hoop",
+        "archery target",
+        "goal net"
+      ],
+      "zh_hans": "不嘗試，就百分百失去機會。",
+      "zh_author_hans": "運動格言"
     },
     {
       "quote": "A ship in harbor is safe, but that is not what ships are built for.",
       "author": "John A. Shedd",
       "zh": "船停在港口固然安全，但那不是造船的目的。",
       "zh_author": "約翰·謝德",
-      "keywords": ["ship ocean horizon", "sailing boat sea", "open ocean sunrise"]
+      "keywords": [
+        "ship ocean horizon",
+        "sailing boat sea",
+        "open ocean sunrise"
+      ],
+      "zh_hans": "船停在港口固然安全，但那不是造船的目的。",
+      "zh_author_hans": "約翰·謝德"
     },
     {
       "quote": "The only limit to our realization of tomorrow is our doubts of today.",
       "author": "Franklin D. Roosevelt",
       "zh": "限制我們明日成就的，只有今日的疑慮。",
       "zh_author": "富蘭克林·羅斯福",
-      "keywords": ["sunrise horizon", "open field sky", "bright future light"]
+      "keywords": [
+        "sunrise horizon",
+        "open field sky",
+        "bright future light"
+      ],
+      "zh_hans": "限制我們明日成就的，只有今日的疑慮。",
+      "zh_author_hans": "富蘭克林·羅斯福"
     },
     {
       "quote": "Vision without action is merely a dream.",
       "author": "Joel A. Barker",
       "zh": "沒有行動的願景，只是一場夢。",
       "zh_author": "喬爾·巴克",
-      "keywords": ["dreamer sky clouds", "planning desk", "goal chart"]
+      "keywords": [
+        "dreamer sky clouds",
+        "planning desk",
+        "goal chart"
+      ],
+      "zh_hans": "沒有行動的願景，只是一場夢。",
+      "zh_author_hans": "喬爾·巴克"
     },
     {
       "quote": "He who is not courageous enough to take risks will accomplish nothing in life.",
       "author": "Muhammad Ali",
       "zh": "不夠勇敢去冒險的人，一生將一事無成。",
       "zh_author": "穆罕默德·阿里",
-      "keywords": ["boxing ring", "leap of faith", "cliff edge courage"]
+      "keywords": [
+        "boxing ring",
+        "leap of faith",
+        "cliff edge courage"
+      ],
+      "zh_hans": "不夠勇敢去冒險的人，一生將一事無成。",
+      "zh_author_hans": "穆罕默德·阿里"
     },
     {
       "quote": "Success is the sum of small efforts repeated day in and day out.",
       "author": "Robert Collier",
       "zh": "成功是日復一日的小小努力積累而成。",
       "zh_author": "羅伯特·科利爾",
-      "keywords": ["daily routine sunrise", "calendar planner", "consistent training"]
+      "keywords": [
+        "daily routine sunrise",
+        "calendar planner",
+        "consistent training"
+      ],
+      "zh_hans": "成功是日復一日的小小努力積累而成。",
+      "zh_author_hans": "羅伯特·科利爾"
     },
     {
       "quote": "The future belongs to those who prepare for it today.",
       "author": "Malcolm X",
       "zh": "未來屬於今日為之準備的人。",
       "zh_author": "馬爾科姆·X",
-      "keywords": ["study desk light", "sunrise workspace", "planning notebook"]
+      "keywords": [
+        "study desk light",
+        "sunrise workspace",
+        "planning notebook"
+      ],
+      "zh_hans": "未來屬於今日為之準備的人。",
+      "zh_author_hans": "馬爾科姆·X"
     },
     {
       "quote": "Difficulties strengthen the mind, as labor does the body.",
       "author": "Seneca",
       "zh": "困難磨礪心智，如同勞動鍛煉身體。",
       "zh_author": "塞內卡",
-      "keywords": ["gym training", "strong tree roots", "weightlifting silhouette"]
+      "keywords": [
+        "gym training",
+        "strong tree roots",
+        "weightlifting silhouette"
+      ],
+      "zh_hans": "困難磨礪心智，如同勞動鍛煉身體。",
+      "zh_author_hans": "塞內卡"
     },
     {
       "quote": "Great works are performed not by strength but by perseverance.",
       "author": "Samuel Johnson",
       "zh": "偉大的事業不靠蠻力，靠的是堅持。",
       "zh_author": "塞繆爾·約翰遜",
-      "keywords": ["marathon finish", "climbing mountain", "endurance runner"]
+      "keywords": [
+        "marathon finish",
+        "climbing mountain",
+        "endurance runner"
+      ],
+      "zh_hans": "偉大的事業不靠蠻力，靠的是堅持。",
+      "zh_author_hans": "塞繆爾·約翰遜"
     }
   ],
   "Healing": [
@@ -182,175 +332,325 @@
       "author": "Traditional Proverb",
       "zh": "一切終將過去。",
       "zh_author": "傳統諺語",
-      "keywords": ["calm sunrise clouds", "gentle rain window", "soft morning light"]
+      "keywords": [
+        "calm sunrise clouds",
+        "gentle rain window",
+        "soft morning light"
+      ],
+      "zh_hans": "一切終將過去。",
+      "zh_author_hans": "傳統諺語"
     },
     {
       "quote": "Time heals all wounds.",
       "author": "Proverb",
       "zh": "時間能治癒一切創傷。",
       "zh_author": "諺語",
-      "keywords": ["healing hands nature", "sunrise over water", "growing plant light"]
+      "keywords": [
+        "healing hands nature",
+        "sunrise over water",
+        "growing plant light"
+      ],
+      "zh_hans": "時間能治癒一切創傷。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "After the storm comes the calm.",
       "author": "Proverb",
       "zh": "暴風雨過後，必有風平浪靜。",
       "zh_author": "諺語",
-      "keywords": ["rainbow after rain", "calm sky clearing", "peaceful beach storm"]
+      "keywords": [
+        "rainbow after rain",
+        "calm sky clearing",
+        "peaceful beach storm"
+      ],
+      "zh_hans": "暴風雨過後，必有風平浪靜。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "The wound is the place where the Light enters you.",
       "author": "Rumi",
       "zh": "傷口，正是光照進來的地方。",
       "zh_author": "魯米",
-      "keywords": ["sunlight through leaves", "light through clouds", "healing glow"]
+      "keywords": [
+        "sunlight through leaves",
+        "light through clouds",
+        "healing glow"
+      ],
+      "zh_hans": "傷口，正是光照進來的地方。",
+      "zh_author_hans": "魯米"
     },
     {
       "quote": "Every day may not be good, but there is good in every day.",
       "author": "Traditional Saying",
       "zh": "不是每天都美好，但每天都有美好的地方。",
       "zh_author": "傳統格言",
-      "keywords": ["sunrise hope", "flower bloom light", "morning dew"]
+      "keywords": [
+        "sunrise hope",
+        "flower bloom light",
+        "morning dew"
+      ],
+      "zh_hans": "不是每天都美好，但每天都有美好的地方。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Out of suffering have emerged the strongest souls.",
       "author": "Khalil Gibran",
       "zh": "最強大的靈魂，往往從苦難中誕生。",
       "zh_author": "紀伯倫",
-      "keywords": ["lotus flower pond", "resilient tree", "sunrise strength"]
+      "keywords": [
+        "lotus flower pond",
+        "resilient tree",
+        "sunrise strength"
+      ],
+      "zh_hans": "最強大的靈魂，往往從苦難中誕生。",
+      "zh_author_hans": "紀伯倫"
     },
     {
       "quote": "Tomorrow is a new day.",
       "author": "Traditional Saying",
       "zh": "明天又是新的一天。",
       "zh_author": "傳統格言",
-      "keywords": ["sunrise new day", "fresh morning sky", "hopeful dawn"]
+      "keywords": [
+        "sunrise new day",
+        "fresh morning sky",
+        "hopeful dawn"
+      ],
+      "zh_hans": "明天又是新的一天。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "The soul that sees beauty may sometimes walk alone.",
       "author": "Johann Wolfgang von Goethe",
       "zh": "懂得欣賞美的靈魂，有時只能獨自前行。",
       "zh_author": "歌德",
-      "keywords": ["solitary path nature", "quiet forest walk", "peaceful solitude"]
+      "keywords": [
+        "solitary path nature",
+        "quiet forest walk",
+        "peaceful solitude"
+      ],
+      "zh_hans": "懂得欣賞美的靈魂，有時只能獨自前行。",
+      "zh_author_hans": "歌德"
     },
     {
       "quote": "Peace comes from within.",
       "author": "Buddha",
       "zh": "寧靜來自內心。",
       "zh_author": "佛陀",
-      "keywords": ["meditation calm water", "zen garden", "inner peace nature"]
+      "keywords": [
+        "meditation calm water",
+        "zen garden",
+        "inner peace nature"
+      ],
+      "zh_hans": "寧靜來自內心。",
+      "zh_author_hans": "佛陀"
     },
     {
       "quote": "A calm sea does not make a skilled sailor.",
       "author": "Proverb",
       "zh": "平靜的海洋，造就不了優秀的水手。",
       "zh_author": "諺語",
-      "keywords": ["calm ocean waves", "gentle sea sunrise", "peaceful harbor"]
+      "keywords": [
+        "calm ocean waves",
+        "gentle sea sunrise",
+        "peaceful harbor"
+      ],
+      "zh_hans": "平靜的海洋，造就不了優秀的水手。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "Even the darkest night will end and the sun will rise.",
       "author": "Victor Hugo",
       "zh": "即使是最黑暗的夜晚，也終將迎來黎明。",
       "zh_author": "維克多·雨果",
-      "keywords": ["sunrise darkness", "dawn breaking", "light after dark"]
+      "keywords": [
+        "sunrise darkness",
+        "dawn breaking",
+        "light after dark"
+      ],
+      "zh_hans": "即使是最黑暗的夜晚，也終將迎來黎明。",
+      "zh_author_hans": "維克多·雨果"
     },
     {
       "quote": "Health is the greatest gift, contentment the greatest wealth.",
       "author": "Buddha",
       "zh": "健康是最大的禮物，知足是最大的財富。",
       "zh_author": "佛陀",
-      "keywords": ["nature health", "peaceful garden", "wellness sunrise"]
+      "keywords": [
+        "nature health",
+        "peaceful garden",
+        "wellness sunrise"
+      ],
+      "zh_hans": "健康是最大的禮物，知足是最大的財富。",
+      "zh_author_hans": "佛陀"
     },
     {
       "quote": "The best remedy for those who are afraid, lonely, or unhappy is to go outside.",
       "author": "Anne Frank",
       "zh": "對於恐懼、孤獨或不快樂的人，最好的良藥就是走到戶外去。",
       "zh_author": "安妮·法蘭克",
-      "keywords": ["forest sunlight walk", "open nature field", "peaceful outdoors"]
+      "keywords": [
+        "forest sunlight walk",
+        "open nature field",
+        "peaceful outdoors"
+      ],
+      "zh_hans": "對於恐懼、孤獨或不快樂的人，最好的良藥就是走到戶外去。",
+      "zh_author_hans": "安妮·法蘭克"
     },
     {
       "quote": "In the middle of winter, I found there was, within me, an invincible summer.",
       "author": "Albert Camus",
       "zh": "在隆冬，我終於發現，我內心深處有一個不可征服的夏天。",
       "zh_author": "阿爾貝·加繆",
-      "keywords": ["winter sunlight snow", "warm light snow", "inner strength nature"]
+      "keywords": [
+        "winter sunlight snow",
+        "warm light snow",
+        "inner strength nature"
+      ],
+      "zh_hans": "在隆冬，我終於發現，我內心深處有一個不可征服的夏天。",
+      "zh_author_hans": "阿爾貝·加繆"
     },
     {
       "quote": "Slow and steady wins the race.",
       "author": "Aesop's Fables",
       "zh": "穩紮穩打，方能致勝。",
       "zh_author": "伊索寓言",
-      "keywords": ["tortoise nature path", "slow river flow", "gentle steady walk"]
+      "keywords": [
+        "tortoise nature path",
+        "slow river flow",
+        "gentle steady walk"
+      ],
+      "zh_hans": "穩紮穩打，方能致勝。",
+      "zh_author_hans": "伊索寓言"
     },
     {
       "quote": "Grief is the price we pay for love.",
       "author": "Queen Elizabeth II (traditional saying)",
       "zh": "悲傷，是我們為愛所付出的代價。",
       "zh_author": "英女王伊利莎白二世",
-      "keywords": ["quiet candle light", "gentle memorial flowers", "soft grief light"]
+      "keywords": [
+        "quiet candle light",
+        "gentle memorial flowers",
+        "soft grief light"
+      ],
+      "zh_hans": "悲傷，是我們為愛所付出的代價。",
+      "zh_author_hans": "英女王伊利莎白二世"
     },
     {
       "quote": "Rest when you're weary, refresh and renew yourself.",
       "author": "Ralph Waldo Emerson",
       "zh": "疲憊時就休息，讓自己煥然一新。",
       "zh_author": "拉爾夫·沃爾多·愛默生",
-      "keywords": ["hammock nature", "resting by lake", "peaceful nap outdoors"]
+      "keywords": [
+        "hammock nature",
+        "resting by lake",
+        "peaceful nap outdoors"
+      ],
+      "zh_hans": "疲憊時就休息，讓自己煥然一新。",
+      "zh_author_hans": "拉爾夫·沃爾多·愛默生"
     },
     {
       "quote": "Simplicity is the ultimate sophistication.",
       "author": "Leonardo da Vinci",
       "zh": "簡約，是最高境界的精煉。",
       "zh_author": "達文西",
-      "keywords": ["minimalist nature", "simple zen stones", "clean calm space"]
+      "keywords": [
+        "minimalist nature",
+        "simple zen stones",
+        "clean calm space"
+      ],
+      "zh_hans": "簡約，是最高境界的精煉。",
+      "zh_author_hans": "達文西"
     },
     {
       "quote": "Nature does not hurry, yet everything is accomplished.",
       "author": "Lao Tzu",
       "zh": "天道不急，萬事皆成。",
       "zh_author": "老子",
-      "keywords": ["slow flowing stream", "growing plant time", "quiet forest patience"]
+      "keywords": [
+        "slow flowing stream",
+        "growing plant time",
+        "quiet forest patience"
+      ],
+      "zh_hans": "天道不急，萬事皆成。",
+      "zh_author_hans": "老子"
     },
     {
       "quote": "Where there is love there is life.",
       "author": "Mahatma Gandhi",
       "zh": "有愛之處，便有生命。",
       "zh_author": "聖雄甘地",
-      "keywords": ["heart nature light", "gentle sunrise love", "warm family light"]
+      "keywords": [
+        "heart nature light",
+        "gentle sunrise love",
+        "warm family light"
+      ],
+      "zh_hans": "有愛之處，便有生命。",
+      "zh_author_hans": "聖雄甘地"
     },
     {
       "quote": "The wound heals, the mark remains.",
       "author": "Old Proverb",
       "zh": "傷口癒合，印記長存。",
       "zh_author": "古老諺語",
-      "keywords": ["tree scar bark", "healed nature texture", "resilient old tree"]
+      "keywords": [
+        "tree scar bark",
+        "healed nature texture",
+        "resilient old tree"
+      ],
+      "zh_hans": "傷口癒合，印記長存。",
+      "zh_author_hans": "古老諺語"
     },
     {
       "quote": "Calm mind brings inner strength and self-confidence.",
       "author": "Dalai Lama",
       "zh": "平靜的心，帶來內在的力量與自信。",
       "zh_author": "達賴喇嘛",
-      "keywords": ["meditation mountain", "calm lake reflection", "peaceful yoga nature"]
+      "keywords": [
+        "meditation mountain",
+        "calm lake reflection",
+        "peaceful yoga nature"
+      ],
+      "zh_hans": "平靜的心，帶來內在的力量與自信。",
+      "zh_author_hans": "達賴喇嘛"
     },
     {
       "quote": "You yourself, as much as anybody, deserve your love and affection.",
       "author": "Buddha",
       "zh": "你自己，和任何人一樣，值得被愛與關懷。",
       "zh_author": "佛陀",
-      "keywords": ["self care nature", "gentle light portrait", "quiet reflection water"]
+      "keywords": [
+        "self care nature",
+        "gentle light portrait",
+        "quiet reflection water"
+      ],
+      "zh_hans": "你自己，和任何人一樣，值得被愛與關懷。",
+      "zh_author_hans": "佛陀"
     },
     {
       "quote": "The greatest healing therapy is friendship and love.",
       "author": "Hubert H. Humphrey",
       "zh": "最好的療癒，是友誼與愛。",
       "zh_author": "休伯特·漢弗萊",
-      "keywords": ["friends sunset", "hands together nature", "warm gathering light"]
+      "keywords": [
+        "friends sunset",
+        "hands together nature",
+        "warm gathering light"
+      ],
+      "zh_hans": "最好的療癒，是友誼與愛。",
+      "zh_author_hans": "休伯特·漢弗萊"
     },
     {
       "quote": "Softly and gently, the heart mends with time.",
       "author": "Traditional Saying",
       "zh": "時光流逝，心靈緩緩癒合。",
       "zh_author": "傳統格言",
-      "keywords": ["soft sunrise heart", "gentle healing flower", "quiet dawn calm"]
+      "keywords": [
+        "soft sunrise heart",
+        "gentle healing flower",
+        "quiet dawn calm"
+      ],
+      "zh_hans": "時光流逝，心靈緩緩癒合。",
+      "zh_author_hans": "傳統格言"
     }
   ],
   "Hustle": [
@@ -359,175 +659,325 @@
       "author": "Proverb",
       "zh": "早起的鳥兒有蟲吃。",
       "zh_author": "諺語",
-      "keywords": ["sunrise city", "early morning run", "dawn work desk"]
+      "keywords": [
+        "sunrise city",
+        "early morning run",
+        "dawn work desk"
+      ],
+      "zh_hans": "早起的鳥兒有蟲吃。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "No pain, no gain.",
       "author": "Traditional Saying",
       "zh": "吃得苦中苦，方為人上人。",
       "zh_author": "傳統格言",
-      "keywords": ["gym workout", "sweat training", "weightlifting effort"]
+      "keywords": [
+        "gym workout",
+        "sweat training",
+        "weightlifting effort"
+      ],
+      "zh_hans": "吃得苦中苦，方為人上人。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Fortune favors the diligent.",
       "author": "Proverb",
       "zh": "勤者得福。",
       "zh_author": "諺語",
-      "keywords": ["busy office work", "focused study desk", "hardworking hands"]
+      "keywords": [
+        "busy office work",
+        "focused study desk",
+        "hardworking hands"
+      ],
+      "zh_hans": "勤者得福。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "God helps those who help themselves.",
       "author": "Proverb",
       "zh": "天助自助者。",
       "zh_author": "諺語",
-      "keywords": ["sunrise work", "building construction", "hands working"]
+      "keywords": [
+        "sunrise work",
+        "building construction",
+        "hands working"
+      ],
+      "zh_hans": "天助自助者。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "A smooth sea never made a skilled sailor.",
       "author": "Proverb",
       "zh": "平靜的海洋，從未造就出優秀的水手。",
       "zh_author": "諺語",
-      "keywords": ["storm ocean waves", "sailing challenge", "ship rough sea"]
+      "keywords": [
+        "storm ocean waves",
+        "sailing challenge",
+        "ship rough sea"
+      ],
+      "zh_hans": "平靜的海洋，從未造就出優秀的水手。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "Sweat now, shine later.",
       "author": "Traditional Saying",
       "zh": "今日流汗，他日發光。",
       "zh_author": "傳統格言",
-      "keywords": ["gym training sweat", "sunset workout", "athlete effort"]
+      "keywords": [
+        "gym training sweat",
+        "sunset workout",
+        "athlete effort"
+      ],
+      "zh_hans": "今日流汗，他日發光。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Dream big, work hard, stay focused.",
       "author": "Traditional Saying",
       "zh": "夢想要大，努力要狠，專注要深。",
       "zh_author": "傳統格言",
-      "keywords": ["city skyline night", "focused desk work", "ambitious sunrise"]
+      "keywords": [
+        "city skyline night",
+        "focused desk work",
+        "ambitious sunrise"
+      ],
+      "zh_hans": "夢想要大，努力要狠，專注要深。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Genius is one percent inspiration and ninety-nine percent perspiration.",
       "author": "Thomas Edison",
       "zh": "天才是百分之一的靈感，加上百分之九十九的汗水。",
       "zh_author": "托馬斯·愛迪生",
-      "keywords": ["workshop invention", "laboratory work", "inventor desk"]
+      "keywords": [
+        "workshop invention",
+        "laboratory work",
+        "inventor desk"
+      ],
+      "zh_hans": "天才是百分之一的靈感，加上百分之九十九的汗水。",
+      "zh_author_hans": "托馬斯·愛迪生"
     },
     {
       "quote": "There are no shortcuts to any place worth going.",
       "author": "Beverly Sills",
       "zh": "凡是值得去的地方，都沒有捷徑。",
       "zh_author": "貝弗利·西爾斯",
-      "keywords": ["mountain trail long", "climbing effort", "steep path work"]
+      "keywords": [
+        "mountain trail long",
+        "climbing effort",
+        "steep path work"
+      ],
+      "zh_hans": "凡是值得去的地方，都沒有捷徑。",
+      "zh_author_hans": "貝弗利·西爾斯"
     },
     {
       "quote": "Action is the foundational key to all success.",
       "author": "Pablo Picasso",
       "zh": "行動是一切成功的根本。",
       "zh_author": "巴勃羅·畢卡索",
-      "keywords": ["hands working art", "busy workshop", "focused craftsman"]
+      "keywords": [
+        "hands working art",
+        "busy workshop",
+        "focused craftsman"
+      ],
+      "zh_hans": "行動是一切成功的根本。",
+      "zh_author_hans": "巴勃羅·畢卡索"
     },
     {
       "quote": "Opportunities don't happen, you create them.",
       "author": "Chris Grosser",
       "zh": "機會不是等來的，是自己創造的。",
       "zh_author": "克里斯·格羅瑟",
-      "keywords": ["entrepreneur city", "building business", "sunrise city hustle"]
+      "keywords": [
+        "entrepreneur city",
+        "building business",
+        "sunrise city hustle"
+      ],
+      "zh_hans": "機會不是等來的，是自己創造的。",
+      "zh_author_hans": "克里斯·格羅瑟"
     },
     {
       "quote": "The way to get started is to quit talking and begin doing.",
       "author": "Walt Disney",
       "zh": "開始的方法，就是停止空談，付諸行動。",
       "zh_author": "華特·迪士尼",
-      "keywords": ["work desk focus", "typing laptop hustle", "action office"]
+      "keywords": [
+        "work desk focus",
+        "typing laptop hustle",
+        "action office"
+      ],
+      "zh_hans": "開始的方法，就是停止空談，付諸行動。",
+      "zh_author_hans": "華特·迪士尼"
     },
     {
       "quote": "Hard work beats talent when talent doesn't work hard.",
       "author": "Tim Notke",
       "zh": "當天才不努力時，努力就能勝過天才。",
       "zh_author": "提姆·諾特克",
-      "keywords": ["athlete training", "gym determination", "sports practice"]
+      "keywords": [
+        "athlete training",
+        "gym determination",
+        "sports practice"
+      ],
+      "zh_hans": "當天才不努力時，努力就能勝過天才。",
+      "zh_author_hans": "提姆·諾特克"
     },
     {
       "quote": "Rise and grind.",
       "author": "Traditional Saying",
       "zh": "起身，拼搏。",
       "zh_author": "傳統格言",
-      "keywords": ["sunrise city hustle", "morning coffee work", "early gym"]
+      "keywords": [
+        "sunrise city hustle",
+        "morning coffee work",
+        "early gym"
+      ],
+      "zh_hans": "起身，拼搏。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Success usually comes to those who are too busy to be looking for it.",
       "author": "Henry David Thoreau",
       "zh": "成功往往降臨在那些忙到沒時間去追求它的人身上。",
       "zh_author": "亨利·大衛·梭羅",
-      "keywords": ["busy office desk", "focused work city", "productive workspace"]
+      "keywords": [
+        "busy office desk",
+        "focused work city",
+        "productive workspace"
+      ],
+      "zh_hans": "成功往往降臨在那些忙到沒時間去追求它的人身上。",
+      "zh_author_hans": "亨利·大衛·梭羅"
     },
     {
       "quote": "The man who moves a mountain begins by carrying away small stones.",
       "author": "Confucius",
       "zh": "移山之人，始於搬石。",
       "zh_author": "孔子",
-      "keywords": ["mountain labor", "construction work", "stone carrying"]
+      "keywords": [
+        "mountain labor",
+        "construction work",
+        "stone carrying"
+      ],
+      "zh_hans": "移山之人，始於搬石。",
+      "zh_author_hans": "孔子"
     },
     {
       "quote": "Well done is better than well said.",
       "author": "Benjamin Franklin",
       "zh": "做得好，勝過說得好。",
       "zh_author": "班傑明·富蘭克林",
-      "keywords": ["hands building", "craftsman work", "action workshop"]
+      "keywords": [
+        "hands building",
+        "craftsman work",
+        "action workshop"
+      ],
+      "zh_hans": "做得好，勝過說得好。",
+      "zh_author_hans": "班傑明·富蘭克林"
     },
     {
       "quote": "Don't watch the clock; do what it does. Keep going.",
       "author": "Sam Levenson",
       "zh": "別盯著時鐘；學它的樣子，不斷前進。",
       "zh_author": "山姆·萊文森",
-      "keywords": ["clock city sunrise", "running determination", "continuous work"]
+      "keywords": [
+        "clock city sunrise",
+        "running determination",
+        "continuous work"
+      ],
+      "zh_hans": "別盯著時鐘；學它的樣子，不斷前進。",
+      "zh_author_hans": "山姆·萊文森"
     },
     {
       "quote": "It is not the mountain we conquer, but ourselves.",
       "author": "Sir Edmund Hillary",
       "zh": "我們征服的不是山，而是自己。",
       "zh_author": "愛德蒙·希拉里爵士",
-      "keywords": ["mountain climbing effort", "summit hiker", "endurance climb"]
+      "keywords": [
+        "mountain climbing effort",
+        "summit hiker",
+        "endurance climb"
+      ],
+      "zh_hans": "我們征服的不是山，而是自己。",
+      "zh_author_hans": "愛德蒙·希拉里爵士"
     },
     {
       "quote": "The only place where success comes before work is in the dictionary.",
       "author": "Vidal Sassoon",
       "zh": "只有在字典裡，成功才排在努力之前。",
       "zh_author": "維達·沙宣",
-      "keywords": ["office grind", "typing work desk", "busy entrepreneur"]
+      "keywords": [
+        "office grind",
+        "typing work desk",
+        "busy entrepreneur"
+      ],
+      "zh_hans": "只有在字典裡，成功才排在努力之前。",
+      "zh_author_hans": "維達·沙宣"
     },
     {
       "quote": "Diligence is the mother of good fortune.",
       "author": "Miguel de Cervantes",
       "zh": "勤奮是好運之母。",
       "zh_author": "米格爾·德·塞萬提斯",
-      "keywords": ["farmer field work", "harvest labor", "sunrise farming"]
+      "keywords": [
+        "farmer field work",
+        "harvest labor",
+        "sunrise farming"
+      ],
+      "zh_hans": "勤奮是好運之母。",
+      "zh_author_hans": "米格爾·德·塞萬提斯"
     },
     {
       "quote": "Work hard in silence, let success make the noise.",
       "author": "Traditional Saying",
       "zh": "默默耕耘，讓成功替你發聲。",
       "zh_author": "傳統格言",
-      "keywords": ["quiet focused work", "night city lights", "solo dedication desk"]
+      "keywords": [
+        "quiet focused work",
+        "night city lights",
+        "solo dedication desk"
+      ],
+      "zh_hans": "默默耕耘，讓成功替你發聲。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "The expert in anything was once a beginner.",
       "author": "Helen Hayes",
       "zh": "任何領域的專家，都曾是初學者。",
       "zh_author": "海倫·海絲",
-      "keywords": ["learning practice", "student workspace", "skill building"]
+      "keywords": [
+        "learning practice",
+        "student workspace",
+        "skill building"
+      ],
+      "zh_hans": "任何領域的專家，都曾是初學者。",
+      "zh_author_hans": "海倫·海絲"
     },
     {
       "quote": "Perseverance is not a long race; it is many short races one after the other.",
       "author": "Walter Elliot",
       "zh": "堅持不是一場漫長的賽跑，而是一場接一場的短跑。",
       "zh_author": "沃爾特·埃利奧特",
-      "keywords": ["running track training", "marathon steps", "sprint effort"]
+      "keywords": [
+        "running track training",
+        "marathon steps",
+        "sprint effort"
+      ],
+      "zh_hans": "堅持不是一場漫長的賽跑，而是一場接一場的短跑。",
+      "zh_author_hans": "沃爾特·埃利奧特"
     },
     {
       "quote": "A goal without a plan is just a wish.",
       "author": "Antoine de Saint-Exupery",
       "zh": "沒有計劃的目標，只是一個願望。",
       "zh_author": "安托萬·德·聖修伯里",
-      "keywords": ["planning desk map", "strategy notebook", "goal chart office"]
+      "keywords": [
+        "planning desk map",
+        "strategy notebook",
+        "goal chart office"
+      ],
+      "zh_hans": "沒有計劃的目標，只是一個願望。",
+      "zh_author_hans": "安托萬·德·聖修伯里"
     }
   ],
   "Calm": [
@@ -536,175 +986,325 @@
       "author": "Traditional Proverb",
       "zh": "一切終將過去。",
       "zh_author": "傳統諺語",
-      "keywords": ["calm sky clouds", "peaceful sunset", "gentle breeze field"]
+      "keywords": [
+        "calm sky clouds",
+        "peaceful sunset",
+        "gentle breeze field"
+      ],
+      "zh_hans": "一切終將過去。",
+      "zh_author_hans": "傳統諺語"
     },
     {
       "quote": "Still waters run deep.",
       "author": "Proverb",
       "zh": "靜水流深。",
       "zh_author": "諺語",
-      "keywords": ["calm lake reflection", "still water forest", "quiet pond"]
+      "keywords": [
+        "calm lake reflection",
+        "still water forest",
+        "quiet pond"
+      ],
+      "zh_hans": "靜水流深。",
+      "zh_author_hans": "諺語"
     },
     {
       "quote": "Peace begins with a smile.",
       "author": "Mother Teresa",
       "zh": "和平始於微笑。",
       "zh_author": "德蘭修女",
-      "keywords": ["sunrise smile nature", "gentle light face", "calm morning warmth"]
+      "keywords": [
+        "sunrise smile nature",
+        "gentle light face",
+        "calm morning warmth"
+      ],
+      "zh_hans": "和平始於微笑。",
+      "zh_author_hans": "德蘭修女"
     },
     {
       "quote": "Silence is a source of great strength.",
       "author": "Lao Tzu",
       "zh": "沉默是力量的源泉。",
       "zh_author": "老子",
-      "keywords": ["quiet forest mist", "silent mountain", "still lake dawn"]
+      "keywords": [
+        "quiet forest mist",
+        "silent mountain",
+        "still lake dawn"
+      ],
+      "zh_hans": "沉默是力量的源泉。",
+      "zh_author_hans": "老子"
     },
     {
       "quote": "The quieter you become, the more you can hear.",
       "author": "Ram Dass (traditional attribution)",
       "zh": "你愈安靜，你能聽見的愈多。",
       "zh_author": "拉姆·達斯",
-      "keywords": ["quiet nature sound", "still forest listening", "calm meditation nature"]
+      "keywords": [
+        "quiet nature sound",
+        "still forest listening",
+        "calm meditation nature"
+      ],
+      "zh_hans": "你愈安靜，你能聽見的愈多。",
+      "zh_author_hans": "拉姆·達斯"
     },
     {
       "quote": "Within you, there is a stillness and a sanctuary.",
       "author": "Hermann Hesse",
       "zh": "你的內心深處，有一份寧靜與聖地。",
       "zh_author": "赫爾曼·黑塞",
-      "keywords": ["zen garden calm", "quiet temple", "peaceful sanctuary nature"]
+      "keywords": [
+        "zen garden calm",
+        "quiet temple",
+        "peaceful sanctuary nature"
+      ],
+      "zh_hans": "你的內心深處，有一份寧靜與聖地。",
+      "zh_author_hans": "赫爾曼·黑塞"
     },
     {
       "quote": "Calmness is the cradle of power.",
       "author": "Josiah Gilbert Holland",
       "zh": "平靜是力量的搖籃。",
       "zh_author": "約西亞·吉爾伯特·荷蘭",
-      "keywords": ["calm sunrise mountain", "peaceful strength nature", "still water power"]
+      "keywords": [
+        "calm sunrise mountain",
+        "peaceful strength nature",
+        "still water power"
+      ],
+      "zh_hans": "平靜是力量的搖籃。",
+      "zh_author_hans": "約西亞·吉爾伯特·荷蘭"
     },
     {
       "quote": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.",
       "author": "Oprah Winfrey (traditional saying)",
       "zh": "深呼吸，放手，提醒自己：此刻是你唯一確定擁有的。",
       "zh_author": "奧普拉·溫芙蕾",
-      "keywords": ["deep breath nature", "meditation calm light", "present moment sky"]
+      "keywords": [
+        "deep breath nature",
+        "meditation calm light",
+        "present moment sky"
+      ],
+      "zh_hans": "深呼吸，放手，提醒自己：此刻是你唯一確定擁有的。",
+      "zh_author_hans": "奧普拉·溫芙蕾"
     },
     {
       "quote": "In the midst of movement and chaos, keep stillness inside of you.",
       "author": "Deepak Chopra",
       "zh": "在動盪與混亂之中，保持內心的靜定。",
       "zh_author": "狄帕克·喬布拉",
-      "keywords": ["still lake chaos", "calm center nature", "quiet eye storm"]
+      "keywords": [
+        "still lake chaos",
+        "calm center nature",
+        "quiet eye storm"
+      ],
+      "zh_hans": "在動盪與混亂之中，保持內心的靜定。",
+      "zh_author_hans": "狄帕克·喬布拉"
     },
     {
       "quote": "Nature always wears the colors of the spirit.",
       "author": "Ralph Waldo Emerson",
       "zh": "大自然永遠披著心靈的色彩。",
       "zh_author": "拉爾夫·沃爾多·愛默生",
-      "keywords": ["autumn forest calm", "colorful nature peace", "serene landscape"]
+      "keywords": [
+        "autumn forest calm",
+        "colorful nature peace",
+        "serene landscape"
+      ],
+      "zh_hans": "大自然永遠披著心靈的色彩。",
+      "zh_author_hans": "拉爾夫·沃爾多·愛默生"
     },
     {
       "quote": "Quiet the mind, and the soul will speak.",
       "author": "Ma Jaya Sati Bhagavati",
       "zh": "讓心靜下來，靈魂自然會說話。",
       "zh_author": "瑪·賈亞·薩提",
-      "keywords": ["meditation quiet", "still mind nature", "calm soul light"]
+      "keywords": [
+        "meditation quiet",
+        "still mind nature",
+        "calm soul light"
+      ],
+      "zh_hans": "讓心靜下來，靈魂自然會說話。",
+      "zh_author_hans": "瑪·賈亞·薩提"
     },
     {
       "quote": "Wherever you are, be all there.",
       "author": "Jim Elliot",
       "zh": "無論你身在何處，請全心投入當下。",
       "zh_author": "吉姆·艾略特",
-      "keywords": ["present moment nature", "mindful sunrise", "calm focus outdoors"]
+      "keywords": [
+        "present moment nature",
+        "mindful sunrise",
+        "calm focus outdoors"
+      ],
+      "zh_hans": "無論你身在何處，請全心投入當下。",
+      "zh_author_hans": "吉姆·艾略特"
     },
     {
       "quote": "The mind is like water; when it's turbulent, it's difficult to see. When it's calm, everything becomes clear.",
       "author": "Prasad Mahes",
       "zh": "心如水，動則難見，靜則萬物清晰。",
       "zh_author": "普拉薩德·馬赫斯",
-      "keywords": ["calm water clarity", "clear lake reflection", "still pond mirror"]
+      "keywords": [
+        "calm water clarity",
+        "clear lake reflection",
+        "still pond mirror"
+      ],
+      "zh_hans": "心如水，動則難見，靜則萬物清晰。",
+      "zh_author_hans": "普拉薩德·馬赫斯"
     },
     {
       "quote": "Let nature be your teacher.",
       "author": "William Wordsworth",
       "zh": "讓大自然成為你的老師。",
       "zh_author": "威廉·華茲華斯",
-      "keywords": ["forest learning calm", "nature classroom peace", "quiet woods light"]
+      "keywords": [
+        "forest learning calm",
+        "nature classroom peace",
+        "quiet woods light"
+      ],
+      "zh_hans": "讓大自然成為你的老師。",
+      "zh_author_hans": "威廉·華茲華斯"
     },
     {
       "quote": "Serenity is not freedom from the storm, but peace amid the storm.",
       "author": "Traditional Saying",
       "zh": "寧靜不是遠離風暴，而是在風暴中保持平和。",
       "zh_author": "傳統格言",
-      "keywords": ["storm calm eye", "peaceful storm light", "serene amid clouds"]
+      "keywords": [
+        "storm calm eye",
+        "peaceful storm light",
+        "serene amid clouds"
+      ],
+      "zh_hans": "寧靜不是遠離風暴，而是在風暴中保持平和。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "One kind word can change someone's entire day.",
       "author": "Traditional Saying",
       "zh": "一句溫柔的話，可以改變一個人整天的心情。",
       "zh_author": "傳統格言",
-      "keywords": ["gentle kindness nature", "soft light gesture", "warm calm hands"]
+      "keywords": [
+        "gentle kindness nature",
+        "soft light gesture",
+        "warm calm hands"
+      ],
+      "zh_hans": "一句溫柔的話，可以改變一個人整天的心情。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "A quiet mind is able to hear intuition over fear.",
       "author": "Traditional Saying",
       "zh": "平靜的心，能在恐懼之上聽見直覺的聲音。",
       "zh_author": "傳統格言",
-      "keywords": ["calm meditation quiet", "still mind forest", "peaceful intuition nature"]
+      "keywords": [
+        "calm meditation quiet",
+        "still mind forest",
+        "peaceful intuition nature"
+      ],
+      "zh_hans": "平靜的心，能在恐懼之上聽見直覺的聲音。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Simplify, then add lightness.",
       "author": "Colin Chapman",
       "zh": "先簡化，再添輕盈。",
       "zh_author": "科林·查普曼",
-      "keywords": ["minimalist calm space", "simple light room", "clean serene design"]
+      "keywords": [
+        "minimalist calm space",
+        "simple light room",
+        "clean serene design"
+      ],
+      "zh_hans": "先簡化，再添輕盈。",
+      "zh_author_hans": "科林·查普曼"
     },
     {
       "quote": "Slow down and everything you are chasing will come around and catch you.",
       "author": "John De Paola",
       "zh": "慢下來，你所追逐的一切，終將追上你。",
       "zh_author": "約翰·德·保拉",
-      "keywords": ["slow walk nature", "gentle path calm", "peaceful stroll forest"]
+      "keywords": [
+        "slow walk nature",
+        "gentle path calm",
+        "peaceful stroll forest"
+      ],
+      "zh_hans": "慢下來，你所追逐的一切，終將追上你。",
+      "zh_author_hans": "約翰·德·保拉"
     },
     {
       "quote": "The soul always knows what to do to heal itself. The challenge is to silence the mind.",
       "author": "Caroline Myss",
       "zh": "靈魂始終知道如何自我療癒，挑戰在於讓心靜下來。",
       "zh_author": "卡羅琳·麥斯",
-      "keywords": ["silent meditation nature", "healing calm light", "quiet soul water"]
+      "keywords": [
+        "silent meditation nature",
+        "healing calm light",
+        "quiet soul water"
+      ],
+      "zh_hans": "靈魂始終知道如何自我療癒，挑戰在於讓心靜下來。",
+      "zh_author_hans": "卡羅琳·麥斯"
     },
     {
       "quote": "Almost everything will work again if you unplug it for a few minutes, including you.",
       "author": "Anne Lamott",
       "zh": "幾乎所有東西，關機幾分鐘後都會重新運作，包括你自己。",
       "zh_author": "安·拉莫特",
-      "keywords": ["rest calm nature", "unplug quiet retreat", "peaceful pause outdoors"]
+      "keywords": [
+        "rest calm nature",
+        "unplug quiet retreat",
+        "peaceful pause outdoors"
+      ],
+      "zh_hans": "幾乎所有東西，關機幾分鐘後都會重新運作，包括你自己。",
+      "zh_author_hans": "安·拉莫特"
     },
     {
       "quote": "Gratitude turns what we have into enough.",
       "author": "Traditional Saying",
       "zh": "感恩，讓我們所擁有的變得足夠。",
       "zh_author": "傳統格言",
-      "keywords": ["sunset gratitude", "peaceful thankful nature", "calm warm light"]
+      "keywords": [
+        "sunset gratitude",
+        "peaceful thankful nature",
+        "calm warm light"
+      ],
+      "zh_hans": "感恩，讓我們所擁有的變得足夠。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "The present moment is the only moment available to us.",
       "author": "Thich Nhat Hanh",
       "zh": "當下這一刻，是我們唯一真正擁有的。",
       "zh_author": "一行禪師",
-      "keywords": ["present nature calm", "mindful moment light", "quiet awareness forest"]
+      "keywords": [
+        "present nature calm",
+        "mindful moment light",
+        "quiet awareness forest"
+      ],
+      "zh_hans": "當下這一刻，是我們唯一真正擁有的。",
+      "zh_author_hans": "一行禪師"
     },
     {
       "quote": "Sit in reflection when possible; let your soul catch up with your body.",
       "author": "Traditional Saying",
       "zh": "有機會就靜坐沉思，讓靈魂追上身體的步伐。",
       "zh_author": "傳統格言",
-      "keywords": ["quiet reflection nature", "calm sitting light", "peaceful pause water"]
+      "keywords": [
+        "quiet reflection nature",
+        "calm sitting light",
+        "peaceful pause water"
+      ],
+      "zh_hans": "有機會就靜坐沉思，讓靈魂追上身體的步伐。",
+      "zh_author_hans": "傳統格言"
     },
     {
       "quote": "Home is where the heart finds its peace.",
       "author": "Traditional Saying",
       "zh": "家，是心靈找到平靜的地方。",
       "zh_author": "傳統格言",
-      "keywords": ["cozy home calm", "peaceful house light", "warm home nature"]
+      "keywords": [
+        "cozy home calm",
+        "peaceful house light",
+        "warm home nature"
+      ],
+      "zh_hans": "家，是心靈找到平靜的地方。",
+      "zh_author_hans": "傳統格言"
     }
   ]
 }
