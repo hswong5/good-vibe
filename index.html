@@ -5,22 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GoodVibe Quotes — Motivation, Healing, Hustle & Calm</title>
 <meta name="description" content="Inspiring quotes for Motivation, Healing, Hustle, and Calm. Free daily quote images with beautiful backgrounds.">
-<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7148667085209307"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7148667085209307" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="logo">GoodVibe</div>
   <nav class="category-nav">
-    <button class="nav-btn active" data-category="All">All</button>
-    <button class="nav-btn" data-category="Motivation">Motivation</button>
-    <button class="nav-btn" data-category="Healing">Healing</button>
-    <button class="nav-btn" data-category="Hustle">Hustle</button>
-    <button class="nav-btn" data-category="Calm">Calm</button>
+    <button class="nav-btn active" data-category="All" data-i18n-cat="All">All</button>
+    <button class="nav-btn" data-category="Motivation" data-i18n-cat="Motivation">Motivation</button>
+    <button class="nav-btn" data-category="Healing" data-i18n-cat="Healing">Healing</button>
+    <button class="nav-btn" data-category="Hustle" data-i18n-cat="Hustle">Hustle</button>
+    <button class="nav-btn" data-category="Calm" data-i18n-cat="Calm">Calm</button>
   </nav>
+  <button id="lang-toggle" class="lang-toggle" title="Switch language">中文</button>
 </header>
 
 <main>
@@ -32,15 +34,15 @@
       <p class="quote-text" id="quote-text">Loading your daily dose of inspiration...</p>
       <p class="quote-author" id="quote-author"></p>
       <div class="quote-actions">
-        <button id="btn-new" title="New quote">New Quote</button>
-        <button id="btn-copy" title="Copy quote">Copy</button>
-        <button id="btn-download" title="Download as image">Save Image</button>
+        <button id="btn-new" data-i18n="btn_new">New Quote</button>
+        <button id="btn-copy" data-i18n="btn_copy">Copy</button>
+        <button id="btn-download" data-i18n="btn_download">Save Image</button>
       </div>
     </div>
+    <div id="photo-credit" class="photo-credit" style="display:none;"></div>
   </section>
 
   <div class="ad-slot ad-slot-mid" id="ad-mid">
-    <!-- AdSense unit goes here after approval -->
     <span class="ad-placeholder">Ad space</span>
   </div>
 
@@ -55,11 +57,12 @@
 </main>
 
 <footer class="site-footer">
-  <p>&copy; 2026 GoodVibe Quotes. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
-  <p><a href="about.html">About</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="contact.html">Contact</a></p>
+  <p id="footer-copy">&copy; 2026 GoodVibe Quotes. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
+  <p><a href="about.html" data-i18n="nav_about">About</a> &middot; <a href="privacy.html" data-i18n="nav_privacy">Privacy Policy</a> &middot; <a href="contact.html" data-i18n="nav_contact">Contact</a></p>
 </footer>
 
 <canvas id="export-canvas" style="display:none;"></canvas>
+<script src="i18n.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
