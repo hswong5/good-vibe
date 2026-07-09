@@ -8,6 +8,7 @@ const state = {
   quotes: [],
   currentCategory: 'All',
   currentQuote: null,
+  hintDismissed: false,
 };
 
 const memCache = {};
@@ -98,11 +99,15 @@ function fallbackGradient(category) {
 }
 
 function getQuoteText(item) {
-  return I18N.get().code === 'zh' ? (item.zh || item.quote) : item.quote;
+  const lang = I18N.get().code;
+  if (lang === 'zh') return item.zh || item.quote;
+  return item.quote;
 }
 
 function getQuoteAuthor(item) {
-  return I18N.get().code === 'zh' ? (item.zh_author || item.author || '') : (item.author || '');
+  const lang = I18N.get().code;
+  if (lang === 'zh') return item.zh_author || item.author || '';
+  return item.author || '';
 }
 
 async function renderHero(item) {
@@ -136,6 +141,7 @@ function newRandomQuote() {
 }
 
 function renderGrid() {
+  const lang = I18N.get();
   const catLabel = I18N.catLabel(state.currentCategory);
   const titleEl = document.getElementById('grid-title');
   titleEl.textContent = state.currentCategory === 'All'
@@ -183,19 +189,52 @@ function setupNav() {
   });
 }
 
+// Dismiss the tap hint after first tap on the card
+function dismissHint() {
+  if (state.hintDismissed) return;
+  state.hintDismissed = true;
+  const hint = document.getElementById('tap-hint');
+  if (hint) hint.classList.add('hidden');
+}
+
+// Auto-dismiss hint after 4 seconds on first load
+function scheduleHintAutoDismiss() {
+  setTimeout(dismissHint, 4000);
+}
+
+function updateTapHintText() {
+  const el = document.getElementById('tap-hint-text');
+  if (!el) return;
+  el.textContent = I18N.get().code === 'zh' ? '點擊任意位置換一句' : 'Tap anywhere for next quote';
+}
+
 function setupActions() {
-  document.getElementById('btn-new').addEventListener('click', newRandomQuote);
-  document.getElementById('btn-copy').addEventListener('click', () => {
+  // Tap anywhere on the card → new quote (but not when clicking action buttons or photo credit)
+  document.getElementById('quote-card').addEventListener('click', (e) => {
+    if (e.target.closest('.quote-actions') || e.target.closest('.photo-credit')) return;
+    dismissHint();
+    newRandomQuote();
+  });
+
+  document.getElementById('btn-copy').addEventListener('click', (e) => {
+    e.stopPropagation();
     if (!state.currentQuote) return;
     const text = `\u201c${getQuoteText(state.currentQuote)}\u201d \u2014 ${getQuoteAuthor(state.currentQuote)}`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btn-copy');
       const orig = btn.textContent;
-      btn.textContent = I18N.get().code === 'zh' ? '\u5df2\u8907\u88fd\uff01' : 'Copied!';
+      btn.textContent = I18N.get().code === 'zh' ? '已複製！' : 'Copied!';
       setTimeout(() => { btn.textContent = orig; }, 1500);
     });
   });
-  document.getElementById('btn-download').addEventListener('click', downloadQuoteImage);
+  document.getElementById('btn-download').addEventListener('click', (e) => {
+    e.stopPropagation();
+    downloadQuoteImage();
+  });
+
+  // Set initial hint text and update on language change
+  updateTapHintText();
+  document.addEventListener('langchange', updateTapHintText);
 }
 
 async function downloadQuoteImage() {
@@ -259,16 +298,11 @@ document.addEventListener('langchange', () => {
   renderGrid();
 });
 
-// Single DOMContentLoaded in app.js — controls full init sequence
-document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Apply saved lang to DOM (button label, nav labels, footer)
-  I18N.applyToDOM();
-  // 2. Wire the toggle button
-  I18N.wireToggle();
-  // 3. Load quotes then render everything in correct language
+(async function init() {
   await loadQuotes();
   setupNav();
   setupActions();
   newRandomQuote();
   renderGrid();
-});
+  scheduleHintAutoDismiss();
+})();
