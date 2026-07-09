@@ -16,7 +16,6 @@ body {
   line-height: 1.5;
 }
 
-/* Header */
 .site-header {
   display: flex;
   justify-content: space-between;
@@ -64,7 +63,6 @@ body {
   border-color: var(--color-dark);
 }
 
-/* Hero Quote Card */
 main {
   max-width: 1000px;
   margin: 0 auto;
@@ -156,7 +154,6 @@ main {
 
 .quote-actions button:hover { background: rgba(255,255,255,0.3); }
 
-/* Ad slots */
 .ad-slot {
   margin: 32px 0;
   display: flex;
@@ -173,7 +170,6 @@ main {
   font-size: 0.85rem;
 }
 
-/* Quote grid */
 .grid-section h2 {
   font-family: var(--font-serif);
   font-size: 1.4rem;
@@ -236,7 +232,6 @@ main {
   opacity: 0.85;
 }
 
-/* Footer */
 .site-footer {
   text-align: center;
   padding: 32px 20px;
@@ -245,11 +240,7 @@ main {
   border-top: 1px solid #eee;
 }
 
-.site-footer a {
-  color: #555;
-  text-decoration: none;
-}
-
+.site-footer a { color: #555; text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 
 @media (max-width: 640px) {
