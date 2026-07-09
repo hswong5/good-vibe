@@ -73,9 +73,18 @@ const I18N = (() => {
 
   function apply() {
     const lang = LANGS[current];
-    // Toggle button
-    const toggle = document.getElementById('lang-toggle');
-    if (toggle) toggle.textContent = lang.toggle;
+    // Update language buttons state (if present)
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      const code = btn.dataset.lang;
+      btn.textContent = LANGS[code] ? LANGS[code].label : code;
+      if (code === current) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+    });
     // Nav category buttons
     document.querySelectorAll('[data-i18n-cat]').forEach(el => {
       const cat = el.dataset.i18nCat;
@@ -89,10 +98,9 @@ const I18N = (() => {
     document.documentElement.lang = current;
   }
 
-  function toggle() {
-    const idx = order.indexOf(current);
-    const next = order[(idx + 1) % order.length];
-    current = next;
+  function setLang(code) {
+    if (!LANGS[code]) return;
+    current = code;
     apply();
     document.dispatchEvent(new CustomEvent('langchange'));
   }
@@ -100,9 +108,13 @@ const I18N = (() => {
   // Init
   document.addEventListener('DOMContentLoaded', () => {
     apply();
-    const btn = document.getElementById('lang-toggle');
-    if (btn) btn.addEventListener('click', toggle);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const code = btn.dataset.lang;
+        setLang(code);
+      });
+    });
   });
 
-  return { get, t, catLabel };
+  return { get, t, catLabel, setLang };
 })();
