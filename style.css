@@ -141,9 +141,13 @@ main {
 }
 
 .quote-author {
-  font-size: 1rem;
-  opacity: 0.9;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
   margin-bottom: 24px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
 }
 
 .quote-author::before { content: '— '; }
