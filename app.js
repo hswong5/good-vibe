@@ -31,24 +31,17 @@ function filteredQuotes() {
   return state.quotes.filter(q => q.category === state.currentCategory);
 }
 
-// Returns { small, regular, photographerName, photographerUrl } via Pexels
 async function getImageData(keywords) {
   const keyword = pickRandom(keywords);
   const cacheKey = CACHE_PREFIX + keyword;
-
   if (memCache[cacheKey]) return memCache[cacheKey];
-
   try {
     const stored = localStorage.getItem(cacheKey);
     if (stored) {
       const { data, ts } = JSON.parse(stored);
-      if (Date.now() - ts < CACHE_TTL) {
-        memCache[cacheKey] = data;
-        return data;
-      }
+      if (Date.now() - ts < CACHE_TTL) { memCache[cacheKey] = data; return data; }
     }
   } catch(e) {}
-
   try {
     const res = await fetch(
       `https://api.pexels.com/v1/search?query=${encodeURIComponent(keyword)}&orientation=landscape&per_page=15`,
@@ -66,16 +59,11 @@ async function getImageData(keywords) {
       photoUrl: photo.url,
     };
     memCache[cacheKey] = data;
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() }));
-    } catch(e) {}
+    try { localStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() })); } catch(e) {}
     return data;
-  } catch(e) {
-    return null;
-  }
+  } catch(e) { return null; }
 }
 
-// Blur-up: show small instantly, swap to full-res when loaded
 function applyBlurUp(el, data) {
   if (!data) return;
   el.style.backgroundImage = `url('${data.small}')`;
@@ -96,7 +84,7 @@ function setAttribution(data) {
   if (!el) return;
   if (!data) { el.style.display = 'none'; return; }
   el.style.display = 'block';
-  el.innerHTML = `Photo by <a href="${data.photographerUrl}" target="_blank" rel="noopener">${data.photographerName}</a> on <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>`;
+  el.innerHTML = I18N.t('photo_by', data.photographerName, data.photographerUrl, 'https://www.pexels.com');
 }
 
 function fallbackGradient(category) {
@@ -109,11 +97,23 @@ function fallbackGradient(category) {
   return gradients[category] || 'linear-gradient(135deg,#333,#555)';
 }
 
+function getQuoteText(item) {
+  const lang = I18N.get().code;
+  if (lang === 'zh') return item.zh || item.quote;
+  return item.quote;
+}
+
+function getQuoteAuthor(item) {
+  const lang = I18N.get().code;
+  if (lang === 'zh') return item.zh_author || item.author || '';
+  return item.author || '';
+}
+
 async function renderHero(item) {
   state.currentQuote = item;
-  document.getElementById('quote-tag').textContent = item.category;
-  document.getElementById('quote-text').textContent = `"${item.quote}"`;
-  document.getElementById('quote-author').textContent = item.author || '';
+  document.getElementById('quote-tag').textContent = I18N.catLabel(item.category);
+  document.getElementById('quote-text').textContent = `\u201c${getQuoteText(item)}\u201d`;
+  document.getElementById('quote-author').textContent = getQuoteAuthor(item);
   const bgEl = document.getElementById('quote-bg');
   bgEl.style.backgroundImage = '';
   bgEl.style.filter = 'none';
@@ -140,9 +140,14 @@ function newRandomQuote() {
 }
 
 function renderGrid() {
+  const lang = I18N.get();
+  const catLabel = I18N.catLabel(state.currentCategory);
+  const titleEl = document.getElementById('grid-title');
+  titleEl.textContent = state.currentCategory === 'All'
+    ? I18N.t('grid_all')
+    : I18N.t('grid_cat', catLabel);
+
   const grid = document.getElementById('quote-grid');
-  document.getElementById('grid-title').textContent =
-    state.currentCategory === 'All' ? 'All Quotes' : `${state.currentCategory} Quotes`;
   grid.innerHTML = '';
   filteredQuotes().forEach(item => {
     const card = document.createElement('div');
@@ -152,8 +157,8 @@ function renderGrid() {
       <div class="grid-bg"></div>
       <div class="grid-overlay"></div>
       <div class="grid-content">
-        <div class="grid-quote-text">"${item.quote}"</div>
-        <div class="grid-tag">${item.category}</div>
+        <div class="grid-quote-text">\u201c${getQuoteText(item)}\u201d</div>
+        <div class="grid-tag">${I18N.catLabel(item.category)}</div>
       </div>`;
     card.addEventListener('click', () => {
       renderHero(item);
@@ -187,11 +192,11 @@ function setupActions() {
   document.getElementById('btn-new').addEventListener('click', newRandomQuote);
   document.getElementById('btn-copy').addEventListener('click', () => {
     if (!state.currentQuote) return;
-    const text = `"${state.currentQuote.quote}" — ${state.currentQuote.author}`;
+    const text = `\u201c${getQuoteText(state.currentQuote)}\u201d \u2014 ${getQuoteAuthor(state.currentQuote)}`;
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btn-copy');
       const orig = btn.textContent;
-      btn.textContent = 'Copied!';
+      btn.textContent = I18N.get().code === 'zh' ? '已複製！' : 'Copied!';
       setTimeout(() => { btn.textContent = orig; }, 1500);
     });
   });
@@ -206,6 +211,7 @@ async function downloadQuoteImage() {
   canvas.width = W; canvas.height = H;
   const bgEl = document.getElementById('quote-bg');
   const bgUrl = bgEl.style.backgroundImage.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+  const isZh = I18N.get().code === 'zh';
 
   function drawText() {
     const overlay = ctx.createLinearGradient(0, 0, 0, H);
@@ -215,10 +221,10 @@ async function downloadQuoteImage() {
     ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = '#fff';
     ctx.textAlign = 'center';
-    ctx.font = 'italic 48px Georgia';
-    wrapText(ctx, `"${state.currentQuote.quote}"`, W/2, H/2 - 40, W - 160, 60);
-    ctx.font = '28px sans-serif';
-    ctx.fillText(`— ${state.currentQuote.author || ''}`, W/2, H/2 + 160);
+    ctx.font = isZh ? '48px "Noto Serif SC", serif' : 'italic 48px Georgia';
+    wrapText(ctx, `\u201c${getQuoteText(state.currentQuote)}\u201d`, W/2, H/2 - 40, W - 160, 60);
+    ctx.font = isZh ? '28px "Noto Serif SC", serif' : '28px sans-serif';
+    ctx.fillText(`\u2014 ${getQuoteAuthor(state.currentQuote)}`, W/2, H/2 + 160);
     const link = document.createElement('a');
     link.download = 'goodvibe-quote.png';
     link.href = canvas.toDataURL('image/png');
@@ -251,6 +257,12 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   const startY = y - ((lines.length - 1) * lineHeight) / 2;
   lines.forEach((l, i) => ctx.fillText(l.trim(), x, startY + i * lineHeight));
 }
+
+// Re-render everything when language changes
+document.addEventListener('langchange', () => {
+  if (state.currentQuote) renderHero(state.currentQuote);
+  renderGrid();
+});
 
 (async function init() {
   await loadQuotes();
