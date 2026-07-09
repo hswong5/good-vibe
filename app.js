@@ -189,8 +189,18 @@ function setupNav() {
 }
 
 function setupActions() {
-  document.getElementById('btn-new').addEventListener('click', newRandomQuote);
-  document.getElementById('btn-copy').addEventListener('click', () => {
+  // Tap anywhere on the card → new quote (but not when clicking action buttons)
+  document.getElementById('quote-card').addEventListener('click', (e) => {
+    if (e.target.closest('.quote-actions') || e.target.closest('.photo-credit')) return;
+    newRandomQuote();
+  });
+
+  document.getElementById('btn-new').addEventListener('click', (e) => {
+    e.stopPropagation();
+    newRandomQuote();
+  });
+  document.getElementById('btn-copy').addEventListener('click', (e) => {
+    e.stopPropagation();
     if (!state.currentQuote) return;
     const text = `\u201c${getQuoteText(state.currentQuote)}\u201d \u2014 ${getQuoteAuthor(state.currentQuote)}`;
     navigator.clipboard.writeText(text).then(() => {
@@ -200,7 +210,20 @@ function setupActions() {
       setTimeout(() => { btn.textContent = orig; }, 1500);
     });
   });
-  document.getElementById('btn-download').addEventListener('click', downloadQuoteImage);
+  document.getElementById('btn-download').addEventListener('click', (e) => {
+    e.stopPropagation();
+    downloadQuoteImage();
+  });
+
+  // Update tap hint text on lang change
+  updateTapHint();
+  document.addEventListener('langchange', updateTapHint);
+}
+
+function updateTapHint() {
+  const el = document.getElementById('tap-hint');
+  if (!el) return;
+  el.textContent = I18N.get().code === 'zh' ? '點擊任意位置換一句' : 'Tap anywhere for next quote';
 }
 
 async function downloadQuoteImage() {

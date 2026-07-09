@@ -86,13 +86,14 @@ main {
 
 .quote-card {
   position: relative;
-  min-height: 420px;
+  height: 420px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  cursor: pointer;
 }
 
 .quote-bg {
@@ -117,6 +118,9 @@ main {
   text-align: center;
   padding: 40px 32px;
   max-width: 700px;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 .quote-tag {
@@ -172,6 +176,20 @@ main {
 }
 
 .quote-actions button:hover { background: rgba(255,255,255,0.3); }
+
+/* Tap-to-next hint */
+.tap-hint {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  user-select: none;
+}
 
 /* PHOTO CREDIT */
 .photo-credit {
@@ -275,7 +293,7 @@ main {
 
 @media (max-width: 640px) {
   .quote-text { font-size: 1.4rem; }
-  .quote-card { min-height: 360px; }
+  .quote-card { height: 360px; }
   .site-header { padding: 16px 20px; }
   .lang-toggle { order: -1; }
 }
