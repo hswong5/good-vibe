@@ -99,6 +99,19 @@ function applyBlurUp(el, data) {
   smallImg.src = data.small;
 }
 
+// Scroll helper that accounts for sticky header height
+function getHeaderOffset() {
+  const header = document.querySelector('.site-header');
+  return header ? header.getBoundingClientRect().height : 0;
+}
+
+function scrollToElementWithOffset(el, padding = 12) {
+  if (!el) return;
+  const rect = el.getBoundingClientRect();
+  const y = window.pageYOffset + rect.top - getHeaderOffset() - padding;
+  window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+}
+
 function setAttribution(data) {
   const el = document.getElementById('photo-credit');
   if (!el) return;
@@ -184,7 +197,7 @@ function renderGrid() {
       </div>`;
     card.addEventListener('click', () => {
       renderHero(item);
-      document.getElementById('quote-card').scrollIntoView({ behavior: 'smooth' });
+      scrollToElementWithOffset(document.getElementById('quote-card'));
     });
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
@@ -206,6 +219,8 @@ function setupNav() {
       state.currentCategory = btn.dataset.category;
       newRandomQuote();
       renderGrid();
+      // scroll to the grid title so content is visible below the sticky header
+      scrollToElementWithOffset(document.getElementById('grid-title'));
     });
   });
 }
