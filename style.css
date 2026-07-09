@@ -130,7 +130,7 @@ main {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, filter 0.45s ease, background-image 0.3s ease;
   background-color: #333;
 }
 
@@ -308,6 +308,7 @@ main {
   background-size: cover;
   background-position: center;
   background-color: #333;
+  transition: filter 0.45s ease, background-image 0.3s ease;
 }
 
 .grid-card .grid-overlay {

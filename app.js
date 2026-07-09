@@ -71,17 +71,18 @@ function applyBlurUp(el, data) {
   const smallImg = new Image();
   smallImg.crossOrigin = 'anonymous';
   smallImg.onload = () => {
-    el.style.transition = 'background-image 0.3s ease, filter 0.5s ease, transform 0.5s ease';
-    el.style.backgroundImage = `url('${data.small}')`;
-    el.style.filter = 'blur(8px)';
-    el.style.transform = 'scale(1.04)';
+      // Use blur-to-clear transition (avoid scaling which caused a zoom effect)
+      el.style.transition = 'filter 0.45s ease, background-image 0.3s ease';
+      el.style.backgroundImage = `url('${data.small}')`;
+      el.style.filter = 'blur(8px)';
     // preload regular
     const reg = new Image();
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
-      el.style.backgroundImage = `url('${data.regular}')`;
-      el.style.filter = 'none';
-      el.style.transform = 'scale(1)';
+        // swap to the higher-res image then fade the blur away
+        el.style.backgroundImage = `url('${data.regular}')`;
+        // small timeout so browser has a chance to apply the new background before removing blur
+        setTimeout(() => { el.style.filter = 'none'; }, 50);
     };
     reg.src = data.regular;
   };
@@ -91,8 +92,7 @@ function applyBlurUp(el, data) {
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
-      el.style.filter = 'none';
-      el.style.transform = 'scale(1)';
+      setTimeout(() => { el.style.filter = 'none'; }, 50);
     };
     reg.src = data.regular;
   };
