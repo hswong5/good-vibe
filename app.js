@@ -209,7 +209,6 @@ function updateTapHintText() {
 }
 
 function setupActions() {
-<<<<<<< HEAD
   // Tap anywhere on the card → new quote (but not when clicking action buttons or photo credit)
   document.getElementById('quote-card').addEventListener('click', (e) => {
     if (e.target.closest('.quote-actions') || e.target.closest('.photo-credit')) return;
@@ -219,9 +218,6 @@ function setupActions() {
 
   document.getElementById('btn-copy').addEventListener('click', (e) => {
     e.stopPropagation();
-=======
-  document.getElementById('btn-copy').addEventListener('click', () => {
->>>>>>> 6177907 (Remove New Quote btn; add tap-anywhere with hint)
     if (!state.currentQuote) return;
     const text = `\u201c${getQuoteText(state.currentQuote)}\u201d \u2014 ${getQuoteAuthor(state.currentQuote)}`;
     navigator.clipboard.writeText(text).then(() => {
@@ -309,21 +305,4 @@ document.addEventListener('langchange', () => {
   newRandomQuote();
   renderGrid();
   scheduleHintAutoDismiss();
-})();
-
-// tap-anywhere to change quote
-(function setupHint() {
-  const card = document.getElementById('quote-card');
-  card.style.cursor = 'pointer';
-  const hint = document.createElement('div');
-  hint.textContent = 'Tap anywhere for next quote';
-  hint.style.cssText = 'position:absolute;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.4);color:#fff;padding:8px 18px;border-radius:999px;font-size:0.82rem;letter-spacing:0.5px;z-index:10;pointer-events:none;opacity:0;transition:opacity 0.6s ease;';
-  card.appendChild(hint);
-  setTimeout(() => { hint.style.opacity = '1'; }, 400);
-  setTimeout(() => { hint.style.opacity = '0'; setTimeout(() => hint.remove(), 700); }, 3500);
-  card.addEventListener('click', (e) => { if (!e.target.closest('button,a')) newRandomQuote(); });
-  let tx = 0;
-  card.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
-  card.addEventListener('touchend', (e) => { if (tx - e.changedTouches[0].clientX > 50) newRandomQuote(); }, { passive: true });
-  document.addEventListener('DOMContentLoaded', () => {}, false);
 })();
