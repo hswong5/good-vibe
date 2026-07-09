@@ -87,14 +87,14 @@ body {
 .lang-switch .lang-btn {
   border: 1px solid #ddd;
   background: transparent;
-  padding: 10px 18px;
+  padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--color-dark);
   transition: all 0.18s ease;
-  min-width: 56px;
+  min-width: 48px;
   text-align: center;
   line-height: 1;
   touch-action: manipulation;
@@ -354,5 +354,5 @@ main {
   .quote-card { height: 360px; }
   .site-header { padding: 16px 20px; }
   .lang-toggle { order: -1; }
-  .lang-switch .lang-btn { padding: 12px 16px; font-size: 1rem; min-width: 48px; }
+  .lang-switch .lang-btn { padding: 10px 14px; font-size: 0.95rem; min-width: 44px; }
 }
