@@ -1,18 +1,12 @@
-// i18n.js — lightweight language manager (extendable: add new langs to LANGS)
+// i18n.js — lightweight language manager
 
 const LANGS = {
   en: {
     code: 'en',
-    label: '中文',          // label shown on toggle button (what you switch TO)
+    label: '\u4e2d\u6587',
     htmlLang: 'en',
     fontFamily: '',
-    categories: {
-      All: 'All',
-      Motivation: 'Motivation',
-      Healing: 'Healing',
-      Hustle: 'Hustle',
-      Calm: 'Calm',
-    },
+    categories: { All: 'All', Motivation: 'Motivation', Healing: 'Healing', Hustle: 'Hustle', Calm: 'Calm' },
     strings: {
       btn_new: 'New Quote',
       btn_copy: 'Copy',
@@ -29,34 +23,29 @@ const LANGS = {
   },
   zh: {
     code: 'zh',
-    label: 'EN',            // label shown on toggle button (what you switch TO)
+    label: 'EN',
     htmlLang: 'zh-Hant',
     fontFamily: "'Noto Serif SC', serif",
-    categories: {
-      All: '全部',
-      Motivation: '動力',
-      Healing: '療癒',
-      Hustle: '拼搏',
-      Calm: '靜心',
-    },
+    categories: { All: '\u5168\u90e8', Motivation: '\u52d5\u529b', Healing: '\u7642\u7652', Hustle: '\u62fc\u640f', Calm: '\u975c\u5fc3' },
     strings: {
-      btn_new: '換一句',
-      btn_copy: '複製',
-      btn_download: '儲存圖片',
-      grid_all: '所有語錄',
-      grid_cat: (cat) => `${cat}語錄`,
+      btn_new: '\u63db\u4e00\u53e5',
+      btn_copy: '\u8907\u88fd',
+      btn_download: '\u5132\u5b58\u5716\u7247',
+      grid_all: '\u6240\u6709\u8a9e\u9304',
+      grid_cat: (cat) => `${cat}\u8a9e\u9304`,
       photo_by: (name, pUrl, pexelsUrl) =>
-        `相片由 <a href="${pUrl}" target="_blank" rel="noopener">${name}</a> 提供，來自 <a href="${pexelsUrl}" target="_blank" rel="noopener">Pexels</a>`,
-      nav_about: '關於',
-      nav_privacy: '私隱政策',
-      nav_contact: '聯絡我們',
-      footer_copy: '\u00a9 2026 GoodVibe Quotes. 所有語錄均為諺語、傳統格言或歷史上的公有領域名句。',
+        `\u76f8\u7247\u7531 <a href="${pUrl}" target="_blank" rel="noopener">${name}</a> \u63d0\u4f9b\uff0c\u4f86\u81ea <a href="${pexelsUrl}" target="_blank" rel="noopener">Pexels</a>`,
+      nav_about: '\u95dc\u65bc',
+      nav_privacy: '\u79c1\u96b1\u653f\u7b56',
+      nav_contact: '\u806f\u7d61\u6211\u5011',
+      footer_copy: '\u00a9 2026 GoodVibe Quotes. \u6240\u6709\u8a9e\u9304\u5747\u70ba\u8afa\u8a9e\u3001\u50b3\u7d71\u683c\u8a00\u6216\u6b77\u53f2\u4e0a\u7684\u516c\u6709\u9818\u57df\u540d\u53e5\u3002',
     },
   },
 };
 
 const I18N = (() => {
   const STORAGE_KEY = 'gv_lang';
+  // Read saved lang synchronously — no DOMContentLoaded needed
   let current = localStorage.getItem(STORAGE_KEY) || 'en';
   if (!LANGS[current]) current = 'en';
 
@@ -70,13 +59,6 @@ const I18N = (() => {
 
   function catLabel(cat) {
     return LANGS[current].categories[cat] || cat;
-  }
-
-  function toggle() {
-    current = current === 'en' ? 'zh' : 'en';
-    localStorage.setItem(STORAGE_KEY, current);
-    applyToDOM();
-    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: current } }));
   }
 
   function applyToDOM() {
@@ -97,10 +79,17 @@ const I18N = (() => {
     if (fc) fc.textContent = lang.strings.footer_copy;
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function toggle() {
+    current = current === 'en' ? 'zh' : 'en';
+    localStorage.setItem(STORAGE_KEY, current);
     applyToDOM();
-    document.getElementById('lang-toggle')?.addEventListener('click', toggle);
-  });
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: current } }));
+  }
 
-  return { get, t, catLabel, toggle, applyToDOM };
+  // wireToggle called explicitly by app.js after DOM is ready
+  function wireToggle() {
+    document.getElementById('lang-toggle')?.addEventListener('click', toggle);
+  }
+
+  return { get, t, catLabel, applyToDOM, wireToggle };
 })();

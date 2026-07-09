@@ -148,8 +148,6 @@ function renderGrid() {
     const card = document.createElement('div');
     card.className = 'grid-card';
     card.style.background = fallbackGradient(item.category);
-    // store item ref so langchange can update text without full rebuild
-    card._item = item;
     card.innerHTML = `
       <div class="grid-bg"></div>
       <div class="grid-overlay"></div>
@@ -255,14 +253,19 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   lines.forEach((l, i) => ctx.fillText(l.trim(), x, startY + i * lineHeight));
 }
 
-// On lang change: re-render hero + full grid so all text updates
+// Re-render everything when language changes
 document.addEventListener('langchange', () => {
   if (state.currentQuote) renderHero(state.currentQuote);
   renderGrid();
 });
 
-// Wait for DOM + i18n to be ready before first render
+// Single DOMContentLoaded in app.js — controls full init sequence
 document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Apply saved lang to DOM (button label, nav labels, footer)
+  I18N.applyToDOM();
+  // 2. Wire the toggle button
+  I18N.wireToggle();
+  // 3. Load quotes then render everything in correct language
   await loadQuotes();
   setupNav();
   setupActions();
