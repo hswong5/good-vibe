@@ -52,9 +52,18 @@ async function getImageData(keywords) {
     const json = await res.json();
     if (!json.photos || !json.photos.length) return null;
     const photo = pickRandom(json.photos);
+    // Choose sizes adaptively based on network speed and device pixel ratio
+    const effectiveType = (navigator.connection && navigator.connection.effectiveType) ? navigator.connection.effectiveType : '4g';
+    const dpr = window.devicePixelRatio || 1;
+    const smallCandidate = photo.src.small || photo.src.tiny || photo.src.medium;
+    let regularCandidate = photo.src.large;
+    if (effectiveType.includes('2g') || effectiveType === 'slow-2g') regularCandidate = photo.src.medium;
+    else if (effectiveType.includes('3g')) regularCandidate = photo.src.large;
+    else if (dpr > 1.5) regularCandidate = photo.src.large2x;
+    else regularCandidate = photo.src.large;
     const data = {
-      small: photo.src.medium,
-      regular: photo.src.large2x,
+      small: smallCandidate,
+      regular: regularCandidate,
       photographerName: photo.photographer,
       photographerUrl: photo.photographer_url,
       photoUrl: photo.url,
@@ -176,9 +185,9 @@ async function renderHero(item) {
   document.getElementById('quote-tag').textContent = I18N.catLabel(item.category);
   const quoteTextEl = document.getElementById('quote-text');
   const quoteAuthorEl = document.getElementById('quote-author');
-  // clear text while loading image to avoid showing quote before its image
-  quoteTextEl.textContent = '';
-  quoteAuthorEl.textContent = '';
+  // display text immediately with low-res background for faster perceived load
+  quoteTextEl.textContent = `\u201c${getQuoteText(item)}\u201d`;
+  quoteAuthorEl.textContent = getQuoteAuthor(item);
   const bgEl = document.getElementById('quote-bg');
   // reset layers if present
   const low = bgEl.querySelector('.bg-low');
@@ -188,11 +197,8 @@ async function renderHero(item) {
   bgEl.style.background = fallbackGradient(item.category);
   setAttribution(null);
   const data = await getImageData(item.keywords);
-  // apply blur-up and wait until high-res has been applied
-  await applyBlurUp(bgEl, data);
-  // now reveal text and attribution together with the image
-  quoteTextEl.textContent = `\u201c${getQuoteText(item)}\u201d`;
-  quoteAuthorEl.textContent = getQuoteAuthor(item);
+  // apply blur-up; do not wait — show low-res quickly then let high-res load
+  applyBlurUp(bgEl, data).then(() => { /* high-res applied */ }).catch(() => {});
   setAttribution(data);
   preloadNext();
 }
