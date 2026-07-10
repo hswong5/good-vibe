@@ -9,6 +9,7 @@ const LANGS = {
     categories: { All: 'All', Motivation: 'Motivation', Healing: 'Healing', Hustle: 'Hustle', Calm: 'Calm' },
     strings: {
       btn_copy: 'Copy',
+      btn_prev: 'Prev',
       btn_download: 'Save Image',
       nav_about: 'About',
       nav_privacy: 'Privacy Policy',
@@ -26,6 +27,7 @@ const LANGS = {
     categories: { All: '全部', Motivation: '勵志', Healing: '療癒', Hustle: '奮鬥', Calm: '寧靜' },
     strings: {
       btn_copy: '複製',
+      btn_prev: '返回',
       btn_download: '儲存圖片',
       nav_about: '關於',
       nav_privacy: '隱私政策',
@@ -43,6 +45,7 @@ const LANGS = {
     categories: { All: '全部', Motivation: '励志', Healing: '疗愈', Hustle: '奋斗', Calm: '宁静' },
     strings: {
       btn_copy: '复制',
+      btn_prev: '返回',
       btn_download: '保存图片',
       nav_about: '关于',
       nav_privacy: '隐私政策',
