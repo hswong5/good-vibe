@@ -79,11 +79,12 @@ function applyBlurUp(el, data) {
     const reg = new Image();
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
+      // set high-res then fade it in quickly; hide low-res shortly after
       high.style.backgroundImage = `url('${data.regular}')`;
-      // fade in high-res layer
+      high.style.opacity = '0';
       requestAnimationFrame(() => { high.style.opacity = '1'; });
-      // remove blur from low after high is visible to create smooth transition
-      setTimeout(() => { low.style.filter = 'none'; low.style.opacity = '0'; }, 200);
+      // fade out low shortly after high begins to appear to avoid visible reflow
+      setTimeout(() => { low.style.opacity = '0'; }, 80);
     };
     reg.onerror = () => {
       // fallback: show regular directly on high layer

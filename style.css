@@ -144,8 +144,8 @@ main {
 
 .quote-bg .bg-low {
   filter: blur(8px);
-  transform: scale(1.02);
-  transition: filter 0.45s ease, opacity 0.35s ease;
+  transition: filter 0.35s ease, opacity 0.25s ease;
+  will-change: opacity, filter;
   z-index: 0;
 }
 
@@ -328,7 +328,7 @@ main {
 .grid-card .grid-bg .bg-high {
   position: absolute; inset: 0; background-size: cover; background-position: center;
 }
-.grid-card .grid-bg .bg-low { filter: blur(6px); transform: scale(1.02); transition: filter 0.45s ease, opacity 0.35s ease; z-index:0; }
+.grid-card .grid-bg .bg-low { filter: blur(6px); transition: filter 0.35s ease, opacity 0.25s ease; will-change: opacity, filter; z-index:0; }
 .grid-card .grid-bg .bg-high { opacity: 0; transition: opacity 0.45s ease; z-index:1; }
 
 .grid-card .grid-overlay {
