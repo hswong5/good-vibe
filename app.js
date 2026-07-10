@@ -374,22 +374,7 @@ function setupActions() {
     renderHero(prev);
   });
 
-  // Image size selector
-  const sizeSelect = document.getElementById('img-size');
-  if (sizeSelect) {
-    sizeSelect.value = state.imageSizePref || 'auto';
-    sizeSelect.addEventListener('change', (e) => {
-      const val = e.target.value || 'auto';
-      state.imageSizePref = val;
-      // re-fetch image for current quote using new preference
-      if (state.currentQuote) {
-        const bgEl = document.getElementById('quote-bg');
-        getImageData(state.currentQuote.keywords).then(data => {
-          if (data) applyBlurUp(bgEl, data);
-        }).catch(() => {});
-      }
-    });
-  }
+  
 
   // Set initial hint text and update on language change
   updateTapHintText();

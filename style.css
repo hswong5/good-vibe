@@ -107,12 +107,7 @@ body {
   border-color: var(--color-dark);
 }
 
-.site-settings {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.site-settings select { padding: 8px 10px; border-radius: 8px; border: 1px solid #ddd; }
+/* site-settings removed; language switch stays at right by flex order */
 
 main {
   max-width: 1000px;
