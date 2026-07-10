@@ -55,6 +55,10 @@ async function getImageData(keywords) {
     const json = await res.json();
     if (!json.photos || !json.photos.length) return null;
     const photo = pickRandom(json.photos);
+    // Try to use cached small image dataURL (stored by photo.id)
+    const smallKey = `gv_img_data_${photo.id}`;
+    let smallData = null;
+    try { smallData = localStorage.getItem(smallKey); } catch (e) { smallData = null; }
     // Choose sizes adaptively or according to user's preference
     const effectiveType = (navigator.connection && navigator.connection.effectiveType) ? navigator.connection.effectiveType : '4g';
     const dpr = window.devicePixelRatio || 1;
@@ -71,7 +75,8 @@ async function getImageData(keywords) {
       else regularCandidate = photo.src.large;
     }
     const data = {
-      small: smallCandidate,
+      small: smallData || smallCandidate,
+      _smallUrl: smallCandidate,
       regular: regularCandidate,
       photographerName: photo.photographer,
       photographerUrl: photo.photographer_url,
@@ -79,6 +84,34 @@ async function getImageData(keywords) {
     };
     memCache[cacheKey] = data;
     try { localStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() })); } catch(e) {}
+    // If we don't have the small image dataURL cached, fetch and store it asynchronously (limit attempts)
+    if (!smallData) {
+      (async () => {
+        try {
+          const r = await fetch(smallCandidate);
+          if (!r.ok) return;
+          const blob = await r.blob();
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              localStorage.setItem(smallKey, reader.result);
+              // maintain list of cached keys (limit to 30)
+              const listKey = 'gv_img_data_keys';
+              let keys = [];
+              try { keys = JSON.parse(localStorage.getItem(listKey) || '[]'); } catch(e) { keys = []; }
+              keys = keys.filter(k => k !== smallKey);
+              keys.unshift(smallKey);
+              while (keys.length > 30) {
+                const rem = keys.pop();
+                try { localStorage.removeItem(rem); } catch(e) {}
+              }
+              try { localStorage.setItem(listKey, JSON.stringify(keys)); } catch(e) {}
+            } catch(e) {}
+          };
+          reader.readAsDataURL(blob);
+        } catch(e) {}
+      })();
+    }
     return data;
   } catch(e) { return null; }
 }
@@ -432,4 +465,9 @@ document.addEventListener('langchange', () => {
   newRandomQuote();
   renderGrid();
   scheduleHintAutoDismiss();
+  // Prefetch small images for a few initial quotes to make them show instantly
+  try {
+    const pool = state.quotes.slice(0, 8);
+    pool.forEach(q => getImageData(q.keywords));
+  } catch(e) {}
 })();
