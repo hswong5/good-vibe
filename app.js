@@ -67,27 +67,49 @@ async function getImageData(keywords) {
 
 function applyBlurUp(el, data) {
   if (!data) return;
-  // Preload the small (blurred) image first, then apply it; finally preload the regular image and swap in
-  const smallImg = new Image();
-  smallImg.crossOrigin = 'anonymous';
-  smallImg.onload = () => {
-      // Use blur-to-clear transition (avoid scaling which caused a zoom effect)
-      el.style.transition = 'filter 0.45s ease, background-image 0.3s ease';
-      el.style.backgroundImage = `url('${data.small}')`;
-      el.style.filter = 'blur(8px)';
-    // preload regular
+  // If element contains layered children (.bg-low and .bg-high), use crossfade technique
+  const low = el.querySelector('.bg-low');
+  const high = el.querySelector('.bg-high');
+  if (low && high) {
+    // apply low-res blurred image first
+    low.style.backgroundImage = `url('${data.small}')`;
+    low.style.opacity = '1';
+    low.style.filter = 'blur(8px)';
+    // preload high-res
     const reg = new Image();
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
-        // swap to the higher-res image then fade the blur away
-        el.style.backgroundImage = `url('${data.regular}')`;
-        // small timeout so browser has a chance to apply the new background before removing blur
-        setTimeout(() => { el.style.filter = 'none'; }, 50);
+      high.style.backgroundImage = `url('${data.regular}')`;
+      // fade in high-res layer
+      requestAnimationFrame(() => { high.style.opacity = '1'; });
+      // remove blur from low after high is visible to create smooth transition
+      setTimeout(() => { low.style.filter = 'none'; low.style.opacity = '0'; }, 200);
+    };
+    reg.onerror = () => {
+      // fallback: show regular directly on high layer
+      high.style.backgroundImage = `url('${data.regular}')`;
+      high.style.opacity = '1';
+      low.style.opacity = '0';
+    };
+    reg.src = data.regular;
+    return;
+  }
+  // Legacy fallback: single-element behavior
+  const smallImg = new Image();
+  smallImg.crossOrigin = 'anonymous';
+  smallImg.onload = () => {
+    el.style.transition = 'filter 0.45s ease, background-image 0.3s ease';
+    el.style.backgroundImage = `url('${data.small}')`;
+    el.style.filter = 'blur(8px)';
+    const reg = new Image();
+    reg.crossOrigin = 'anonymous';
+    reg.onload = () => {
+      el.style.backgroundImage = `url('${data.regular}')`;
+      setTimeout(() => { el.style.filter = 'none'; }, 50);
     };
     reg.src = data.regular;
   };
   smallImg.onerror = () => {
-    // if small fails, try regular directly
     const reg = new Image();
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
@@ -189,7 +211,10 @@ function renderGrid() {
     card.className = 'grid-card';
     card.style.background = fallbackGradient(item.category);
     card.innerHTML = `
-      <div class="grid-bg"></div>
+      <div class="grid-bg">
+        <div class="bg-low"></div>
+        <div class="bg-high"></div>
+      </div>
       <div class="grid-overlay"></div>
       <div class="grid-content">
         <div class="grid-quote-text">\u201c${getQuoteText(item)}\u201d</div>
