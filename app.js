@@ -66,7 +66,8 @@ async function getImageData(keywords) {
 }
 
 function applyBlurUp(el, data) {
-  if (!data) return;
+  if (!data) return Promise.resolve();
+  return new Promise((resolve) => {
   // If element contains layered children (.bg-low and .bg-high), use crossfade technique
   const low = el.querySelector('.bg-low');
   const high = el.querySelector('.bg-high');
@@ -84,13 +85,14 @@ function applyBlurUp(el, data) {
       high.style.opacity = '0';
       requestAnimationFrame(() => { high.style.opacity = '1'; });
       // fade out low shortly after high begins to appear to avoid visible reflow
-      setTimeout(() => { low.style.opacity = '0'; }, 80);
+      setTimeout(() => { low.style.opacity = '0'; resolve(); }, 80);
     };
     reg.onerror = () => {
       // fallback: show regular directly on high layer
       high.style.backgroundImage = `url('${data.regular}')`;
       high.style.opacity = '1';
       low.style.opacity = '0';
+      resolve();
     };
     reg.src = data.regular;
     return;
@@ -106,7 +108,7 @@ function applyBlurUp(el, data) {
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
-      setTimeout(() => { el.style.filter = 'none'; }, 50);
+      setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
     };
     reg.src = data.regular;
   };
@@ -115,11 +117,12 @@ function applyBlurUp(el, data) {
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
-      setTimeout(() => { el.style.filter = 'none'; }, 50);
+      setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
     };
     reg.src = data.regular;
   };
   smallImg.src = data.small;
+  });
 }
 
 // Scroll helper that accounts for sticky header height
@@ -169,17 +172,27 @@ function getQuoteAuthor(item) {
 
 async function renderHero(item) {
   state.currentQuote = item;
+  // Show tag immediately, but wait to display text/author until background image is ready
   document.getElementById('quote-tag').textContent = I18N.catLabel(item.category);
-  document.getElementById('quote-text').textContent = `\u201c${getQuoteText(item)}\u201d`;
-  document.getElementById('quote-author').textContent = getQuoteAuthor(item);
+  const quoteTextEl = document.getElementById('quote-text');
+  const quoteAuthorEl = document.getElementById('quote-author');
+  // clear text while loading image to avoid showing quote before its image
+  quoteTextEl.textContent = '';
+  quoteAuthorEl.textContent = '';
   const bgEl = document.getElementById('quote-bg');
-  bgEl.style.backgroundImage = '';
-  bgEl.style.filter = 'none';
-  bgEl.style.transform = 'scale(1)';
+  // reset layers if present
+  const low = bgEl.querySelector('.bg-low');
+  const high = bgEl.querySelector('.bg-high');
+  if (low) { low.style.opacity = '0'; low.style.backgroundImage = ''; low.style.filter = '' }
+  if (high) { high.style.opacity = '0'; high.style.backgroundImage = '' }
   bgEl.style.background = fallbackGradient(item.category);
   setAttribution(null);
   const data = await getImageData(item.keywords);
-  applyBlurUp(bgEl, data);
+  // apply blur-up and wait until high-res has been applied
+  await applyBlurUp(bgEl, data);
+  // now reveal text and attribution together with the image
+  quoteTextEl.textContent = `\u201c${getQuoteText(item)}\u201d`;
+  quoteAuthorEl.textContent = getQuoteAuthor(item);
   setAttribution(data);
   preloadNext();
 }
