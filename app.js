@@ -9,6 +9,8 @@ const state = {
   currentCategory: 'All',
   currentQuote: null,
   hintDismissed: false,
+  imageSizePref: 'auto',
+  lastQuote: null,
 };
 
 const memCache = {};
@@ -34,7 +36,8 @@ function filteredQuotes() {
 
 async function getImageData(keywords) {
   const keyword = pickRandom(keywords);
-  const cacheKey = CACHE_PREFIX + keyword;
+  const sizePref = state.imageSizePref || 'auto';
+  const cacheKey = CACHE_PREFIX + keyword + '::' + sizePref;
   if (memCache[cacheKey]) return memCache[cacheKey];
   try {
     const stored = localStorage.getItem(cacheKey);
@@ -52,15 +55,21 @@ async function getImageData(keywords) {
     const json = await res.json();
     if (!json.photos || !json.photos.length) return null;
     const photo = pickRandom(json.photos);
-    // Choose sizes adaptively based on network speed and device pixel ratio
+    // Choose sizes adaptively or according to user's preference
     const effectiveType = (navigator.connection && navigator.connection.effectiveType) ? navigator.connection.effectiveType : '4g';
     const dpr = window.devicePixelRatio || 1;
     const smallCandidate = photo.src.small || photo.src.tiny || photo.src.medium;
-    let regularCandidate = photo.src.large;
-    if (effectiveType.includes('2g') || effectiveType === 'slow-2g') regularCandidate = photo.src.medium;
-    else if (effectiveType.includes('3g')) regularCandidate = photo.src.large;
-    else if (dpr > 1.5) regularCandidate = photo.src.large2x;
-    else regularCandidate = photo.src.large;
+    // determine regularCandidate based on preference
+    let regularCandidate;
+    if (state.imageSizePref && state.imageSizePref !== 'auto') {
+      const pref = state.imageSizePref;
+      regularCandidate = photo.src[pref] || photo.src.large || photo.src.medium;
+    } else {
+      if (effectiveType.includes('2g') || effectiveType === 'slow-2g') regularCandidate = photo.src.medium;
+      else if (effectiveType.includes('3g')) regularCandidate = photo.src.large;
+      else if (dpr > 1.5) regularCandidate = photo.src.large2x;
+      else regularCandidate = photo.src.large;
+    }
     const data = {
       small: smallCandidate,
       regular: regularCandidate,
@@ -180,6 +189,8 @@ function getQuoteAuthor(item) {
 }
 
 async function renderHero(item) {
+  // remember previous quote for "Prev" functionality
+  if (state.currentQuote && state.currentQuote !== item) state.lastQuote = state.currentQuote;
   state.currentQuote = item;
   // Show tag immediately, but wait to display text/author until background image is ready
   document.getElementById('quote-tag').textContent = I18N.catLabel(item.category);
@@ -318,6 +329,34 @@ function setupActions() {
     e.stopPropagation();
     downloadQuoteImage();
   });
+
+  // Previous quote button
+  const prevBtn = document.getElementById('btn-prev');
+  if (prevBtn) prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!state.lastQuote) return;
+    // go back to last quote and clear lastQuote
+    const prev = state.lastQuote;
+    state.lastQuote = null;
+    renderHero(prev);
+  });
+
+  // Image size selector
+  const sizeSelect = document.getElementById('img-size');
+  if (sizeSelect) {
+    sizeSelect.value = state.imageSizePref || 'auto';
+    sizeSelect.addEventListener('change', (e) => {
+      const val = e.target.value || 'auto';
+      state.imageSizePref = val;
+      // re-fetch image for current quote using new preference
+      if (state.currentQuote) {
+        const bgEl = document.getElementById('quote-bg');
+        getImageData(state.currentQuote.keywords).then(data => {
+          if (data) applyBlurUp(bgEl, data);
+        }).catch(() => {});
+      }
+    });
+  }
 
   // Set initial hint text and update on language change
   updateTapHintText();

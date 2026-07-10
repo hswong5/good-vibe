@@ -225,6 +225,21 @@ main {
   transition: background 0.2s ease;
 }
 
+.quote-actions #btn-prev {
+  background: rgba(255,255,255,0.12);
+}
+
+.quote-actions select {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+
 .quote-actions button:hover { background: rgba(255,255,255,0.3); }
 
 /* ── TAP HINT ── */
