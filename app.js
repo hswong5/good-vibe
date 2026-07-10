@@ -136,14 +136,14 @@ function applyBlurUp(el, data) {
       high.style.opacity = '0';
       requestAnimationFrame(() => { high.style.opacity = '1'; });
       // fade out low shortly after high begins to appear to avoid visible reflow
-      setTimeout(() => { low.style.opacity = '0'; resolve(data.regular); }, 80);
+      setTimeout(() => { low.style.opacity = '0'; resolve(); }, 80);
     };
     reg.onerror = () => {
       // fallback: show regular directly on high layer
       high.style.backgroundImage = `url('${data.regular}')`;
       high.style.opacity = '1';
       low.style.opacity = '0';
-      resolve(data.regular);
+      resolve();
     };
     reg.src = data.regular;
     return;
@@ -159,7 +159,7 @@ function applyBlurUp(el, data) {
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
-      setTimeout(() => { el.style.filter = 'none'; resolve(data.regular); }, 50);
+      setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
     };
     reg.src = data.regular;
   };
@@ -168,7 +168,7 @@ function applyBlurUp(el, data) {
     reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
-      setTimeout(() => { el.style.filter = 'none'; resolve(data.regular); }, 50);
+      setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
     };
     reg.src = data.regular;
   };
@@ -221,65 +221,6 @@ function getQuoteAuthor(item) {
   return item.author || '';
 }
 
-// Measure average brightness of an image URL (0..255)
-function measureImageBrightness(url, sampleSize = 32) {
-  return new Promise((resolve) => {
-    if (!url) return resolve(128);
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      try {
-        const canvas = document.createElement('canvas');
-        canvas.width = sampleSize; canvas.height = sampleSize;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
-        const data = ctx.getImageData(0,0,sampleSize,sampleSize).data;
-        let total = 0, count = 0;
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i], g = data[i+1], b = data[i+2];
-          // luminance
-          const lum = 0.2126*r + 0.7152*g + 0.0722*b;
-          total += lum; count++;
-        }
-        const avg = total / count; resolve(avg);
-      } catch(e) { resolve(128); }
-    };
-    img.onerror = () => resolve(128);
-    img.src = url;
-  });
-}
-
-function applyContrastToHero(imgUrl) {
-  measureImageBrightness(imgUrl).then(avg => {
-    const text = document.querySelector('.quote-content');
-    const overlay = document.querySelector('.quote-overlay');
-    if (!text || !overlay) return;
-    if (avg < 100) {
-      // dark image → light text
-      text.classList.add('light-text'); text.classList.remove('dark-text');
-      overlay.classList.add('overlay-strong'); overlay.classList.remove('overlay-weak');
-    } else {
-      text.classList.add('dark-text'); text.classList.remove('light-text');
-      overlay.classList.add('overlay-weak'); overlay.classList.remove('overlay-strong');
-    }
-  }).catch(() => {});
-}
-
-function applyContrastToCard(card, imgUrl) {
-  measureImageBrightness(imgUrl, 20).then(avg => {
-    const content = card.querySelector('.grid-content');
-    const overlay = card.querySelector('.grid-overlay');
-    if (!content || !overlay) return;
-    if (avg < 100) {
-      content.classList.add('light-text'); content.classList.remove('dark-text');
-      overlay.classList.add('overlay-strong'); overlay.classList.remove('overlay-weak');
-    } else {
-      content.classList.add('dark-text'); content.classList.remove('light-text');
-      overlay.classList.add('overlay-weak'); overlay.classList.remove('overlay-strong');
-    }
-  }).catch(() => {});
-}
-
 async function renderHero(item) {
   // remember previous quote for "Prev" functionality
   if (state.currentQuote && state.currentQuote !== item) state.lastQuote = state.currentQuote;
@@ -301,7 +242,7 @@ async function renderHero(item) {
   setAttribution(null);
   const data = await getImageData(item.keywords);
   // apply blur-up; do not wait — show low-res quickly then let high-res load
-  applyBlurUp(bgEl, data).then((url) => { try { applyContrastToHero(url || data.regular); } catch(e){} }).catch(() => {});
+  applyBlurUp(bgEl, data).then(() => { /* high-res applied */ }).catch(() => {});
   setAttribution(data);
   preloadNext();
 }
@@ -350,12 +291,10 @@ function renderGrid() {
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
-          const data = await getImageData(item.keywords);
-          applyBlurUp(card.querySelector('.grid-bg'), data).then((url) => {
-            try { applyContrastToCard(card, url || data.regular); } catch(e){}
-          });
-          observer.disconnect();
-        }
+        const data = await getImageData(item.keywords);
+        applyBlurUp(card.querySelector('.grid-bg'), data);
+        observer.disconnect();
+      }
     });
     observer.observe(card);
   });
