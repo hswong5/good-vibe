@@ -54,7 +54,21 @@ async function getImageData(keywords) {
     if (!res.ok) throw new Error('Pexels error');
     const json = await res.json();
     if (!json.photos || !json.photos.length) return null;
-    const photo = pickRandom(json.photos);
+    function brightnessFromHex(hex) {
+      if (!hex) return 255;
+      const clean = hex.replace('#', '').trim();
+      if (clean.length !== 6) return 255;
+      const r = parseInt(clean.slice(0, 2), 16);
+      const g = parseInt(clean.slice(2, 4), 16);
+      const b = parseInt(clean.slice(4, 6), 16);
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    }
+    const darkSortedPhotos = json.photos
+      .filter(photo => photo.avg_color)
+      .sort((a, b) => brightnessFromHex(a.avg_color) - brightnessFromHex(b.avg_color));
+    const photo = (darkSortedPhotos.length && brightnessFromHex(darkSortedPhotos[0].avg_color) < 180)
+      ? darkSortedPhotos[0]
+      : pickRandom(json.photos);
     // Try to use cached small image dataURL (stored by photo.id)
     const smallKey = `gv_img_data_${photo.id}`;
     let smallData = null;
