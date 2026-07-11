@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://goodvibedaily.com/sitemap.xml
