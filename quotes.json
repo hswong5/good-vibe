@@ -324,6 +324,175 @@
       ],
       "zh_hans": "伟大的事业不靠蛮力，靠的是坚持。",
       "zh_author_hans": "塞缪尔·约翰逊"
+    },
+    {
+      "quote": "You are stronger than you think.",
+      "author": "Unknown",
+      "zh": "你比自己想像的更堅強。",
+      "zh_author": "未知",
+      "keywords": [
+        "strong hands",
+        "mountain strength",
+        "inner power"
+      ],
+      "zh_hans": "你比自己想象的更坚强。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "The only way to achieve the impossible is to believe it is possible.",
+      "author": "Charles Kingsleigh",
+      "zh": "達成不可能的唯一方法是相信它可能。",
+      "zh_author": "查爾斯·金斯利",
+      "keywords": [
+        "impossible sky",
+        "believe horizon",
+        "possibility light"
+      ],
+      "zh_hans": "达成不可能的唯一方法是相信它可能。",
+      "zh_author_hans": "查尔斯·金斯利"
+    },
+    {
+      "quote": "Success begins with self-discipline.",
+      "author": "Unknown",
+      "zh": "成功始於自律。",
+      "zh_author": "未知",
+      "keywords": [
+        "discipline routine",
+        "early morning workout",
+        "focused mind"
+      ],
+      "zh_hans": "成功始于自律。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Progress, not perfection, is the goal.",
+      "author": "Unknown",
+      "zh": "目標是進步，而不是完美。",
+      "zh_author": "未知",
+      "keywords": [
+        "stepping stones",
+        "forward motion",
+        "small progress"
+      ],
+      "zh_hans": "目标是进步，而不是完美。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Dream big, then work harder.",
+      "author": "Unknown",
+      "zh": "先做大夢，再更加努力。",
+      "zh_author": "未知",
+      "keywords": [
+        "big dream night",
+        "hard worker",
+        "goal board"
+      ],
+      "zh_hans": "先做大梦，再更加努力。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Small steps every day make a big difference.",
+      "author": "Unknown",
+      "zh": "每天的一小步，能帶來巨大改變。",
+      "zh_author": "未知",
+      "keywords": [
+        "daily steps",
+        "journey path",
+        "small progress"
+      ],
+      "zh_hans": "每天的一小步，能带来巨大改变。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Your mindset determines your outcome.",
+      "author": "Unknown",
+      "zh": "心態決定結果。",
+      "zh_author": "未知",
+      "keywords": [
+        "mindset shift",
+        "positive thinking",
+        "results board"
+      ],
+      "zh_hans": "心态决定结果。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Take the first step, even if you cannot see the whole staircase.",
+      "author": "Martin Luther King Jr.",
+      "zh": "即使無法看見整段樓梯，也要邁出第一步。",
+      "zh_author": "馬丁·路德·金恩",
+      "keywords": [
+        "first step stairs",
+        "uncertain path",
+        "bold move"
+      ],
+      "zh_hans": "即使无法看见整段楼梯，也要迈出第一步。",
+      "zh_author_hans": "马丁·路德·金"
+    },
+    {
+      "quote": "When you feel like quitting, remember why you started.",
+      "author": "Unknown",
+      "zh": "當你想放棄時，記得自己為何出發。",
+      "zh_author": "未知",
+      "keywords": [
+        "remember why",
+        "keep going",
+        "motivation focus"
+      ],
+      "zh_hans": "当你想放弃时，记得自己为何出发。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "The future is created by what you do today.",
+      "author": "Robert Kiyosaki",
+      "zh": "未來，由你今天的行動創造。",
+      "zh_author": "羅伯特·清崎",
+      "keywords": [
+        "future planning",
+        "today action",
+        "vision map"
+      ],
+      "zh_hans": "未来，由你今天的行动创造。",
+      "zh_author_hans": "罗伯特·清崎"
+    },
+    {
+      "quote": "Don’t count the days; make the days count.",
+      "author": "Muhammad Ali",
+      "zh": "不要計算日子，讓每一天都有價值。",
+      "zh_author": "穆罕默德·阿里",
+      "keywords": [
+        "count days",
+        "purposeful time",
+        "full day"
+      ],
+      "zh_hans": "不要计算日子，让每一天都有价值。",
+      "zh_author_hans": "穆罕默德·阿里"
+    },
+    {
+      "quote": "Action is the foundational key to all success.",
+      "author": "Pablo Picasso",
+      "zh": "行動是一切成功的基礎。",
+      "zh_author": "巴布羅·畢卡索",
+      "keywords": [
+        "action start",
+        "success key",
+        "moving forward"
+      ],
+      "zh_hans": "行动是一切成功的基础。",
+      "zh_author_hans": "巴布罗·毕加索"
+    },
+    {
+      "quote": "A positive thought can change your entire day.",
+      "author": "Unknown",
+      "zh": "正向的念頭能改變整天。",
+      "zh_author": "未知",
+      "keywords": [
+        "positive thought",
+        "sunny mood",
+        "bright morning"
+      ],
+      "zh_hans": "正向的念头能改变整天。",
+      "zh_author_hans": "未知"
     }
   ],
   "Healing": [
@@ -651,6 +820,162 @@
       ],
       "zh_hans": "时光流逝，心灵缓缓愈合。",
       "zh_author_hans": "传统格言"
+    },
+    {
+      "quote": "Healing is not linear, and that is okay.",
+      "author": "Unknown",
+      "zh": "康復並非直線前進，這沒關係。",
+      "zh_author": "未知",
+      "keywords": [
+        "gentle healing",
+        "broken but whole",
+        "soft sunrise"
+      ],
+      "zh_hans": "康复并非直线前进，这没关系。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Rest is a vital part of progress.",
+      "author": "Unknown",
+      "zh": "休息是進步的重要部分。",
+      "zh_author": "未知",
+      "keywords": [
+        "resting nature",
+        "peaceful sleep",
+        "calm forest"
+      ],
+      "zh_hans": "休息是进步的重要部分。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Let yourself grow quietly, like a tree.",
+      "author": "Unknown",
+      "zh": "讓自己像樹一樣悄悄成長。",
+      "zh_author": "未知",
+      "keywords": [
+        "growing tree",
+        "quiet growth",
+        "steady branch"
+      ],
+      "zh_hans": "让自己像树一样悄悄成长。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Softness is not weakness; it is strength in disguise.",
+      "author": "Unknown",
+      "zh": "柔軟不是軟弱，而是偽裝中的力量。",
+      "zh_author": "未知",
+      "keywords": [
+        "soft petals",
+        "gentle strength",
+        "calm water"
+      ],
+      "zh_hans": "柔软不是软弱，而是伪装中的力量。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Be gentle with yourself. You are doing the best you can.",
+      "author": "Unknown",
+      "zh": "對自己溫柔一點，你已經盡力了。",
+      "zh_author": "未知",
+      "keywords": [
+        "self care",
+        "gentle heart",
+        "mirror reflection"
+      ],
+      "zh_hans": "对自己温柔一点，你已经尽力了。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Find peace in the small pauses.",
+      "author": "Unknown",
+      "zh": "在短暫的停頓中尋得平靜。",
+      "zh_author": "未知",
+      "keywords": [
+        "quiet moment",
+        "pause and breathe",
+        "soft silence"
+      ],
+      "zh_hans": "在短暂的停顿中寻得平静。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Your scars are proof that you survived.",
+      "author": "Unknown",
+      "zh": "你的傷痕證明你活了下來。",
+      "zh_author": "未知",
+      "keywords": [
+        "scars strength",
+        "healing skin",
+        "resilient soul"
+      ],
+      "zh_hans": "你的伤痕证明你活了下来。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "A quiet mind heals faster.",
+      "author": "Unknown",
+      "zh": "平靜的心靈，愈合得更快。",
+      "zh_author": "未知",
+      "keywords": [
+        "still lake",
+        "quiet forest",
+        "calm reflection"
+      ],
+      "zh_hans": "平静的心灵，愈合得更快。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "The heart mends in its own time.",
+      "author": "Unknown",
+      "zh": "心會在自己的時間裡修補。",
+      "zh_author": "未知",
+      "keywords": [
+        "heart healing",
+        "gentle sunrise",
+        "time passage"
+      ],
+      "zh_hans": "心会在自己的时间里修补。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Compassion begins with self-acceptance.",
+      "author": "Unknown",
+      "zh": "慈悲始於接納自己。",
+      "zh_author": "未知",
+      "keywords": [
+        "self love",
+        "acceptance mirror",
+        "gentle hug"
+      ],
+      "zh_hans": "慈悲始于接纳自己。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Every sunrise brings another chance to heal.",
+      "author": "Unknown",
+      "zh": "每個日出，都帶來新的治癒機會。",
+      "zh_author": "未知",
+      "keywords": [
+        "sunrise healing",
+        "new day",
+        "morning calm"
+      ],
+      "zh_hans": "每个日出，都带来新的治愈机会。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Forgiveness is a gift you give yourself.",
+      "author": "Unknown",
+      "zh": "寬恕是你給自己的禮物。",
+      "zh_author": "未知",
+      "keywords": [
+        "forgiveness release",
+        "peaceful heart",
+        "letting go"
+      ],
+      "zh_hans": "宽恕是你给自己的礼物。",
+      "zh_author_hans": "未知"
     }
   ],
   "Hustle": [
@@ -978,6 +1303,162 @@
       ],
       "zh_hans": "没有计划的目标，只是一个愿望。",
       "zh_author_hans": "安托万·德·圣修伯里"
+    },
+    {
+      "quote": "Dreams demand hustle, not just hope.",
+      "author": "Unknown",
+      "zh": "夢想需要努力，而不只是希望。",
+      "zh_author": "未知",
+      "keywords": [
+        "hustle mindset",
+        "working late",
+        "goal pursuit"
+      ],
+      "zh_hans": "梦想需要努力，而不只是希望。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Go the extra mile; it is never crowded.",
+      "author": "Unknown",
+      "zh": "多走一里路，從不會擁擠。",
+      "zh_author": "未知",
+      "keywords": [
+        "extra mile road",
+        "alone runner",
+        "quiet effort"
+      ],
+      "zh_hans": "多走一里路，从不会拥挤。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Focus on what moves you forward.",
+      "author": "Unknown",
+      "zh": "專注於推動你前進的事物。",
+      "zh_author": "未知",
+      "keywords": [
+        "forward motion",
+        "focus path",
+        "moving forward"
+      ],
+      "zh_hans": "专注于推动你前进的事物。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Work hard in silence and let success make the noise.",
+      "author": "Frank Ocean",
+      "zh": "默默努力，讓成功發聲。",
+      "zh_author": "法蘭克·海洋",
+      "keywords": [
+        "silent work",
+        "success noise",
+        "focus hustle"
+      ],
+      "zh_hans": "默默努力，让成功发声。",
+      "zh_author_hans": "弗兰克·奥申"
+    },
+    {
+      "quote": "Discipline is choosing between what you want now and what you want most.",
+      "author": "Abraham Lincoln",
+      "zh": "自律是在當下與未來之間做出選擇。",
+      "zh_author": "亞伯拉罕·林肯",
+      "keywords": [
+        "discipline choice",
+        "long term goal",
+        "focus energy"
+      ],
+      "zh_hans": "自律是在当下与未来之间做出选择。",
+      "zh_author_hans": "亚伯拉罕·林肯"
+    },
+    {
+      "quote": "The grind today builds the freedom of tomorrow.",
+      "author": "Unknown",
+      "zh": "今日的努力，奠定明日的自由。",
+      "zh_author": "未知",
+      "keywords": [
+        "grind work",
+        "future freedom",
+        "build tomorrow"
+      ],
+      "zh_hans": "今日的努力，奠定明日的自由。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Stay hungry for growth.",
+      "author": "Unknown",
+      "zh": "保持對成長的渴望。",
+      "zh_author": "未知",
+      "keywords": [
+        "growth hunger",
+        "learning path",
+        "expand mind"
+      ],
+      "zh_hans": "保持对成长的渴望。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Make your ambition louder than your fear.",
+      "author": "Unknown",
+      "zh": "讓你的野心比恐懼更響亮。",
+      "zh_author": "未知",
+      "keywords": [
+        "ambition fire",
+        "fearless drive",
+        "bold leap"
+      ],
+      "zh_hans": "让你的野心比恐惧更响亮。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Rise before the sun and earn your day.",
+      "author": "Unknown",
+      "zh": "日出之前起身，贏得屬於你的一天。",
+      "zh_author": "未知",
+      "keywords": [
+        "early sunrise",
+        "morning hustle",
+        "daily success"
+      ],
+      "zh_hans": "日出之前起身，赢得属于你的一天。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Persistence is the bridge between goals and accomplishment.",
+      "author": "Jim Rohn",
+      "zh": "堅持是目標與成就之間的橋樑。",
+      "zh_author": "吉姆·羅恩",
+      "keywords": [
+        "persistence bridge",
+        "goal accomplishment",
+        "steady progress"
+      ],
+      "zh_hans": "坚持是目标与成就之间的桥梁。",
+      "zh_author_hans": "吉姆·罗恩"
+    },
+    {
+      "quote": "Challenge yourself; it is where change begins.",
+      "author": "Unknown",
+      "zh": "挑戰自己，變化從那裡開始。",
+      "zh_author": "未知",
+      "keywords": [
+        "challenge climb",
+        "growth change",
+        "breakthrough path"
+      ],
+      "zh_hans": "挑战自己，变化从那里开始。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Momentum is built one consistent action at a time.",
+      "author": "Unknown",
+      "zh": "動力由每一個持續的行動累積而成。",
+      "zh_author": "未知",
+      "keywords": [
+        "momentum motion",
+        "consistent action",
+        "steady streak"
+      ],
+      "zh_hans": "动力由每一个持续的行动累积而成。",
+      "zh_author_hans": "未知"
     }
   ],
   "Calm": [
@@ -1305,6 +1786,175 @@
       ],
       "zh_hans": "家，是心灵找到平静的地方。",
       "zh_author_hans": "传统格言"
+    },
+    {
+      "quote": "Peace begins with a single deep breath.",
+      "author": "Unknown",
+      "zh": "平靜始於一口深呼吸。",
+      "zh_author": "未知",
+      "keywords": [
+        "deep breath",
+        "calm breath",
+        "quiet focus"
+      ],
+      "zh_hans": "平静始于一口深呼吸。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Stillness is the beginning of clarity.",
+      "author": "Unknown",
+      "zh": "靜止是清晰的開始。",
+      "zh_author": "未知",
+      "keywords": [
+        "still water",
+        "calm lake",
+        "mind clarity"
+      ],
+      "zh_hans": "静止是清晰的开始。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Let go of what no longer serves you.",
+      "author": "Unknown",
+      "zh": "放下不再為你服務的東西。",
+      "zh_author": "未知",
+      "keywords": [
+        "letting go",
+        "release burden",
+        "open hands"
+      ],
+      "zh_hans": "放下不再为你服务的东西。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "A calm mind sees clearly.",
+      "author": "Unknown",
+      "zh": "平靜的心，能看得更清楚。",
+      "zh_author": "未知",
+      "keywords": [
+        "clear mind",
+        "calm ocean",
+        "vision clarity"
+      ],
+      "zh_hans": "平静的心，能看得更清楚。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Be where your feet are.",
+      "author": "The Buddha",
+      "zh": "活在當下，腳踏實地。",
+      "zh_author": "佛陀",
+      "keywords": [
+        "grounded feet",
+        "present moment",
+        "mindful walk"
+      ],
+      "zh_hans": "活在当下，脚踏实地。",
+      "zh_author_hans": "佛陀"
+    },
+    {
+      "quote": "Silence can speak louder than words.",
+      "author": "Unknown",
+      "zh": "沉默有時比言語更響亮。",
+      "zh_author": "未知",
+      "keywords": [
+        "silent forest",
+        "quiet voice",
+        "still evening"
+      ],
+      "zh_hans": "沉默有时比言语更响亮。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Simplicity brings serenity.",
+      "author": "Unknown",
+      "zh": "簡單帶來寧靜。",
+      "zh_author": "未知",
+      "keywords": [
+        "simple life",
+        "minimal room",
+        "calm space"
+      ],
+      "zh_hans": "简单带来宁静。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Slow down and savor the present.",
+      "author": "Unknown",
+      "zh": "放慢腳步，品味當下。",
+      "zh_author": "未知",
+      "keywords": [
+        "slow pace",
+        "present moment",
+        "gentle walk"
+      ],
+      "zh_hans": "放慢脚步，品味当下。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "A quiet heart is a powerful heart.",
+      "author": "Unknown",
+      "zh": "寧靜的心，是強大的心。",
+      "zh_author": "未知",
+      "keywords": [
+        "quiet heart",
+        "peaceful soul",
+        "still strength"
+      ],
+      "zh_hans": "宁静的心，是强大的心。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "The mind is like water; stillness brings reflection.",
+      "author": "Unknown",
+      "zh": "心靈如水，靜止讓你反思。",
+      "zh_author": "未知",
+      "keywords": [
+        "still water",
+        "reflection",
+        "calm mind"
+      ],
+      "zh_hans": "心灵如水，静止让你反思。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Find balance in the gentle rhythm of your breath.",
+      "author": "Unknown",
+      "zh": "在呼吸的柔和節奏中找到平衡。",
+      "zh_author": "未知",
+      "keywords": [
+        "deep breath",
+        "breathing rhythm",
+        "balanced calm"
+      ],
+      "zh_hans": "在呼吸的柔和节奏中找到平衡。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Rest is an act of courage.",
+      "author": "Unknown",
+      "zh": "休息是一種勇氣。",
+      "zh_author": "未知",
+      "keywords": [
+        "resting place",
+        "courage peace",
+        "slow down"
+      ],
+      "zh_hans": "休息是一种勇气。",
+      "zh_author_hans": "未知"
+    },
+    {
+      "quote": "Sometimes the bravest thing is to do nothing.",
+      "author": "Unknown",
+      "zh": "有時最勇敢的事，就是什麼都不做。",
+      "zh_author": "未知",
+      "keywords": [
+        "doing nothing",
+        "still moment",
+        "brave pause"
+      ],
+      "zh_hans": "有时最勇敢的事，就是什麼都不做。",
+      "zh_author_hans": "未知"
     }
   ]
 }
