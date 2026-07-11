@@ -450,9 +450,26 @@ document.addEventListener('langchange', () => {
   newRandomQuote();
   renderGrid();
   scheduleHintAutoDismiss();
-  // Prefetch small images for a few initial quotes to make them show instantly
+function shouldPrefetchImages() {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (!connection) return true;
+  if (connection.saveData) return false;
+  const type = (connection.effectiveType || '').toLowerCase();
+  return type === '4g';
+}
+
+(async function init() {
+  await loadQuotes();
+  setupNav();
+  setupActions();
+  newRandomQuote();
+  renderGrid();
+  scheduleHintAutoDismiss();
+  // Prefetch small images for a few initial quotes only on faster connections
   try {
-    const pool = state.quotes.slice(0, 8);
-    pool.forEach(q => getImageData(q.keywords));
+    if (shouldPrefetchImages()) {
+      const pool = state.quotes.slice(0, 8);
+      pool.forEach(q => getImageData(q.keywords));
+    }
   } catch(e) {}
 })();
