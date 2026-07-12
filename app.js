@@ -457,13 +457,6 @@ document.addEventListener('langchange', () => {
   renderGrid();
 });
 
-(async function init() {
-  await loadQuotes();
-  setupNav();
-  setupActions();
-  newRandomQuote();
-  renderGrid();
-  scheduleHintAutoDismiss();
 function shouldPrefetchImages() {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   if (!connection) return true;
