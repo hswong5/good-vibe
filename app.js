@@ -11,6 +11,8 @@ const state = {
   hintDismissed: false,
   imageSizePref: 'auto',
   lastQuote: null,
+  account: null,
+  favoritesVisible: false,
 };
 
 const memCache = {};
@@ -274,6 +276,29 @@ function newRandomQuote() {
   renderHero(pickRandom(pool));
 }
 
+function renderFavorites() {
+  const container = document.getElementById('favorites-view');
+  if (!container) return;
+  if (!state.favoritesVisible) {
+    container.hidden = true;
+    container.innerHTML = '';
+    return;
+  }
+  const favorites = state.account ? AccountStore.getFavorites(state.account) : [];
+  container.hidden = false;
+  container.innerHTML = '';
+  if (!favorites.length) {
+    container.innerHTML = '<div class="favorite-item">No favorites yet. Tap the heart on a quote to save it.</div>';
+    return;
+  }
+  favorites.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'favorite-item';
+    el.innerHTML = `<strong>${item.quote}</strong><div>${item.author || ''}</div>`;
+    container.appendChild(el);
+  });
+}
+
 function renderGrid() {
   const lang = I18N.get();
   const catLabel = I18N.catLabel(state.currentCategory);
@@ -288,6 +313,7 @@ function renderGrid() {
     const card = document.createElement('div');
     card.className = 'grid-card';
     card.style.background = fallbackGradient(item.category);
+    const isFavorite = state.account ? AccountStore.getFavorites(state.account).some(f => f.id === (item.id || `${item.category}-${item.quote}`)) : false;
     card.innerHTML = `
       <div class="grid-bg">
         <div class="bg-low"></div>
@@ -297,8 +323,15 @@ function renderGrid() {
       <div class="grid-content">
         <div class="grid-quote-text">\u201c${getQuoteText(item)}\u201d</div>
         <div class="grid-tag">${I18N.catLabel(item.category)}</div>
+        <button class="favorite-toggle" data-quote-id="${item.id || `${item.category}-${item.quote}`}" type="button" aria-label="Save this quote">${isFavorite ? '★' : '☆'}</button>
       </div>`;
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (event) => {
+      const favoriteButton = event.target.closest('.favorite-toggle');
+      if (favoriteButton) {
+        event.stopPropagation();
+        toggleFavorite(item);
+        return;
+      }
       renderHero(item);
       scrollToElementWithOffset(document.getElementById('quote-card'));
     });
@@ -350,6 +383,63 @@ function updateTapHintText() {
   else el.textContent = 'Tap anywhere for next quote';
 }
 
+function toggleFavorite(item) {
+  if (!state.account) {
+    state.account = AccountStore.ensureGuestAccount();
+  }
+  state.account = AccountStore.toggleFavorite(state.account, item);
+  renderFavorites();
+  renderGrid();
+}
+
+function setupAccountUI() {
+  const toggle = document.getElementById('account-toggle');
+  const card = document.getElementById('account-card');
+  const saveBtn = document.getElementById('account-save');
+  const nameInput = document.getElementById('account-name');
+  const emailInput = document.getElementById('account-email');
+  const status = document.getElementById('account-status');
+  const favoritesBtn = document.getElementById('favorites-link');
+  const syncUrlInput = document.getElementById('sync-url');
+  const syncKeyInput = document.getElementById('sync-key');
+
+  if (!toggle || !card || !saveBtn || !nameInput || !emailInput || !status || !favoritesBtn || !syncUrlInput || !syncKeyInput) return;
+
+  const savedRemote = AccountStore.getRemoteConfig();
+  if (savedRemote) {
+    syncUrlInput.value = savedRemote.url || '';
+    syncKeyInput.value = savedRemote.anonKey || '';
+  }
+
+  const account = AccountStore.ensureGuestAccount();
+  state.account = account;
+  nameInput.value = account.name || '';
+  emailInput.value = account.email || '';
+  status.textContent = account.email ? `Signed in as ${account.email}` : 'Local-only demo account';
+  toggle.textContent = account.name || 'Sign in';
+
+  toggle.addEventListener('click', () => {
+    card.hidden = !card.hidden;
+  });
+
+  saveBtn.addEventListener('click', () => {
+    AccountStore.configureRemote({ url: syncUrlInput.value, anonKey: syncKeyInput.value });
+    const nextAccount = AccountStore.saveAccount({ name: nameInput.value, email: emailInput.value });
+    state.account = nextAccount;
+    toggle.textContent = nextAccount.name || 'Sign in';
+    status.textContent = `Signed in as ${nextAccount.email}`;
+    card.hidden = true;
+    renderFavorites();
+    renderGrid();
+  });
+
+  favoritesBtn.addEventListener('click', () => {
+    state.favoritesVisible = !state.favoritesVisible;
+    favoritesBtn.textContent = state.favoritesVisible ? 'Hide Favorites' : 'My Favorites';
+    renderFavorites();
+  });
+}
+
 function setupActions() {
   // Tap anywhere on the card → new quote (but not when clicking action buttons or photo credit)
   document.getElementById('quote-card').addEventListener('click', (e) => {
@@ -393,6 +483,7 @@ function setupActions() {
   // Set initial hint text and update on language change
   updateTapHintText();
   document.addEventListener('langchange', updateTapHintText);
+  setupAccountUI();
 }
 
 async function downloadQuoteImage() {
@@ -470,6 +561,7 @@ function shouldPrefetchImages() {
   setupNav();
   setupActions();
   newRandomQuote();
+  renderFavorites();
   renderGrid();
   scheduleHintAutoDismiss();
   // Prefetch small images for a few initial quotes only on faster connections
