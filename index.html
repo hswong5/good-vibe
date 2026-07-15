@@ -51,35 +51,10 @@
     <button class="nav-btn" data-category="Hustle" data-i18n-cat="Hustle">Hustle</button>
     <button class="nav-btn" data-category="Calm" data-i18n-cat="Calm">Calm</button>
   </nav>
-  <div class="header-actions">
-    <div class="account-panel" id="account-panel">
-      <button class="account-btn" id="account-toggle" type="button">Sign in</button>
-      <div class="account-card" id="account-card" hidden>
-        <label class="account-field">
-          <span>Name</span>
-          <input id="account-name" type="text" placeholder="Your name">
-        </label>
-        <label class="account-field">
-          <span>Email</span>
-          <input id="account-email" type="email" placeholder="you@example.com">
-        </label>
-        <label class="account-field">
-          <span>Supabase URL</span>
-          <input id="sync-url" type="text" placeholder="https://xyz.supabase.co">
-        </label>
-        <label class="account-field">
-          <span>Supabase anon key</span>
-          <input id="sync-key" type="password" placeholder="your-anon-key">
-        </label>
-        <button class="account-save" id="account-save" type="button">Save account</button>
-        <p class="account-status" id="account-status">Local-only demo account</p>
-      </div>
-    </div>
-    <div class="lang-switch" id="lang-switch">
-      <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-      <button class="lang-btn" data-lang="zh" aria-pressed="false">繁體</button>
-      <button class="lang-btn" data-lang="zh-Hans" aria-pressed="false">简体</button>
-    </div>
+  <div class="lang-switch" id="lang-switch">
+    <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+    <button class="lang-btn" data-lang="zh" aria-pressed="false">繁體</button>
+    <button class="lang-btn" data-lang="zh-Hans" aria-pressed="false">简体</button>
   </div>
 </header>
 
@@ -113,11 +88,7 @@
   </div>
 
   <section class="grid-section">
-    <div class="section-heading">
-      <h2 id="grid-title">All Quotes</h2>
-      <button class="favorites-link" id="favorites-link" type="button">My Favorites</button>
-    </div>
-    <div id="favorites-view" class="favorites-view" hidden></div>
+    <h2 id="grid-title">All Quotes</h2>
     <div id="quote-grid" class="quote-grid"></div>
   </section>
 
@@ -133,7 +104,6 @@
 
 <canvas id="export-canvas" style="display:none;"></canvas>
 <script defer src="i18n.js"></script>
-<script defer src="account-store.js"></script>
 <script defer src="app.js"></script>
 </body>
 </html>

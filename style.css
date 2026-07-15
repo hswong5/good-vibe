@@ -79,92 +79,6 @@ body {
 .lang-toggle:hover { background: #f0eee9; }
 
 /* Language switch (three buttons) */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.account-panel {
-  position: relative;
-}
-
-.account-btn,
-.account-save,
-.favorites-link {
-  border: 1px solid #ddd;
-  background: #fff;
-  color: var(--color-dark);
-  border-radius: 999px;
-  padding: 8px 14px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.account-card {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 8px);
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 14px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-  padding: 14px;
-  width: 240px;
-  z-index: 120;
-}
-
-.account-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 10px;
-  font-size: 0.8rem;
-  color: #555;
-}
-
-.account-field input {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.9rem;
-}
-
-.account-status {
-  margin-top: 8px;
-  font-size: 0.75rem;
-  color: #777;
-}
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.favorites-view {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.favorite-item {
-  background: #fff;
-  border: 1px solid #ece9e2;
-  border-radius: 12px;
-  padding: 12px 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.favorite-item strong {
-  display: block;
-  margin-bottom: 4px;
-}
-
 .lang-switch {
   display: flex;
   gap: 8px;
@@ -445,20 +359,6 @@ main {
   z-index: 2;
   color: #fff;
   padding: 18px;
-}
-
-.favorite-toggle {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: none;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1rem;
 }
 
 .grid-card .grid-quote-text {
