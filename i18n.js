@@ -22,7 +22,7 @@ const LANGS = {
   zh: {
     // keep `zh` as the Traditional Chinese (繁體) variant used in the repo
     code: 'zh',
-    label: '繁體',
+    label: '繁',
     toggle: '簡',
     categories: { All: '全部', Motivation: '勵志', Healing: '療癒', Hustle: '奮鬥', Calm: '寧靜' },
     strings: {
@@ -40,7 +40,7 @@ const LANGS = {
   'zh-Hans': {
     // Simplified Chinese variant. Content will fall back to Traditional strings
     code: 'zh-Hans',
-    label: '简体',
+    label: '簡',
     toggle: 'EN',
     categories: { All: '全部', Motivation: '励志', Healing: '疗愈', Hustle: '奋斗', Calm: '宁静' },
     strings: {
@@ -117,6 +117,11 @@ const I18N = (() => {
         setLang(code);
       });
     });
+    // Ensure compact single-character labels are visible on initial render
+    const zhBtn = document.querySelector('.lang-btn[data-lang="zh"]');
+    if (zhBtn) zhBtn.textContent = '繁';
+    const hansBtn = document.querySelector('.lang-btn[data-lang="zh-Hans"]');
+    if (hansBtn) hansBtn.textContent = '簡';
   });
 
   return { get, t, catLabel, setLang };
