@@ -482,69 +482,44 @@ function shouldPrefetchImages() {
 })();
 
 // ── THEME TOGGLE ──
-(function() {
-  const btn = document.getElementById('theme-toggle');
-  const themes = ['dark', 'light', 'sys'];
-  const icons = { dark: '🌙', light: '☀️', sys: '💻' };
-  let current = localStorage.getItem('gv_theme') || 'sys';
-  function applyTheme(t) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
-    document.body.classList.toggle('theme-light', !isDark);
-    btn.textContent = icons[t];
-    btn.title = 'Theme: ' + t;
-  }
-  applyTheme(current);
-  btn.addEventListener('click', () => {
-    current = themes[(themes.indexOf(current) + 1) % themes.length];
-    localStorage.setItem('gv_theme', current);
-    applyTheme(current);
-  });
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (current === 'sys') applyTheme('sys');
-  });
-})();
+function setupThemeToggle() {
+  const select = document.getElementById('theme-toggle');
+  if (!select) return;
 
-// ── THEME TOGGLE FIX ──
-document.addEventListener('DOMContentLoaded', function() {
-  const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
   const themes = ['dark', 'light', 'sys'];
-  const icons = { dark: '\uD83C\uDF19', light: '\u2600\uFE0F', sys: '\uD83D\uDCBB' };
-  let current = localStorage.getItem('gv_theme') || 'sys';
-  function applyTheme(t) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
-    document.body.classList.toggle('theme-light', !isDark);
-    btn.textContent = icons[t];
-    btn.title = 'Theme: ' + t;
-  }
-  applyTheme(current);
-  btn.addEventListener('click', function() {
-    current = themes[(themes.indexOf(current) + 1) % themes.length];
-    localStorage.setItem('gv_theme', current);
-    applyTheme(current);
-  });
-});
+  const storageKey = 'gv_theme';
+  const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-// ── THEME SELECT (final) ──
-document.addEventListener('DOMContentLoaded', function() {
-  const sel = document.getElementById('theme-toggle');
-  if (!sel) return;
-  let current = localStorage.getItem('gv_theme') || 'sys';
-  sel.value = current;
-  function applyTheme(t) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
-    document.body.classList.toggle('theme-light', !isDark);
+  function applyTheme(theme) {
+    const effectiveTheme = theme === 'sys' ? getSystemTheme() : theme;
+    document.body.classList.toggle('theme-light', effectiveTheme === 'light');
+    select.value = theme;
   }
+
+  let current = localStorage.getItem(storageKey) || 'sys';
+  if (!themes.includes(current)) current = 'sys';
+
   applyTheme(current);
-  sel.addEventListener('change', function() {
-    current = sel.value;
-    localStorage.setItem('gv_theme', current);
+
+  select.addEventListener('change', (event) => {
+    current = event.target.value;
+    localStorage.setItem(storageKey, current);
     applyTheme(current);
   });
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const handleSystemChange = () => {
     if (current === 'sys') applyTheme('sys');
-  });
-});
+  };
+  if (mediaQuery.addEventListener) {
+    mediaQuery.addEventListener('change', handleSystemChange);
+  } else if (mediaQuery.addListener) {
+    mediaQuery.addListener(handleSystemChange);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupThemeToggle);
+} else {
+  setupThemeToggle();
+}
