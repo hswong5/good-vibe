@@ -11,6 +11,7 @@ const state = {
   hintDismissed: false,
   imageSizePref: 'auto',
   lastQuote: null,
+  gridRenderedCount: 0,
 };
 
 const memCache = {};
@@ -280,43 +281,77 @@ function newRandomQuote() {
   renderHero(pickRandom(pool));
 }
 
-function renderGrid() {
-  const lang = I18N.get();
+function getGridBatchSize() {
+  return window.innerWidth <= 640 ? 24 : 60;
+}
+
+function createGridCard(item) {
+  const card = document.createElement('div');
+  card.className = 'grid-card';
+  card.style.background = fallbackGradient(item.category);
+  card.innerHTML = `
+    <div class="grid-bg">
+      <div class="bg-low"></div>
+      <div class="bg-high"></div>
+    </div>
+    <div class="grid-overlay"></div>
+    <div class="grid-content">
+      <div class="grid-quote-text">\u201c${getQuoteText(item)}\u201d</div>
+      <div class="grid-tag">${I18N.catLabel(item.category)}</div>
+    </div>`;
+
+  card.addEventListener('click', () => {
+    renderHero(item);
+    scrollToElementWithOffset(document.getElementById('quote-card'), 12, 'smart');
+  });
+
+  const observer = new IntersectionObserver(async (entries) => {
+    if (entries[0].isIntersecting) {
+      const data = await getImageData(item.keywords);
+      applyBlurUp(card.querySelector('.grid-bg'), data);
+      observer.disconnect();
+    }
+  });
+  observer.observe(card);
+  return card;
+}
+
+function updateLoadMoreButton(totalCount) {
+  const loadMoreBtn = document.getElementById('btn-load-more');
+  if (!loadMoreBtn) return;
+  const hasMore = state.gridRenderedCount < totalCount;
+  loadMoreBtn.hidden = !hasMore;
+  loadMoreBtn.setAttribute('aria-hidden', hasMore ? 'false' : 'true');
+}
+
+function renderGrid(reset = true) {
   const catLabel = I18N.catLabel(state.currentCategory);
   const titleEl = document.getElementById('grid-title');
   titleEl.textContent = state.currentCategory === 'All'
     ? I18N.t('grid_all')
     : I18N.t('grid_cat', catLabel);
 
+  const all = filteredQuotes();
   const grid = document.getElementById('quote-grid');
-  grid.innerHTML = '';
-  filteredQuotes().forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'grid-card';
-    card.style.background = fallbackGradient(item.category);
-    card.innerHTML = `
-      <div class="grid-bg">
-        <div class="bg-low"></div>
-        <div class="bg-high"></div>
-      </div>
-      <div class="grid-overlay"></div>
-      <div class="grid-content">
-        <div class="grid-quote-text">\u201c${getQuoteText(item)}\u201d</div>
-        <div class="grid-tag">${I18N.catLabel(item.category)}</div>
-      </div>`;
-    card.addEventListener('click', () => {
-      renderHero(item);
-      scrollToElementWithOffset(document.getElementById('quote-card'), 12, 'smart');
-    });
-    grid.appendChild(card);
-    const observer = new IntersectionObserver(async (entries) => {
-      if (entries[0].isIntersecting) {
-        const data = await getImageData(item.keywords);
-        applyBlurUp(card.querySelector('.grid-bg'), data);
-        observer.disconnect();
-      }
-    });
-    observer.observe(card);
+  if (reset) {
+    grid.innerHTML = '';
+    state.gridRenderedCount = 0;
+  }
+
+  const start = state.gridRenderedCount;
+  const end = Math.min(start + getGridBatchSize(), all.length);
+  for (let i = start; i < end; i++) {
+    grid.appendChild(createGridCard(all[i]));
+  }
+  state.gridRenderedCount = end;
+  updateLoadMoreButton(all.length);
+}
+
+function setupLoadMore() {
+  const loadMoreBtn = document.getElementById('btn-load-more');
+  if (!loadMoreBtn) return;
+  loadMoreBtn.addEventListener('click', () => {
+    renderGrid(false);
   });
 }
 
@@ -460,7 +495,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 // Re-render everything when language changes
 document.addEventListener('langchange', () => {
   if (state.currentQuote) renderHero(state.currentQuote);
-  renderGrid();
+  renderGrid(true);
 });
 
 function shouldPrefetchImages() {
@@ -474,9 +509,10 @@ function shouldPrefetchImages() {
 (async function init() {
   await loadQuotes();
   setupNav();
+  setupLoadMore();
   setupActions();
   newRandomQuote();
-  renderGrid();
+  renderGrid(true);
   scheduleHintAutoDismiss();
   // Prefetch small images for a few initial quotes only on faster connections
   try {
