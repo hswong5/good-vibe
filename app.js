@@ -504,3 +504,25 @@ function shouldPrefetchImages() {
     if (current === 'sys') applyTheme('sys');
   });
 })();
+
+// ── THEME TOGGLE FIX ──
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const themes = ['dark', 'light', 'sys'];
+  const icons = { dark: '\uD83C\uDF19', light: '\u2600\uFE0F', sys: '\uD83D\uDCBB' };
+  let current = localStorage.getItem('gv_theme') || 'sys';
+  function applyTheme(t) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
+    document.body.classList.toggle('theme-light', !isDark);
+    btn.textContent = icons[t];
+    btn.title = 'Theme: ' + t;
+  }
+  applyTheme(current);
+  btn.addEventListener('click', function() {
+    current = themes[(themes.indexOf(current) + 1) % themes.length];
+    localStorage.setItem('gv_theme', current);
+    applyTheme(current);
+  });
+});
