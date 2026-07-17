@@ -404,3 +404,30 @@ body.theme-light .ad-slot { background: #efece6; border-color: #ccc; }
 body.theme-light .site-footer { color: #777; }
 body.theme-light .site-footer a { color: #555; }
 body.theme-light .theme-toggle { border-color: #ddd; }
+
+/* ── THEME SELECT (override previous) ── */
+.theme-toggle {
+  border: 1px solid var(--border-color, #2e2e36);
+  background: var(--bg-header, #1a1a1f);
+  color: var(--text-primary, #e8e6e3);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.theme-toggle:hover { border-color: #555; }
+body.theme-light .theme-toggle {
+  background-color: #fff;
+  color: #1a1a1a;
+  border-color: #ddd;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}

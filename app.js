@@ -526,3 +526,25 @@ document.addEventListener('DOMContentLoaded', function() {
     applyTheme(current);
   });
 });
+
+// ── THEME SELECT (final) ──
+document.addEventListener('DOMContentLoaded', function() {
+  const sel = document.getElementById('theme-toggle');
+  if (!sel) return;
+  let current = localStorage.getItem('gv_theme') || 'sys';
+  sel.value = current;
+  function applyTheme(t) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
+    document.body.classList.toggle('theme-light', !isDark);
+  }
+  applyTheme(current);
+  sel.addEventListener('change', function() {
+    current = sel.value;
+    localStorage.setItem('gv_theme', current);
+    applyTheme(current);
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+    if (current === 'sys') applyTheme('sys');
+  });
+});
