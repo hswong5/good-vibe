@@ -444,24 +444,35 @@ main {
   }
   .logo {
     grid-column: 1;
+    grid-row: 1;
     font-size: 1.65rem;
   }
   .header-actions {
     grid-column: 2;
+    grid-row: 1;
     margin-left: 0;
     min-width: 102px;
     gap: 6px;
   }
   .category-nav {
     grid-column: 1 / -1;
-    justify-content: center;
+    grid-row: 2;
+    justify-content: flex-start;
     gap: 6px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .category-nav::-webkit-scrollbar {
+    display: none;
   }
   .nav-btn {
     padding: 6px 10px;
     font-size: 0.78rem;
     white-space: nowrap;
+    flex: 0 0 auto;
   }
   .lang-switch,
   .theme-switch {
