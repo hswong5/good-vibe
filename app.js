@@ -483,8 +483,8 @@ function shouldPrefetchImages() {
 
 // ── THEME TOGGLE ──
 function setupThemeToggle() {
-  const select = document.getElementById('theme-toggle');
-  if (!select) return;
+  const buttons = Array.from(document.querySelectorAll('.theme-option'));
+  if (!buttons.length) return;
 
   const themes = ['dark', 'light', 'sys'];
   const storageKey = 'gv_theme';
@@ -493,7 +493,11 @@ function setupThemeToggle() {
   function applyTheme(theme) {
     const effectiveTheme = theme === 'sys' ? getSystemTheme() : theme;
     document.body.classList.toggle('theme-light', effectiveTheme === 'light');
-    select.value = theme;
+    buttons.forEach((button) => {
+      const isActive = button.getAttribute('data-theme') === theme;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
   }
 
   let current = localStorage.getItem(storageKey) || 'sys';
@@ -501,10 +505,12 @@ function setupThemeToggle() {
 
   applyTheme(current);
 
-  select.addEventListener('change', (event) => {
-    current = event.target.value;
-    localStorage.setItem(storageKey, current);
-    applyTheme(current);
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      current = button.getAttribute('data-theme');
+      localStorage.setItem(storageKey, current);
+      applyTheme(current);
+    });
   });
 
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');

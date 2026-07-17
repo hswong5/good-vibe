@@ -51,12 +51,18 @@
     <button class="nav-btn" data-category="Hustle" data-i18n-cat="Hustle">Hustle</button>
     <button class="nav-btn" data-category="Calm" data-i18n-cat="Calm">Calm</button>
   </nav>
-  <div class="lang-switch" id="lang-switch">
-    <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-    <button class="lang-btn" data-lang="zh" aria-pressed="false">繁體</button>
-    <button class="lang-btn" data-lang="zh-Hans" aria-pressed="false">简体</button>
+  <div class="header-actions">
+    <div class="lang-switch" id="lang-switch">
+      <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      <button class="lang-btn" data-lang="zh" aria-pressed="false">繁</button>
+      <button class="lang-btn" data-lang="zh-Hans" aria-pressed="false">簡</button>
+    </div>
+    <div class="theme-switch" aria-label="Theme options">
+      <button class="theme-option active" data-theme="dark" type="button" aria-label="Dark theme" title="Dark theme">🌙</button>
+      <button class="theme-option" data-theme="light" type="button" aria-label="Light theme" title="Light theme">☀️</button>
+      <button class="theme-option" data-theme="sys" type="button" aria-label="System theme" title="System theme">💻</button>
+    </div>
   </div>
-  <select id="theme-toggle" class="theme-toggle" aria-label="Theme"><option value="dark">Dark</option><option value="light">Light</option><option value="sys">System</option></select>
 </header>
 
 <main>
