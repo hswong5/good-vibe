@@ -434,9 +434,54 @@ main {
 @media (max-width: 640px) {
   .quote-text { font-size: 1.4rem; }
   .quote-card { height: 360px; }
-  .site-header { padding: 16px 20px; }
-  .lang-toggle { order: -1; }
-  .lang-switch .lang-btn { padding: 10px 14px; font-size: 0.95rem; min-width: 44px; }
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    row-gap: 10px;
+    column-gap: 10px;
+    padding: 14px 16px;
+  }
+  .logo {
+    grid-column: 1;
+    font-size: 1.65rem;
+  }
+  .header-actions {
+    grid-column: 2;
+    margin-left: 0;
+    min-width: 102px;
+    gap: 6px;
+  }
+  .category-nav {
+    grid-column: 1 / -1;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+  .lang-switch,
+  .theme-switch {
+    grid-template-columns: repeat(3, 30px);
+    width: 102px !important;
+    gap: 6px;
+  }
+  .lang-switch .lang-btn,
+  .theme-switch .theme-option {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+  .theme-switch .theme-option {
+    font-size: 0.84rem;
+  }
 }
 
 /* ── THEME TOGGLE ── */
