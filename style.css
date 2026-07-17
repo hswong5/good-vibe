@@ -547,3 +547,26 @@ body.theme-light .theme-option.active {
   background: var(--color-dark);
   color: #fff;
 }
+
+/* Final mobile override to keep language/theme columns perfectly aligned */
+@media (max-width: 640px) {
+  .lang-switch,
+  .theme-switch {
+    display: grid !important;
+    grid-template-columns: repeat(3, 30px) !important;
+    width: 102px !important;
+    gap: 6px !important;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .lang-switch .lang-btn,
+  .theme-switch .theme-option {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    border-radius: 50%;
+    padding: 0;
+    line-height: 1;
+  }
+}
