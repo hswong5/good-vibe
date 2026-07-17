@@ -394,3 +394,13 @@ main {
   .lang-toggle { order: -1; }
   .lang-switch .lang-btn { padding: 10px 14px; font-size: 0.95rem; min-width: 44px; }
 }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle { border: 1px solid var(--border-color, #2e2e36); background: transparent; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1rem; transition: background 0.18s ease; flex-shrink: 0; }
+.theme-toggle:hover { background: #2a2a32; }
+body.theme-light { --bg-page: #f7f5f2; --bg-header: #ffffff; --bg-card: #ffffff; --border-color: #eee; --text-primary: #1a1a1a; --text-muted: #777; }
+body.theme-light .nav-btn:hover, body.theme-light .lang-switch .lang-btn:hover, body.theme-light .theme-toggle:hover { background: #f0eee9; }
+body.theme-light .ad-slot { background: #efece6; border-color: #ccc; }
+body.theme-light .site-footer { color: #777; }
+body.theme-light .site-footer a { color: #555; }
+body.theme-light .theme-toggle { border-color: #ddd; }

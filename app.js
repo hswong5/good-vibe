@@ -480,3 +480,27 @@ function shouldPrefetchImages() {
     }
   } catch(e) {}
 })();
+
+// ── THEME TOGGLE ──
+(function() {
+  const btn = document.getElementById('theme-toggle');
+  const themes = ['dark', 'light', 'sys'];
+  const icons = { dark: '🌙', light: '☀️', sys: '💻' };
+  let current = localStorage.getItem('gv_theme') || 'sys';
+  function applyTheme(t) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = t === 'dark' || (t === 'sys' && prefersDark);
+    document.body.classList.toggle('theme-light', !isDark);
+    btn.textContent = icons[t];
+    btn.title = 'Theme: ' + t;
+  }
+  applyTheme(current);
+  btn.addEventListener('click', () => {
+    current = themes[(themes.indexOf(current) + 1) % themes.length];
+    localStorage.setItem('gv_theme', current);
+    applyTheme(current);
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (current === 'sys') applyTheme('sys');
+  });
+})();
