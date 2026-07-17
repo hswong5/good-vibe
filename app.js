@@ -196,11 +196,17 @@ function getHeaderOffset() {
   return header ? header.getBoundingClientRect().height : 0;
 }
 
-function scrollToElementWithOffset(el, padding = 12) {
+function scrollToElementWithOffset(el, padding = 12, behavior = 'smooth') {
   if (!el) return;
   const rect = el.getBoundingClientRect();
   const y = window.pageYOffset + rect.top - getHeaderOffset() - padding;
-  window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  const targetY = Math.max(0, y);
+  const distance = Math.abs(window.scrollY - targetY);
+  // For very long jumps, instant scroll feels much faster than long smooth animation.
+  const resolvedBehavior = behavior === 'smart'
+    ? (distance > 1200 ? 'auto' : 'smooth')
+    : behavior;
+  window.scrollTo({ top: targetY, behavior: resolvedBehavior });
 }
 
 function setAttribution(data) {
@@ -300,7 +306,7 @@ function renderGrid() {
       </div>`;
     card.addEventListener('click', () => {
       renderHero(item);
-      scrollToElementWithOffset(document.getElementById('quote-card'));
+      scrollToElementWithOffset(document.getElementById('quote-card'), 12, 'smart');
     });
     grid.appendChild(card);
     const observer = new IntersectionObserver(async (entries) => {
