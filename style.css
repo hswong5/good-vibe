@@ -396,6 +396,119 @@ main {
   gap: 20px;
 }
 
+.blog-section {
+  margin-top: 44px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.blog-card {
+  background: var(--bg-header);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.blog-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  margin-bottom: 10px;
+}
+
+.blog-card p {
+  color: var(--text-primary);
+  opacity: 0.92;
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.blog-card a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.blog-card a:hover {
+  text-decoration: underline;
+}
+
+.article-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 20px 56px;
+}
+
+.article-wrap {
+  background: var(--bg-header);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.article-wrap h1,
+.article-wrap h2,
+.article-wrap h3 {
+  font-family: var(--font-serif);
+  line-height: 1.25;
+}
+
+.article-wrap h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.article-wrap h2 {
+  font-size: 1.35rem;
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.article-wrap h3 {
+  font-size: 1.08rem;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.article-wrap p,
+.article-wrap li {
+  line-height: 1.75;
+}
+
+.article-wrap p {
+  margin-bottom: 14px;
+}
+
+.article-wrap ul,
+.article-wrap ol {
+  margin-left: 20px;
+  margin-bottom: 14px;
+}
+
+.article-meta {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+}
+
+.article-links {
+  border-top: 1px solid var(--border-color);
+  margin-top: 24px;
+  padding-top: 16px;
+}
+
+.article-links a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.article-links a:hover {
+  text-decoration: underline;
+}
+
 .grid-card {
   position: relative;
   border-radius: 14px;
@@ -503,6 +616,12 @@ main {
   .grid-load-more {
     font-size: 0.82rem;
     padding: 9px 14px;
+  }
+  .article-wrap {
+    padding: 20px;
+  }
+  .article-wrap h1 {
+    font-size: 1.56rem;
   }
   .lang-switch,
   .theme-switch {
