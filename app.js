@@ -17,13 +17,20 @@ const state = {
 const memCache = {};
 
 async function loadQuotes() {
-  const res = await fetch('quotes.json');
-  const data = await res.json();
-  const flat = [];
-  Object.entries(data).forEach(([category, list]) => {
-    list.forEach(item => flat.push({ ...item, category }));
-  });
-  state.quotes = flat;
+  try {
+    const res = await fetch('quotes.json?v=2');
+    if (!res.ok) throw new Error('Failed to load quotes');
+    const data = await res.json();
+    const flat = [];
+    Object.entries(data).forEach(([category, list]) => {
+      list.forEach(item => flat.push({ ...item, category }));
+    });
+    state.quotes = flat;
+  } catch(e) {
+    const el = document.getElementById('quote-text');
+    if (el) el.textContent = 'Could not load quotes. Please refresh the page.';
+    throw e;
+  }
 }
 
 function pickRandom(arr) {
@@ -33,6 +40,16 @@ function pickRandom(arr) {
 function filteredQuotes() {
   if (state.currentCategory === 'All') return state.quotes;
   return state.quotes.filter(q => q.category === state.currentCategory);
+}
+
+function brightnessFromHex(hex) {
+  if (!hex) return 255;
+  const clean = hex.replace('#', '').trim();
+  if (clean.length !== 6) return 255;
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 async function getImageData(keywords) {
@@ -55,15 +72,6 @@ async function getImageData(keywords) {
     if (!res.ok) throw new Error('Pexels error');
     const json = await res.json();
     if (!json.photos || !json.photos.length) return null;
-    function brightnessFromHex(hex) {
-      if (!hex) return 255;
-      const clean = hex.replace('#', '').trim();
-      if (clean.length !== 6) return 255;
-      const r = parseInt(clean.slice(0, 2), 16);
-      const g = parseInt(clean.slice(2, 4), 16);
-      const b = parseInt(clean.slice(4, 6), 16);
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    }
     const darkSortedPhotos = json.photos
       .filter(photo => photo.avg_color)
       .sort((a, b) => brightnessFromHex(a.avg_color) - brightnessFromHex(b.avg_color));
