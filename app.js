@@ -1,6 +1,7 @@
 // GoodVibe Quotes — app.js
 
 const PEXELS_PROXY = 'https://rjtbagfuuijgiemtpnlm.supabase.co/functions/v1/pexels-proxy';
+const SUPABASE_ANON_KEY = 'sb_publishable_xWqySzc3hIPkn_46WbcmOQ_yAG-4Ulu';
 const CACHE_PREFIX = 'gv_img_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
@@ -66,10 +67,24 @@ async function getImageData(keywords) {
   } catch(e) {}
   try {
     const res = await fetch(
-      `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=15`
+      `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=15`,
+      {
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      }
     );
-    if (!res.ok) throw new Error('Pexels error');
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      console.warn('[GoodVibe] Pexels proxy HTTP', res.status, errText.slice(0, 200));
+      throw new Error('Pexels error ' + res.status);
+    }
     const json = await res.json();
+    if (json.error) {
+      console.warn('[GoodVibe] Pexels proxy error payload', json);
+      return null;
+    }
     if (!json.photos || !json.photos.length) return null;
     const darkSortedPhotos = json.photos
       .filter(photo => photo.avg_color)
@@ -135,7 +150,7 @@ async function getImageData(keywords) {
       })();
     }
     return data;
-  } catch(e) { return null; }
+  } catch(e) { console.warn('[GoodVibe] getImageData failed', e); return null; }
 }
 
 function applyBlurUp(el, data) {
@@ -151,7 +166,6 @@ function applyBlurUp(el, data) {
     low.style.filter = 'blur(8px)';
     // preload high-res
     const reg = new Image();
-    reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       // set high-res then fade it in quickly; hide low-res shortly after
       high.style.backgroundImage = `url('${data.regular}')`;
@@ -172,13 +186,11 @@ function applyBlurUp(el, data) {
   }
   // Legacy fallback: single-element behavior
   const smallImg = new Image();
-  smallImg.crossOrigin = 'anonymous';
   smallImg.onload = () => {
     el.style.transition = 'filter 0.45s ease, background-image 0.3s ease';
     el.style.backgroundImage = `url('${data.small}')`;
     el.style.filter = 'blur(8px)';
     const reg = new Image();
-    reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
       setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
@@ -187,7 +199,6 @@ function applyBlurUp(el, data) {
   };
   smallImg.onerror = () => {
     const reg = new Image();
-    reg.crossOrigin = 'anonymous';
     reg.onload = () => {
       el.style.backgroundImage = `url('${data.regular}')`;
       setTimeout(() => { el.style.filter = 'none'; resolve(); }, 50);
