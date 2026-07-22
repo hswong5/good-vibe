@@ -45,22 +45,22 @@
       <span>min</span>
     </div>
     <div class="pill-row" id="moodRow" style="margin-bottom:1rem">
-      <button class="pill" data-mood="calm">😌 Calm</button>
-      <button class="pill" data-mood="grateful">🙏 Grateful</button>
-      <button class="pill" data-mood="focused">🎯 Focused</button>
-      <button class="pill" data-mood="tired">😴 Tired</button>
-      <button class="pill" data-mood="anxious">😰 Anxious</button>
+      <button class="pill" data-mood="calm">😌 <span data-i18n="mood_calm">Calm</span></button>
+      <button class="pill" data-mood="grateful">🙏 <span data-i18n="mood_grateful">Grateful</span></button>
+      <button class="pill" data-mood="focused">🎯 <span data-i18n="mood_focused">Focused</span></button>
+      <button class="pill" data-mood="tired">😴 <span data-i18n="mood_tired">Tired</span></button>
+      <button class="pill" data-mood="anxious">😰 <span data-i18n="mood_anxious">Anxious</span></button>
     </div>
     <textarea class="inp" id="noteInput" rows="4" placeholder="What came up during this session?" style="margin-bottom:1rem"></textarea>
-    <div style="text-align:right"><button class="btn-primary" id="addBtn">Add entry</button></div>
+    <div style="text-align:right"><button class="btn-primary" id="addBtn" data-i18n="btn_add_entry">Add entry</button></div>
   </div>
   <div class="pill-row" id="filterRow" style="margin-bottom:1.25rem">
-    <button class="pill active" data-filter="all">All</button>
+    <button class="pill active" data-filter="all" data-i18n="filter_all">All</button>
     <button class="pill" data-filter="calm">�� Calm</button>
-    <button class="pill" data-filter="grateful">🙏 Grateful</button>
-    <button class="pill" data-filter="focused">🎯 Focused</button>
-    <button class="pill" data-filter="tired">😴 Tired</button>
-    <button class="pill" data-filter="anxious">😰 Anxious</button>
+    <button class="pill" data-filter="grateful">🙏 <span data-i18n="mood_grateful">Grateful</span></button>
+    <button class="pill" data-filter="focused">🎯 <span data-i18n="mood_focused">Focused</span></button>
+    <button class="pill" data-filter="tired">😴 <span data-i18n="mood_tired">Tired</span></button>
+    <button class="pill" data-filter="anxious">😰 <span data-i18n="mood_anxious">Anxious</span></button>
   </div>
   <div id="entryList"></div>
 </main>
@@ -94,5 +94,6 @@ document.getElementById('addBtn').addEventListener('click',async()=>{
 render();
 </script>
   <script src="theme.js"></script>
+  <script src="i18n.js"></script>
   <script src="header.js"></script>
 </body></html>

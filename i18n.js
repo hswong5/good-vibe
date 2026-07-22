@@ -17,6 +17,24 @@ const LANGS = {
       nav_contact: 'Contact',
       grid_all: 'All Quotes',
       grid_cat: '{0} Quotes',
+      nav_quotes: 'Quotes',
+      nav_blog: 'Blog',
+      nav_meditate: 'Meditate',
+      nav_journal: 'Journal',
+      nav_progress: 'Progress',
+      btn_start: 'Start',
+      btn_pause: 'Pause',
+      btn_resume: 'Resume',
+      btn_reset: 'Reset',
+      btn_save_session: 'Save session',
+      btn_add_entry: 'Add entry',
+      mood_calm: 'Calm',
+      mood_grateful: 'Grateful',
+      mood_focused: 'Focused',
+      mood_tired: 'Tired',
+      mood_anxious: 'Anxious',
+      filter_all: 'All',
+      min_custom: 'Custom',
       photo_by: 'Photo by <a href="{1}" target="_blank">{0}</a> on <a href="{2}" target="_blank">Pexels</a>',
     },
   },
@@ -36,6 +54,24 @@ const LANGS = {
       nav_contact: '聯繫我們',
       grid_all: '全部名言',
       grid_cat: '{0}名言',
+      nav_quotes: '名言',
+      nav_blog: '網誌',
+      nav_meditate: '冥想',
+      nav_journal: '日誌',
+      nav_progress: '進度',
+      btn_start: '開始',
+      btn_pause: '暫停',
+      btn_resume: '繼續',
+      btn_reset: '重設',
+      btn_save_session: '儲存練習',
+      btn_add_entry: '新增紀錄',
+      mood_calm: '平靜',
+      mood_grateful: '感恩',
+      mood_focused: '專注',
+      mood_tired: '疲憊',
+      mood_anxious: '焦慮',
+      filter_all: '全部',
+      min_custom: '自訂',
       photo_by: '照片來自 <a href="{1}" target="_blank">{0}</a>，發布於 <a href="{2}" target="_blank">Pexels</a>',
     },
   },
@@ -55,6 +91,24 @@ const LANGS = {
       nav_contact: '联系我们',
       grid_all: '全部名言',
       grid_cat: '{0}名言',
+      nav_quotes: '名言',
+      nav_blog: '博客',
+      nav_meditate: '冥想',
+      nav_journal: '日志',
+      nav_progress: '进度',
+      btn_start: '开始',
+      btn_pause: '暂停',
+      btn_resume: '继续',
+      btn_reset: '重置',
+      btn_save_session: '保存练习',
+      btn_add_entry: '新增记录',
+      mood_calm: '平静',
+      mood_grateful: '感恩',
+      mood_focused: '专注',
+      mood_tired: '疲惫',
+      mood_anxious: '焦虑',
+      filter_all: '全部',
+      min_custom: '自定义',
       photo_by: '照片来自 <a href="{1}" target="_blank">{0}</a>，发布于 <a href="{2}" target="_blank">Pexels</a>',
     },
   },
@@ -63,7 +117,9 @@ const LANGS = {
 const I18N = (() => {
   // language order for cycling: English -> Traditional Chinese -> Simplified Chinese
   const order = ['en', 'zh', 'zh-Hans'];
-  let current = 'en';
+  const STORAGE_KEY = 'gv_lang';
+  let current = localStorage.getItem(STORAGE_KEY) || 'en';
+  if (!LANGS[current]) current = 'en';
 
   function get() { return LANGS[current]; }
 
@@ -107,6 +163,7 @@ const I18N = (() => {
   function setLang(code) {
     if (!LANGS[code]) return;
     current = code;
+    try { localStorage.setItem(STORAGE_KEY, code); } catch (e) {}
     apply();
     document.dispatchEvent(new CustomEvent('langchange'));
   }

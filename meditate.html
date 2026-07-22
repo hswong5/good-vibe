@@ -46,7 +46,7 @@
     <button class="pill" data-min="10">10 min</button>
     <button class="pill" data-min="15">15 min</button>
     <button class="pill" data-min="20">20 min</button>
-    <button class="pill" data-min="custom">Custom</button>
+    <button class="pill" data-min="custom" data-i18n="min_custom">Custom</button>
   </div>
   <div style="display:flex;gap:.5rem;align-items:center;font-size:.85rem;color:var(--text-muted)">
     <label for="soundSel">Ambient:</label>
@@ -65,21 +65,21 @@
     <div class="timer-display" id="timerDisplay">5:00</div>
   </div>
   <div style="display:flex;gap:.75rem" id="timerControls">
-    <button class="btn-primary" id="startBtn">Start</button>
-    <button class="btn-ghost" id="resetBtn">Reset</button>
+    <button class="btn-primary" id="startBtn" data-i18n="btn_start">Start</button>
+    <button class="btn-ghost" id="resetBtn" data-i18n="btn_reset">Reset</button>
   </div>
   <div class="post-session" id="postSession">
     <h3 style="font-family:var(--font-serif);font-size:1.5rem;color:var(--text-primary)">Session complete 🎉</h3>
     <p style="color:var(--text-muted);font-size:.9rem">How did it feel?</p>
     <div class="pill-row" id="moodRow" style="justify-content:center">
-      <button class="pill" data-mood="calm">😌 Calm</button>
-      <button class="pill" data-mood="grateful">🙏 Grateful</button>
-      <button class="pill" data-mood="focused">🎯 Focused</button>
-      <button class="pill" data-mood="tired">😴 Tired</button>
-      <button class="pill" data-mood="anxious">😰 Anxious</button>
+      <button class="pill" data-mood="calm">😌 <span data-i18n="mood_calm">Calm</span></button>
+      <button class="pill" data-mood="grateful">🙏 <span data-i18n="mood_grateful">Grateful</span></button>
+      <button class="pill" data-mood="focused">🎯 <span data-i18n="mood_focused">Focused</span></button>
+      <button class="pill" data-mood="tired">😴 <span data-i18n="mood_tired">Tired</span></button>
+      <button class="pill" data-mood="anxious">😰 <span data-i18n="mood_anxious">Anxious</span></button>
     </div>
     <textarea class="inp" id="journalNote" rows="3" placeholder="Any thoughts… (optional)" style="margin-top:.5rem"></textarea>
-    <button class="btn-primary" id="saveBtn">Save session</button>
+    <button class="btn-primary" id="saveBtn" data-i18n="btn_save_session">Save session</button>
   </div>
 </main>
 <script src="session-utils.js"></script>
@@ -108,8 +108,8 @@ document.querySelectorAll('#durPicker .pill').forEach(b=>{
   });
 });
 document.getElementById('startBtn').addEventListener('click',()=>{
-  if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Resume';return;}
-  running=true;document.getElementById('startBtn').textContent='Pause';
+  if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent=(window.I18N?I18N.t('btn_resume'):'Resume');return;}
+  running=true;document.getElementById('startBtn').textContent=(window.I18N?I18N.t('btn_pause'):'Pause');
   interval=setInterval(()=>{
     if(--remainSecs<=0){clearInterval(interval);running=false;display.textContent='Done';document.getElementById('timerControls').style.display='none';document.getElementById('postSession').classList.add('show');}
     else{display.textContent=fmt(remainSecs);tick();}
@@ -117,7 +117,7 @@ document.getElementById('startBtn').addEventListener('click',()=>{
 });
 document.getElementById('resetBtn').addEventListener('click',()=>{
   clearInterval(interval);running=false;remainSecs=totalSecs;display.textContent=fmt(remainSecs);tick();
-  document.getElementById('startBtn').textContent='Start';
+  document.getElementById('startBtn').textContent=(window.I18N?I18N.t('btn_start'):'Start');
   document.getElementById('postSession').classList.remove('show');
   document.getElementById('timerControls').style.display='flex';
 });
@@ -137,5 +137,6 @@ document.getElementById('saveBtn').addEventListener('click',async()=>{
 });
 </script>
   <script src="theme.js"></script>
+  <script src="i18n.js"></script>
   <script src="header.js"></script>
 </body></html>

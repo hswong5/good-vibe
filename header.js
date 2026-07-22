@@ -15,20 +15,21 @@
     );
 
     const navLinks = [
-      { href: root + 'index.html',      label: 'Quotes'   },
-      { href: root + 'blog/index.html', label: 'Blog'     },
-      { href: root + 'meditate.html',   label: 'Meditate' },
-      { href: root + 'journal.html',    label: 'Journal'  },
-      { href: root + 'progress.html',   label: 'Progress' },
+      { href: root + 'index.html',      key: 'nav_quotes',   label: 'Quotes'   },
+      { href: root + 'blog/index.html', key: 'nav_blog',     label: 'Blog'     },
+      { href: root + 'meditate.html',   key: 'nav_meditate', label: 'Meditate' },
+      { href: root + 'journal.html',    key: 'nav_journal',  label: 'Journal'  },
+      { href: root + 'progress.html',   key: 'nav_progress', label: 'Progress' },
     ];
 
-    const navHTML = navLinks.map(({ href, label }) => {
+    const navHTML = navLinks.map(({ href, key, label }) => {
       const abs = new URL(href, location.href).pathname;
       const isActive =
         abs === currentPath ||
         (currentPath.endsWith('/') && abs === currentPath + 'index.html') ||
         (abs.endsWith('/index.html') && currentPath === abs.replace('index.html', ''));
-      return `<a class="nav-btn${isActive ? ' active' : ''}" href="${href}"${isActive ? ' aria-current="page"' : ''}>${label}</a>`;
+      const text = (window.I18N && I18N.t) ? I18N.t(key) : label;
+      return `<a class="nav-btn${isActive ? ' active' : ''}" href="${href}" data-i18n="${key}"${isActive ? ' aria-current="page"' : ''}>${text}</a>`;
     }).join('\n      ');
 
     // Quote category filters — Quotes page only
