@@ -1,6 +1,6 @@
 // GoodVibe Quotes — app.js
 
-const PEXELS_PROXY = 'https://goodvibe.supabase.co/functions/v1/pexels-proxy';
+const PEXELS_PROXY = 'https://rjtbagfuuijgiemtpnlm.supabase.co/functions/v1/pexels-proxy';
 const CACHE_PREFIX = 'gv_img_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
