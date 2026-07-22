@@ -52,30 +52,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="logo">GoodVibe</div>
-  <nav class="category-nav">
-    <button class="nav-btn active" data-category="All" data-i18n-cat="All">All</button>
-    <button class="nav-btn" data-category="Motivation" data-i18n-cat="Motivation">Motivation</button>
-    <button class="nav-btn" data-category="Healing" data-i18n-cat="Healing">Healing</button>
-    <button class="nav-btn" data-category="Hustle" data-i18n-cat="Hustle">Hustle</button>
-    <button class="nav-btn" data-category="Calm" data-i18n-cat="Calm">Calm</button>
-    <a class="nav-btn" href="blog/index.html">Blog</a>
-  </nav>
-  <div class="header-actions">
-    <div class="lang-switch" id="lang-switch">
-      <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-      <button class="lang-btn" data-lang="zh" aria-pressed="false">繁</button>
-      <button class="lang-btn" data-lang="zh-Hans" aria-pressed="false">簡</button>
-    </div>
-    <div class="theme-switch" aria-label="Theme options">
-      <button class="theme-option active" data-theme="dark" type="button" aria-label="Dark theme" title="Dark theme">🌙</button>
-      <button class="theme-option" data-theme="light" type="button" aria-label="Light theme" title="Light theme">☀️</button>
-      <button class="theme-option" data-theme="sys" type="button" aria-label="System theme" title="System theme">💻</button>
-    </div>
-  </div>
-</header>
-
+<div id="site-header-mount"></div>
 <main>
   <section id="quote-card" class="quote-card">
     <div class="quote-bg" id="quote-bg">
@@ -99,27 +76,6 @@
       <span class="tap-hint-text" id="tap-hint-text">Tap anywhere for next quote</span>
     </div>
     <div id="photo-credit" class="photo-credit" style="display:none;"></div>
-  </section>
-
-  <section class="blog-section" aria-labelledby="blog-home-title">
-    <h2 id="blog-home-title">From the Blog</h2>
-    <div class="blog-grid">
-      <article class="blog-card">
-        <h3>How a Daily Quote Can Sharpen Your Morning Routine</h3>
-        <p>Use one quote to set your intention, reduce distraction, and start the day with practical focus.</p>
-        <a href="blog/morning-routine-quotes.html">Read article</a>
-      </article>
-      <article class="blog-card">
-        <h3>3 Simple Mindful Habits to Carry Through Your Day</h3>
-        <p>Small habits for calmer transitions, steadier attention, and less emotional spillover from task to task.</p>
-        <a href="blog/mindful-habits.html">Read article</a>
-      </article>
-      <article class="blog-card">
-        <h3>Staying Productive Without Burning Out</h3>
-        <p>A practical framework for balancing high output with boundaries, recovery, and sustainable momentum.</p>
-        <a href="blog/hustle-without-burnout.html">Read article</a>
-      </article>
-    </div>
   </section>
 
   <div class="ad-slot ad-slot-mid" id="ad-mid">
@@ -147,5 +103,7 @@
 <canvas id="export-canvas" style="display:none;"></canvas>
 <script defer src="i18n.js?v=20260718"></script>
 <script defer src="app.js?v=20260718"></script>
+  <script src="theme.js"></script>
+  <script src="header.js"></script>
 </body>
 </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meditate — GoodVibe Daily</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-wrap{max-width:800px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+  .page-wrap h1{font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.6rem);color:var(--text-primary);margin-bottom:.25rem}
+  .page-sub{color:var(--text-muted);font-size:.95rem;margin-bottom:2rem}
+  .card{background:var(--bg-header);border:1px solid var(--border-color);border-radius:16px;padding:1.5rem}
+  .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
+  .pill{padding:.4rem 1.1rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);cursor:pointer;font-size:.85rem;transition:all .2s}
+  .pill:hover{background:var(--button-hover)}
+  .pill.active{background:var(--color-dark);color:#fff;border-color:#e8e6e3}
+  .inp{width:100%;background:var(--bg-page);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);padding:.75rem 1rem;font-family:var(--font-sans);font-size:1rem;resize:none}
+  .inp:focus{outline:2px solid var(--color-accent)}
+  .btn-primary{padding:.7rem 2rem;border-radius:999px;border:none;background:var(--color-accent);color:#111;font-weight:700;font-size:.95rem;cursor:pointer;transition:opacity .2s}
+  .btn-primary:hover{opacity:.85}
+  .btn-ghost{padding:.7rem 2rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);font-size:.95rem;cursor:pointer;transition:all .2s}
+  .btn-ghost:hover{background:var(--button-hover)}
+</style>
+<style>
+  .timer-page{display:flex;flex-direction:column;align-items:center;gap:1.75rem;padding:2.5rem 1.25rem 5rem;text-align:center}
+  .timer-quote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--text-muted);max-width:500px;line-height:1.7}
+  .ring-wrap{position:relative;width:200px;height:200px}
+  .ring-wrap svg{transform:rotate(-90deg)}
+  .ring-bg{fill:none;stroke:var(--border-color);stroke-width:8}
+  .ring-fill{fill:none;stroke:var(--color-accent);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+  .timer-display{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:3rem;color:var(--text-primary)}
+  .post-session{display:none;flex-direction:column;align-items:center;gap:1rem;width:100%;max-width:440px}
+  .post-session.show{display:flex}
+</style>
+</head>
+<body>
+<div id="site-header-mount"></div>
+<main class="timer-page">
+  <p class="timer-quote" id="preQuote">Loading your moment…</p>
+  <div class="pill-row" id="durPicker" style="justify-content:center">
+    <button class="pill active" data-min="5">5 min</button>
+    <button class="pill" data-min="10">10 min</button>
+    <button class="pill" data-min="15">15 min</button>
+    <button class="pill" data-min="20">20 min</button>
+    <button class="pill" data-min="custom">Custom</button>
+  </div>
+  <div style="display:flex;gap:.5rem;align-items:center;font-size:.85rem;color:var(--text-muted)">
+    <label for="soundSel">Ambient:</label>
+    <select id="soundSel" class="inp" style="width:auto;padding:.3rem .7rem">
+      <option value="none">Silence</option>
+      <option value="rain">🌧 Rain</option>
+      <option value="waves">🌊 Waves</option>
+      <option value="forest">🌿 Forest</option>
+    </select>
+  </div>
+  <div class="ring-wrap">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <circle class="ring-bg" cx="100" cy="100" r="90"/>
+      <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="90" stroke-dasharray="565" stroke-dashoffset="0"/>
+    </svg>
+    <div class="timer-display" id="timerDisplay">5:00</div>
+  </div>
+  <div style="display:flex;gap:.75rem" id="timerControls">
+    <button class="btn-primary" id="startBtn">Start</button>
+    <button class="btn-ghost" id="resetBtn">Reset</button>
+  </div>
+  <div class="post-session" id="postSession">
+    <h3 style="font-family:var(--font-serif);font-size:1.5rem;color:var(--text-primary)">Session complete 🎉</h3>
+    <p style="color:var(--text-muted);font-size:.9rem">How did it feel?</p>
+    <div class="pill-row" id="moodRow" style="justify-content:center">
+      <button class="pill" data-mood="calm">😌 Calm</button>
+      <button class="pill" data-mood="grateful">🙏 Grateful</button>
+      <button class="pill" data-mood="focused">🎯 Focused</button>
+      <button class="pill" data-mood="tired">😴 Tired</button>
+      <button class="pill" data-mood="anxious">😰 Anxious</button>
+    </div>
+    <textarea class="inp" id="journalNote" rows="3" placeholder="Any thoughts… (optional)" style="margin-top:.5rem"></textarea>
+    <button class="btn-primary" id="saveBtn">Save session</button>
+  </div>
+</main>
+<script src="session-utils.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { SUPABASE_URL, SUPABASE_KEY } from './supabase.js';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+fetch('quotes.json').then(r=>r.json()).then(data=>{
+  const q=data[Math.floor(Math.random()*data.length)];
+  document.getElementById('preQuote').textContent='"'+(q.text||q.quote||q.content)+'" — '+(q.author||'Unknown');
+}).catch(()=>{document.getElementById('preQuote').textContent='"Breathe in peace, breathe out tension."';});
+const C=2*Math.PI*90;
+let totalSecs=5*60,remainSecs=totalSecs,interval=null,running=false;
+const display=document.getElementById('timerDisplay'),ring=document.getElementById('ringFill');
+ring.style.strokeDasharray=C;
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function tick(){ring.style.strokeDashoffset=C*(1-remainSecs/totalSecs);}
+function setDur(m){totalSecs=m*60;remainSecs=totalSecs;display.textContent=fmt(remainSecs);tick();}
+document.querySelectorAll('#durPicker .pill').forEach(b=>{
+  b.addEventListener('click',()=>{
+    if(running)return;
+    document.querySelectorAll('#durPicker .pill').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    if(b.dataset.min==='custom'){const v=prompt('Minutes (1-60):');const n=parseInt(v);if(n>0&&n<=60)setDur(n);}
+    else setDur(parseInt(b.dataset.min));
+  });
+});
+document.getElementById('startBtn').addEventListener('click',()=>{
+  if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Resume';return;}
+  running=true;document.getElementById('startBtn').textContent='Pause';
+  interval=setInterval(()=>{
+    if(--remainSecs<=0){clearInterval(interval);running=false;display.textContent='Done';document.getElementById('timerControls').style.display='none';document.getElementById('postSession').classList.add('show');}
+    else{display.textContent=fmt(remainSecs);tick();}
+  },1000);
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  clearInterval(interval);running=false;remainSecs=totalSecs;display.textContent=fmt(remainSecs);tick();
+  document.getElementById('startBtn').textContent='Start';
+  document.getElementById('postSession').classList.remove('show');
+  document.getElementById('timerControls').style.display='flex';
+});
+let mood='';
+document.querySelectorAll('#moodRow .pill').forEach(t=>{
+  t.addEventListener('click',()=>{document.querySelectorAll('#moodRow .pill').forEach(x=>x.classList.remove('active'));t.classList.add('active');mood=t.dataset.mood;});
+});
+document.getElementById('saveBtn').addEventListener('click',async()=>{
+  try {
+    await saveSession({
+      duration_mins: Math.round(totalSecs / 60),
+      mood: mood || null,
+      note: document.getElementById('journalNote').value.trim() || null,
+    }, sb);
+  } catch(e) { alert('Could not save: ' + e.message); return; }
+  window.location.href='progress.html';
+});
+</script>
+  <script src="theme.js"></script>
+  <script src="header.js"></script>
+</body></html>

@@ -39,7 +39,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   padding: 20px 32px;
   background: var(--bg-header);
@@ -47,6 +47,19 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+/* Sticky bar wraps header + optional filter row */
+#site-header-mount {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+}
+#site-header-mount .site-header {
+  position: static;
+  border-bottom: none;
 }
 
 .header-actions {
@@ -760,4 +773,67 @@ body.theme-light .theme-option.active {
     padding: 0;
     line-height: 1;
   }
+}
+
+/* ── Nav active state (current page highlight) ── */
+.category-nav a.nav-btn.active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  position: relative;
+}
+.category-nav a.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+/* ── Quote category filter row (Quotes page only, under main nav) ── */
+.filter-nav {
+  display: flex;
+  gap: .35rem;
+  padding: .45rem 1rem .55rem;
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  justify-content: center;
+  background: var(--bg-header);
+}
+.filter-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: .8rem;
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: color .2s;
+  position: relative;
+}
+.filter-btn:hover { color: var(--text-primary); }
+.filter-btn.active {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.filter-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: .75rem;
+  right: .75rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-accent);
+}
+
+
+/* Clear sticky header + filter row when scrolling to hero / grid */
+#quote-card,
+#grid-title {
+  scroll-margin-top: calc(var(--gv-header-offset, 140px) + 16px);
 }

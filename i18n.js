@@ -111,21 +111,19 @@ const I18N = (() => {
     document.dispatchEvent(new CustomEvent('langchange'));
   }
 
-  // Init
-  document.addEventListener('DOMContentLoaded', () => {
+  function bindLangButtons() {
     apply();
     document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const code = btn.dataset.lang;
-        setLang(code);
-      });
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
-    // Ensure compact single-character labels are visible on initial render
-    const zhBtn = document.querySelector('.lang-btn[data-lang="zh"]');
-    if (zhBtn) zhBtn.textContent = '繁';
-    const hansBtn = document.querySelector('.lang-btn[data-lang="zh-Hans"]');
-    if (hansBtn) hansBtn.textContent = '簡';
-  });
+  }
 
-  return { get, t, catLabel, setLang };
+  // Bind when DOM ready AND whenever header re-injects controls
+  document.addEventListener('DOMContentLoaded', bindLangButtons);
+  document.addEventListener('headerready', bindLangButtons);
+  if (document.readyState !== 'loading') bindLangButtons();
+
+  return { get, t, catLabel, setLang, apply };
 })();

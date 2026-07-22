@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Progress — GoodVibe Daily</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-wrap{max-width:800px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+  .page-wrap h1{font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.6rem);color:var(--text-primary);margin-bottom:.25rem}
+  .page-sub{color:var(--text-muted);font-size:.95rem;margin-bottom:2rem}
+  .card{background:var(--bg-header);border:1px solid var(--border-color);border-radius:16px;padding:1.5rem}
+  .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
+  .pill{padding:.4rem 1.1rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);cursor:pointer;font-size:.85rem;transition:all .2s}
+  .pill:hover{background:var(--button-hover)}
+  .pill.active{background:var(--color-dark);color:#fff;border-color:#e8e6e3}
+  .inp{width:100%;background:var(--bg-page);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);padding:.75rem 1rem;font-family:var(--font-sans);font-size:1rem;resize:none}
+  .inp:focus{outline:2px solid var(--color-accent)}
+  .btn-primary{padding:.7rem 2rem;border-radius:999px;border:none;background:var(--color-accent);color:#111;font-weight:700;font-size:.95rem;cursor:pointer;transition:opacity .2s}
+  .btn-primary:hover{opacity:.85}
+  .btn-ghost{padding:.7rem 2rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);font-size:.95rem;cursor:pointer;transition:all .2s}
+  .btn-ghost:hover{background:var(--button-hover)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2rem}
+  .kpi-card{background:var(--bg-header);border:1px solid var(--border-color);border-radius:14px;padding:1.25rem 1.5rem}
+  .kpi-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+  .kpi-value{font-family:var(--font-serif);font-size:2.4rem;color:var(--text-primary);line-height:1}
+  .kpi-sub{font-size:.8rem;color:var(--text-muted);margin-top:.2rem}
+  .chart-wrap{height:180px;position:relative}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-lbl{font-size:.7rem;color:var(--text-muted);text-align:center;padding-bottom:4px}
+  .cal-day{aspect-ratio:1;border-radius:5px;background:var(--bg-page);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--text-muted)}
+  .cal-day.done{background:var(--color-accent);border-color:var(--color-accent);color:#111;font-weight:700}
+  .cal-day.today{outline:2px solid var(--color-accent);outline-offset:1px}
+</style>
+</head>
+<body>
+<div id="site-header-mount"></div>
+<main class="page-wrap">
+  <h1>Progress</h1>
+  <p class="page-sub">Your mindfulness habit at a glance.</p>
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-label">Current streak</div><div class="kpi-value" id="kpiStreak">0</div><div class="kpi-sub">days 🔥</div></div>
+    <div class="kpi-card"><div class="kpi-label">Longest streak</div><div class="kpi-value" id="kpiBest">0</div><div class="kpi-sub">days</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total sessions</div><div class="kpi-value" id="kpiSessions">0</div><div class="kpi-sub">completed</div></div>
+    <div class="kpi-card"><div class="kpi-label">Total minutes</div><div class="kpi-value" id="kpiMins">0</div><div class="kpi-sub">mindful</div></div>
+  </div>
+  <div class="card" style="margin-bottom:1.5rem">
+    <h2 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:1rem;color:var(--text-primary)">Minutes per day — last 7 days</h2>
+    <div class="chart-wrap"><canvas id="weekChart"></canvas></div>
+  </div>
+  <div class="card">
+    <h2 style="font-family:var(--font-serif);font-size:1.15rem;margin-bottom:1rem;color:var(--text-primary)">This month</h2>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+  <p id="startCta" style="display:none;text-align:center;color:var(--text-muted);margin-top:2rem">
+    No sessions yet. <a href="meditate.html" style="color:var(--color-accent)">Start your first meditation →</a>
+  </p>
+</main>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { SUPABASE_URL, SUPABASE_KEY } from './supabase.js';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+const sessions=JSON.parse(localStorage.getItem('gv_sessions')||'[]');
+if(!sessions.length) document.getElementById('startCta').style.display='block';
+document.getElementById('kpiSessions').textContent=sessions.length;
+document.getElementById('kpiMins').textContent=sessions.reduce((a,s)=>a+(s.duration_mins||0),0);
+function dayStr(d){return new Date(d).toISOString().slice(0,10);}
+const daySet=new Set(sessions.map(s=>dayStr(s.date)));
+let streak=0,best=0,cur=0;
+for(let i=0;i<365;i++){
+  const k=new Date(Date.now()-i*86400000).toISOString().slice(0,10);
+  if(daySet.has(k)){cur++;if(i===0||cur>1)streak=cur;best=Math.max(best,cur);}
+  else if(i>0) break;
+}
+document.getElementById('kpiStreak').textContent=streak;
+document.getElementById('kpiBest').textContent=best;
+const labels=[],data=[];
+for(let i=6;i>=0;i--){
+  const dt=new Date(Date.now()-i*86400000),k=dt.toISOString().slice(0,10);
+  labels.push(dt.toLocaleDateString('en-US',{weekday:'short'}));
+  data.push(sessions.filter(s=>dayStr(s.date)===k).reduce((a,s)=>a+(s.duration_mins||0),0));
+}
+new Chart(document.getElementById('weekChart'),{
+  type:'bar',data:{labels,datasets:[{data,backgroundColor:'#e0a458',borderRadius:6,borderSkipped:false}]},
+  options:{plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#888'}},y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#888',stepSize:5},beginAtZero:true}},responsive:true,maintainAspectRatio:false}
+});
+const now=new Date(),yr=now.getFullYear(),mo=now.getMonth();
+const fd=new Date(yr,mo,1).getDay(),dim=new Date(yr,mo+1,0).getDate();
+const grid=document.getElementById('calGrid');
+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(n=>{const el=document.createElement('div');el.className='cal-lbl';el.textContent=n;grid.appendChild(el);});
+for(let i=0;i<fd;i++){const el=document.createElement('div');el.className='cal-day';grid.appendChild(el);}
+for(let d=1;d<=dim;d++){
+  const iso=yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  const el=document.createElement('div');el.className='cal-day';el.textContent=d;
+  if(daySet.has(iso)) el.classList.add('done');
+  if(d===now.getDate()) el.classList.add('today');
+  grid.appendChild(el);
+}
+</script>
+  <script src="theme.js"></script>
+  <script src="header.js"></script>
+</body></html>

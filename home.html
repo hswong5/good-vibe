@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodVibe Daily</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .home-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .home-logo {
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 6vw, 3.5rem);
+    color: var(--text-primary);
+    margin-bottom: .4rem;
+    letter-spacing: -.01em;
+  }
+  .home-tagline {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 3.5rem;
+  }
+  .nav-cards {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    width: 100%;
+  }
+  .nav-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: var(--bg-header);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color .2s, transform .15s;
+    text-align: left;
+  }
+  .nav-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+  .nav-card-icon {
+    font-size: 1.75rem;
+    width: 2.5rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .nav-card-title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    margin-bottom: .15rem;
+  }
+  .nav-card-desc {
+    font-size: .82rem;
+    color: var(--text-muted);
+  }
+  .theme-bar {
+    position: fixed;
+    top: 1rem;
+    right: 1.25rem;
+  }
+</style>
+</head>
+<body>
+<div class="theme-bar">
+  <div class="theme-switch" aria-label="Theme options">
+    <button class="theme-option active" data-theme="dark" type="button" title="Dark">🌙</button>
+    <button class="theme-option" data-theme="light" type="button" title="Light">☀️</button>
+    <button class="theme-option" data-theme="sys" type="button" title="System">💻</button>
+  </div>
+</div>
+
+<main class="home-wrap">
+  <h1 class="home-logo">GoodVibe</h1>
+  <p class="home-tagline">Your daily mindfulness companion</p>
+
+  <nav class="nav-cards">
+    <a class="nav-card" href="index.html">
+      <div class="nav-card-icon">✦</div>
+      <div>
+        <div class="nav-card-title">Quotes</div>
+        <div class="nav-card-desc">Daily inspiration across Motivation, Healing, Hustle & Calm</div>
+      </div>
+    </a>
+    <a class="nav-card" href="meditate.html">
+      <div class="nav-card-icon">🧘</div>
+      <div>
+        <div class="nav-card-title">Meditate</div>
+        <div class="nav-card-desc">Guided timer with ambient sounds</div>
+      </div>
+    </a>
+    <a class="nav-card" href="journal.html">
+      <div class="nav-card-icon">📓</div>
+      <div>
+        <div class="nav-card-title">Journal</div>
+        <div class="nav-card-desc">Capture thoughts after each session</div>
+      </div>
+    </a>
+    <a class="nav-card" href="progress.html">
+      <div class="nav-card-icon">📈</div>
+      <div>
+        <div class="nav-card-title">Progress</div>
+        <div class="nav-card-desc">Streaks, stats and your monthly habit calendar</div>
+      </div>
+    </a>
+    <a class="nav-card" href="blog/index.html">
+      <div class="nav-card-icon">✍️</div>
+      <div>
+        <div class="nav-card-title">Blog</div>
+        <div class="nav-card-desc">Articles on mindfulness, habits and wellbeing</div>
+      </div>
+    </a>
+  </nav>
+</main>
+
+<script src="theme.js" defer></script>
+</body>
+</html>

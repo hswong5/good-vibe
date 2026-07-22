@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal — GoodVibe Daily</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .page-wrap{max-width:800px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+  .page-wrap h1{font-family:var(--font-serif);font-size:clamp(2rem,4vw,2.6rem);color:var(--text-primary);margin-bottom:.25rem}
+  .page-sub{color:var(--text-muted);font-size:.95rem;margin-bottom:2rem}
+  .card{background:var(--bg-header);border:1px solid var(--border-color);border-radius:16px;padding:1.5rem}
+  .pill-row{display:flex;gap:.5rem;flex-wrap:wrap}
+  .pill{padding:.4rem 1.1rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);cursor:pointer;font-size:.85rem;transition:all .2s}
+  .pill:hover{background:var(--button-hover)}
+  .pill.active{background:var(--color-dark);color:#fff;border-color:#e8e6e3}
+  .inp{width:100%;background:var(--bg-page);border:1px solid var(--border-color);border-radius:10px;color:var(--text-primary);padding:.75rem 1rem;font-family:var(--font-sans);font-size:1rem;resize:none}
+  .inp:focus{outline:2px solid var(--color-accent)}
+  .btn-primary{padding:.7rem 2rem;border-radius:999px;border:none;background:var(--color-accent);color:#111;font-weight:700;font-size:.95rem;cursor:pointer;transition:opacity .2s}
+  .btn-primary:hover{opacity:.85}
+  .btn-ghost{padding:.7rem 2rem;border-radius:999px;border:1px solid var(--button-border);background:transparent;color:var(--text-primary);font-size:.95rem;cursor:pointer;transition:all .2s}
+  .btn-ghost:hover{background:var(--button-hover)}
+</style>
+<style>
+  .entry-card{background:var(--bg-header);border:1px solid var(--border-color);border-radius:14px;padding:1rem 1.25rem;margin-bottom:1rem}
+  .entry-meta{display:flex;gap:.75rem;flex-wrap:wrap;font-size:.8rem;color:var(--text-muted);margin-bottom:.4rem;align-items:center}
+  .badge{padding:.15rem .65rem;border-radius:999px;background:var(--color-accent);color:#111;font-size:.75rem;font-weight:700}
+  .entry-note{font-size:.95rem;line-height:1.6;color:var(--text-primary)}
+</style>
+</head>
+<body>
+<div id="site-header-mount"></div>
+<main class="page-wrap">
+  <h1>Journal</h1>
+  <p class="page-sub">Capture thoughts after each session.</p>
+  <div class="card" style="margin-bottom:2rem">
+    <h2 style="font-family:var(--font-serif);font-size:1.2rem;margin-bottom:1rem;color:var(--text-primary)">New entry</h2>
+    <div style="display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--text-muted);margin-bottom:1rem">
+      <span>Duration:</span>
+      <input type="number" id="durInput" min="1" max="120" value="10" class="inp" style="width:70px;padding:.3rem .5rem;text-align:center">
+      <span>min</span>
+    </div>
+    <div class="pill-row" id="moodRow" style="margin-bottom:1rem">
+      <button class="pill" data-mood="calm">😌 Calm</button>
+      <button class="pill" data-mood="grateful">🙏 Grateful</button>
+      <button class="pill" data-mood="focused">🎯 Focused</button>
+      <button class="pill" data-mood="tired">😴 Tired</button>
+      <button class="pill" data-mood="anxious">😰 Anxious</button>
+    </div>
+    <textarea class="inp" id="noteInput" rows="4" placeholder="What came up during this session?" style="margin-bottom:1rem"></textarea>
+    <div style="text-align:right"><button class="btn-primary" id="addBtn">Add entry</button></div>
+  </div>
+  <div class="pill-row" id="filterRow" style="margin-bottom:1.25rem">
+    <button class="pill active" data-filter="all">All</button>
+    <button class="pill" data-filter="calm">�� Calm</button>
+    <button class="pill" data-filter="grateful">🙏 Grateful</button>
+    <button class="pill" data-filter="focused">🎯 Focused</button>
+    <button class="pill" data-filter="tired">😴 Tired</button>
+    <button class="pill" data-filter="anxious">😰 Anxious</button>
+  </div>
+  <div id="entryList"></div>
+</main>
+<script src="session-utils.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { SUPABASE_URL, SUPABASE_KEY } from './supabase.js';
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+let sessions=JSON.parse(localStorage.getItem('gv_sessions')||'[]'),activeFilter='all',mood='';
+const ML={calm:'😌 Calm',grateful:'🙏 Grateful',focused:'🎯 Focused',tired:'😴 Tired',anxious:'😰 Anxious'};
+function fmt(iso){return new Date(iso).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function render(){
+  const list=document.getElementById('entryList');
+  const rows=activeFilter==='all'?sessions:sessions.filter(s=>s.mood===activeFilter);
+  if(!rows.length){list.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:2rem">No entries yet — start meditating!</p>';return;}
+  list.innerHTML=rows.map(s=>'<div class="entry-card"><div class="entry-meta"><span>'+fmt(s.date)+'</span><span>'+s.duration_mins+' min</span>'+(s.mood?'<span class="badge">'+ML[s.mood]+'</span>':'')+'</div>'+(s.note?'<p class="entry-note">'+s.note+'</p>':'<p class="entry-note" style="color:var(--text-muted)">No note.</p>')+'</div>').join('');
+}
+document.querySelectorAll('#moodRow .pill').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('#moodRow .pill').forEach(x=>x.classList.remove('active'));t.classList.add('active');mood=t.dataset.mood;});});
+document.querySelectorAll('#filterRow .pill').forEach(c=>{c.addEventListener('click',()=>{document.querySelectorAll('#filterRow .pill').forEach(x=>x.classList.remove('active'));c.classList.add('active');activeFilter=c.dataset.filter;render();});});
+document.getElementById('addBtn').addEventListener('click',async()=>{
+  let entry;
+  try {
+    entry = await saveSession({
+      duration_mins: document.getElementById('durInput').value,
+      mood: mood || null,
+      note: document.getElementById('noteInput').value.trim() || null,
+    }, sb);
+  } catch(e) { alert('Could not save: ' + e.message); return; }
+  document.getElementById('noteInput').value='';mood='';document.querySelectorAll('#moodRow .pill').forEach(x=>x.classList.remove('active'));render();
+});
+render();
+</script>
+  <script src="theme.js"></script>
+  <script src="header.js"></script>
+</body></html>

@@ -1,6 +1,6 @@
 // GoodVibe Quotes — app.js
 
-const PEXELS_KEY = 'GLDWwN7wP8Fb9QrbXcm8kwRziSj3k1p335PrlTZQh3RehkjoxXGTtqQP';
+const PEXELS_PROXY = 'https://goodvibe.supabase.co/functions/v1/pexels-proxy';
 const CACHE_PREFIX = 'gv_img_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
@@ -66,8 +66,7 @@ async function getImageData(keywords) {
   } catch(e) {}
   try {
     const res = await fetch(
-      `https://api.pexels.com/v1/search?query=${encodeURIComponent(keyword)}&orientation=landscape&per_page=15`,
-      { headers: { Authorization: PEXELS_KEY } }
+      `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=15`
     );
     if (!res.ok) throw new Error('Pexels error');
     const json = await res.json();
@@ -199,19 +198,32 @@ function applyBlurUp(el, data) {
   });
 }
 
-// Scroll helper that accounts for sticky header height
+// Scroll helper — match first-load layout (sticky bar + main top padding)
 function getHeaderOffset() {
+  const mount = document.getElementById('site-header-mount');
+  if (mount) return mount.offsetHeight || mount.getBoundingClientRect().height;
   const header = document.querySelector('.site-header');
-  return header ? header.getBoundingClientRect().height : 0;
+  const filter = document.getElementById('filter-nav') || document.querySelector('.filter-nav');
+  const h = header ? (header.offsetHeight || header.getBoundingClientRect().height) : 0;
+  const f = filter ? (filter.offsetHeight || filter.getBoundingClientRect().height) : 0;
+  return h + f;
 }
 
-function scrollToElementWithOffset(el, padding = 12, behavior = 'smooth') {
+function getMainTopPadding() {
+  const main = document.querySelector('main');
+  if (!main) return 0;
+  return parseFloat(getComputedStyle(main).paddingTop) || 0;
+}
+
+function scrollToElementWithOffset(el, padding, behavior = 'smooth') {
   if (!el) return;
+  // Default gap = main padding-top so position matches opening the page at scroll 0
+  const gap = (padding === undefined || padding === null) ? getMainTopPadding() : padding;
+  const offset = getHeaderOffset() + gap;
   const rect = el.getBoundingClientRect();
-  const y = window.pageYOffset + rect.top - getHeaderOffset() - padding;
+  const y = window.pageYOffset + rect.top - offset;
   const targetY = Math.max(0, y);
   const distance = Math.abs(window.scrollY - targetY);
-  // For very long jumps, instant scroll feels much faster than long smooth animation.
   const resolvedBehavior = behavior === 'smart'
     ? (distance > 1200 ? 'auto' : 'smooth')
     : behavior;
@@ -310,7 +322,7 @@ function createGridCard(item) {
 
   card.addEventListener('click', () => {
     renderHero(item);
-    scrollToElementWithOffset(document.getElementById('quote-card'), 12, 'smart');
+    scrollToElementWithOffset(document.getElementById('quote-card'), null, 'smart');
   });
 
   const observer = new IntersectionObserver(async (entries) => {
@@ -364,18 +376,22 @@ function setupLoadMore() {
 }
 
 function setupNav() {
-  document.querySelectorAll('.nav-btn[data-category]').forEach(btn => {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = '1';
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.currentCategory = btn.dataset.category;
       newRandomQuote();
       renderGrid();
-      // scroll to the grid title so content is visible below the sticky header
       scrollToElementWithOffset(document.getElementById('grid-title'));
     });
   });
 }
+
+// Re-bind filters after header injects them
+document.addEventListener('headerready', setupNav);
 
 // Dismiss the tap hint after first tap on the card
 function dismissHint() {
