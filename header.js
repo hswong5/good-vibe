@@ -45,7 +45,7 @@
     // Lang + theme always present so header width/position stays stable
     mount.innerHTML = `
 <header class="site-header">
-  <div class="logo"><a href="${root}index.html" style="color:inherit;text-decoration:none">GoodVibe</a><small>Daily calm for busy people</small></div>
+  <div class="logo"><a href="${root}index.html" style="color:inherit;text-decoration:none">GoodVibe</a><small>daily calm for busy people</small></div>
   <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav-wrap">Menu</button>
   <div class="main-nav-wrap" id="main-nav-wrap">
     <nav class="category-nav">

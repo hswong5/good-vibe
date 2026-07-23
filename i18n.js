@@ -17,7 +17,7 @@ const LANGS = {
       btn_retry_image: 'Retry',
       offline_msg: 'You are offline. Quotes are still available.',
       dismiss: 'Dismiss',
-      footer_tagline: 'Daily calm for busy people.',
+      footer_tagline: 'daily calm for busy people.',
       footer_col_product: 'Product',
       footer_col_legal: 'Legal',
       footer_col_contact: 'Contact',

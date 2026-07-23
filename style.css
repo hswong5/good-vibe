@@ -99,8 +99,8 @@ body {
   display: block;
   font-family: var(--font-sans);
   font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.035em;
+  text-transform: none;
   color: var(--text-subtle);
   font-weight: 500;
 }
@@ -1539,8 +1539,8 @@ body.theme-light .theme-option.active {
   }
 
   .logo small {
-    font-size: 0.64rem;
-    letter-spacing: 0.06em;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
     line-height: 1.4;
     max-width: 220px;
   }
