@@ -1015,7 +1015,11 @@ main {
 
   .header-actions {
     margin-left: 0;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
   }
 
   .grid-load-more {
@@ -1029,6 +1033,7 @@ main {
     font-size: 1.56rem;
   }
 
+  /* Language on row 1, theme on row 2 */
   .lang-switch,
   .theme-switch {
     grid-template-columns: repeat(3, 28px);
