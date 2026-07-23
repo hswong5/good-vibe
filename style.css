@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap');
-
 /* GoodVibe Daily — style.css */
 :root {
-  --font-serif: 'Source Serif 4', 'Noto Serif SC', Georgia, serif;
-  --font-sans: 'Instrument Sans', 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --accent-500: #e0983f;
   --accent-600: #cc7f25;
