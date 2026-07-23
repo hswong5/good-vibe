@@ -379,35 +379,25 @@ main {
 
 .quote-text {
   font-family: var(--font-serif);
-  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-size: 1.8rem;
   font-style: italic;
-  line-height: 1.35;
-  letter-spacing: 0.01em;
-  max-width: 24ch;
-  margin-left: auto;
-  margin-right: auto;
+  line-height: 1.4;
   margin-bottom: 16px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 .quote-author {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.9;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
   margin-bottom: 24px;
-  color: rgba(255,255,255,0.82);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
 }
 
 .quote-author::before {
-  content: '';
-  display: inline-block;
-  width: 18px;
-  border-top: 1px solid rgba(255,255,255,0.7);
-  margin: 0 8px 3px 0;
+  content: '— ';
 }
 
 .quote-actions {
