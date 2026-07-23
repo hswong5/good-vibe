@@ -352,12 +352,8 @@ function setAttribution(data) {
   el.innerHTML = I18N.t('photo_by', data.photographerName, data.photographerUrl, 'https://www.pexels.com');
 }
 
-function showHeroStatus(show, key = 'image_fallback_msg') {
-  const status = document.getElementById('hero-status');
-  const text = document.getElementById('hero-status-text');
-  if (!status || !text) return;
-  status.classList.toggle('show', !!show);
-  if (show) text.textContent = I18N.t(key);
+function showHeroStatus(/* show, key */) {
+  // Hidden on purpose — fallback images load without a user-facing banner.
 }
 
 function fallbackGradient(category) {
