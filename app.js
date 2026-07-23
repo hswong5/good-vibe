@@ -82,19 +82,40 @@ function brightnessFromHex(hex) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-async function getImageData(keywords) {
-  // Use a stable keyword for much higher cache-hit rate across rerenders.
-  const keyword = (Array.isArray(keywords) && keywords.length)
-    ? String(keywords[0]).trim().toLowerCase()
-    : 'inspiration';
+function makeQuoteSeed(item) {
+  if (!item) return '';
+  const base = [item.quote || '', item.author || '', item.category || ''].join('|').toLowerCase();
+  let h = 0;
+  for (let i = 0; i < base.length; i++) h = (h << 5) - h + base.charCodeAt(i);
+  return String(Math.abs(h));
+}
+
+function buildImageQueryMeta(keywords, quoteSeed) {
+  const cleaned = (Array.isArray(keywords) ? keywords : [])
+    .map(k => String(k || '').trim().toLowerCase())
+    .filter(Boolean);
+  const unique = [...new Set(cleaned)].slice(0, 3);
+  if (!unique.length) unique.push('inspiration');
+
+  const queryKeyword = unique.join(' ');
+  const cacheParts = [unique.join('|')];
+  if (quoteSeed) cacheParts.push(String(quoteSeed));
+  const cacheSuffix = cacheParts.join('::');
+  const fallbackSeed = cacheSuffix.replace(/::/g, '-').replace(/\|/g, '-').replace(/\s+/g, '-');
+
+  return { queryKeyword, cacheSuffix, fallbackSeed };
+}
+
+async function getImageData(keywords, quoteSeed = '') {
+  const { queryKeyword, cacheSuffix, fallbackSeed } = buildImageQueryMeta(keywords, quoteSeed);
   const sizePref = state.imageSizePref || 'auto';
-  const cacheKey = CACHE_PREFIX + keyword + '::' + sizePref;
+  const cacheKey = CACHE_PREFIX + cacheSuffix + '::' + sizePref;
   if (memCache[cacheKey]) return memCache[cacheKey];
   if (inFlightCache[cacheKey]) return inFlightCache[cacheKey];
 
   // If proxy recently failed repeatedly, fail fast to avoid UI lag.
   if (Date.now() < proxyHealth.cooldownUntil) {
-    return fallbackImageData(keyword);
+    return fallbackImageData(fallbackSeed);
   }
 
   const fetchPromise = (async () => {
@@ -111,7 +132,7 @@ async function getImageData(keywords) {
     let res;
     try {
       res = await fetch(
-        `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=8`,
+        `${PEXELS_PROXY}?query=${encodeURIComponent(queryKeyword)}&per_page=8`,
         {
           signal: controller.signal,
           headers: {
@@ -136,9 +157,9 @@ async function getImageData(keywords) {
     const json = await res.json();
     if (json.error) {
       console.warn('[GoodVibe] Pexels proxy error payload', json);
-      return fallbackImageData(keyword);
+      return fallbackImageData(fallbackSeed);
     }
-    if (!json.photos || !json.photos.length) return fallbackImageData(keyword);
+    if (!json.photos || !json.photos.length) return fallbackImageData(fallbackSeed);
     const darkSortedPhotos = json.photos
       .filter(photo => photo.avg_color)
       .sort((a, b) => brightnessFromHex(a.avg_color) - brightnessFromHex(b.avg_color));
@@ -212,7 +233,7 @@ async function getImageData(keywords) {
       try { localStorage.setItem('gv_pexels_cooldown_until', String(proxyHealth.cooldownUntil)); } catch (e2) {}
     }
     console.warn('[GoodVibe] getImageData failed', e);
-    return fallbackImageData(keyword);
+    return fallbackImageData(fallbackSeed);
   }
   })();
 
@@ -385,7 +406,7 @@ async function renderHero(item) {
   if (high) { high.style.opacity = '0'; high.style.backgroundImage = '' }
   bgEl.style.background = fallbackGradient(item.category);
   setAttribution(null);
-  const data = await getImageData(item.keywords);
+  const data = await getImageData(item.keywords, makeQuoteSeed(item));
   // apply blur-up; do not wait — show low-res quickly then let high-res load
   applyBlurUp(bgEl, data)
     .then(() => {
@@ -428,7 +449,8 @@ function preloadNext() {
   const pool = filteredQuotes();
   if (pool.length < 2) return;
   const others = pool.filter(q => q !== state.currentQuote);
-  getImageData(pickRandom(others).keywords);
+  const nextItem = pickRandom(others);
+  getImageData(nextItem.keywords, makeQuoteSeed(nextItem));
 }
 
 function newRandomQuote() {
@@ -471,7 +493,7 @@ function createGridCard(item) {
 
   const observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
-      const data = await getImageData(item.keywords);
+      const data = await getImageData(item.keywords, makeQuoteSeed(item));
       applyBlurUp(card.querySelector('.grid-bg'), data);
       observer.disconnect();
     }
