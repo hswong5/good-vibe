@@ -1263,13 +1263,13 @@ body.theme-light .theme-option.active {
   padding: 0 0.5rem;
 }
 
-/* Extra space between opening quote and timer options */
+/* Comfortable separation between opening quote and timer options */
 .timer-page .timer-quote {
-  margin-bottom: 2.75rem;
+  margin-bottom: 1rem;
 }
 
 .timer-page .dur-picker {
-  margin-top: 0.25rem;
+  margin-top: 0;
 }
 
 .ring-wrap { position: relative; width: 200px; height: 200px; }
@@ -1422,7 +1422,7 @@ body.theme-light .theme-option.active {
   }
 
   .timer-page .timer-quote {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     font-size: 1.05rem;
   }
 
