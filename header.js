@@ -45,10 +45,13 @@
     // Lang + theme always present so header width/position stays stable
     mount.innerHTML = `
 <header class="site-header">
-  <div class="logo"><a href="${root}index.html" style="color:inherit;text-decoration:none">GoodVibe</a></div>
-  <nav class="category-nav">
-      ${navHTML}
-  </nav>
+  <div class="logo"><a href="${root}index.html" style="color:inherit;text-decoration:none">GoodVibe</a><small>Daily calm for busy people</small></div>
+  <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav-wrap">Menu</button>
+  <div class="main-nav-wrap" id="main-nav-wrap">
+    <nav class="category-nav">
+        ${navHTML}
+    </nav>
+  </div>
   <div class="header-actions">
     <div class="lang-switch" id="lang-switch">
       <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
@@ -62,6 +65,21 @@
     </div>
   </div>
 </header>${filterNav}`;
+
+    const menuToggle = mount.querySelector('#menu-toggle');
+    const navWrap = mount.querySelector('#main-nav-wrap');
+    if (menuToggle && navWrap) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navWrap.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      navWrap.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navWrap.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
 
     // Theme active state
     const saved = localStorage.getItem('gv_theme') || 'sys';

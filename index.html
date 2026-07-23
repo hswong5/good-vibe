@@ -4,14 +4,15 @@
 <meta charset="UTF-8">
 <meta name="theme-color" content="#111113">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoodVibe Quotes — Motivation, Healing, Hustle & Calm</title>
+<title>GoodVibe Daily — Motivation, Healing, Hustle & Calm</title>
 <meta name="description" content="Inspiring quotes for Motivation, Healing, Hustle, and Calm. Free daily quote images with beautiful backgrounds.">
 <link rel="canonical" href="https://goodvibedaily.com/">
-<meta property="og:title" content="GoodVibe Quotes — Motivation, Healing, Hustle & Calm">
+<meta property="og:title" content="GoodVibe Daily — Motivation, Healing, Hustle & Calm">
 <meta property="og:description" content="Inspiring quotes for Motivation, Healing, Hustle, and Calm. Free daily quote images with beautiful backgrounds.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://goodvibedaily.com/">
-<meta property="og:site_name" content="GoodVibe Quotes">
+<meta property="og:site_name" content="GoodVibe Daily">
+<meta property="og:image" content="https://goodvibedaily.com/og-image.svg">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9L0G5M3YM4"></script>
@@ -25,20 +26,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.pexels.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-<link rel="preload" href="style.css?v=20260718" as="style">
+<link rel="preload" href="style.css?v=20260726" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20260718">
+<link rel="stylesheet" href="style.css?v=20260726">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7148667085209307" crossorigin="anonymous"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "url": "https://goodvibedaily.com/",
-  "name": "GoodVibe Quotes",
+  "name": "GoodVibe Daily",
   "description": "Inspiring quotes for Motivation, Healing, Hustle, and Calm.",
   "publisher": {
     "@type": "Organization",
-    "name": "GoodVibe",
+    "name": "GoodVibe Daily",
     "url": "https://goodvibedaily.com/",
     "contactPoint": [{
       "@type": "ContactPoint",
@@ -49,10 +50,15 @@
 }
 </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
 
 <div id="site-header-mount"></div>
+<div id="offline-banner" class="offline-banner">
+  <span data-i18n="offline_msg">You are offline. Quotes are still available.</span>
+  <button type="button" class="btn-text" id="offline-dismiss" data-i18n="dismiss">Dismiss</button>
+</div>
 <main>
   <section id="quote-card" class="quote-card">
     <div class="quote-bg" id="quote-bg">
@@ -67,7 +73,12 @@
       <div class="quote-actions">
         <button id="btn-prev" title="Previous quote" data-i18n="btn_prev">Prev</button>
         <button id="btn-copy" data-i18n="btn_copy">Copy</button>
+        <button id="btn-share" data-i18n="btn_share">Share</button>
         <button id="btn-download" data-i18n="btn_download">Save Image</button>
+      </div>
+      <div id="hero-status" class="hero-status" aria-live="polite">
+        <span id="hero-status-text" data-i18n="image_fallback_msg">Image service is unavailable.</span>
+        <button id="hero-retry" type="button" data-i18n="btn_retry_image">Retry</button>
       </div>
     </div>
     <!-- Animated tap hint: visible on first load, fades after first tap -->
@@ -96,14 +107,37 @@
 </main>
 
 <footer class="site-footer">
-  <p id="footer-copy">&copy; 2026 GoodVibe Quotes. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
-  <p><a href="about.html" data-i18n="nav_about">About</a> &middot; <a href="editorial-policy.html">Editorial Policy</a> &middot; <a href="privacy.html" data-i18n="nav_privacy">Privacy Policy</a> &middot; <a href="contact.html" data-i18n="nav_contact">Contact</a></p>
+  <div class="footer-wrap">
+    <div>
+      <div class="footer-brand">GoodVibe Daily</div>
+      <p class="footer-tagline" data-i18n="footer_tagline">Daily calm for busy people.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_col_product">Product</h4>
+      <a href="index.html" data-i18n="nav_quotes">Quotes</a>
+      <a href="blog/index.html" data-i18n="nav_blog">Blog</a>
+      <a href="meditate.html" data-i18n="nav_meditate">Meditate</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_col_legal">Legal</h4>
+      <a href="about.html" data-i18n="nav_about">About</a>
+      <a href="editorial-policy.html" data-i18n="editorial_policy">Editorial Policy</a>
+      <a href="privacy.html" data-i18n="nav_privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="nav_terms">Terms</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer_col_contact">Contact</h4>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <a class="footer-contact" href="mailto:hello@goodvibedaily.com">hello@goodvibedaily.com</a>
+    </div>
+  </div>
+  <p class="footer-bottom">&copy; 2026 GoodVibe Daily. All quotes are proverbs, traditional sayings, or historical public-domain statements.</p>
 </footer>
 
 <canvas id="export-canvas" style="display:none;"></canvas>
-<script defer src="app.js?v=20260723"></script>
-  <script src="theme.js"></script>
-  <script src="i18n.js?v=20260723"></script>
-  <script src="header.js?v=20260723"></script>
+<script defer src="app.js?v=20260726"></script>
+  <script src="theme.js?v=20260726"></script>
+  <script src="i18n.js?v=20260726"></script>
+  <script src="header.js?v=20260726"></script>
 </body>
 </html>

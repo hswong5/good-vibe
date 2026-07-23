@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="warmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111113"/>
+      <stop offset="50%" stop-color="#1e130c"/>
+      <stop offset="100%" stop-color="#2a1405"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#e0a458" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e0a458" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#warmGrad)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Decorative Border / Frame -->
+  <rect x="30" y="30" width="1140" height="570" rx="20" fill="none" stroke="#e0a458" stroke-width="2" stroke-opacity="0.25"/>
+
+  <!-- Logo/Brand Section in top-left -->
+  <g transform="translate(80, 90)">
+    <!-- Main Icon "G" -->
+    <rect width="50" height="50" rx="12" fill="#e0a458" fill-opacity="0.1"/>
+    <rect width="50" height="50" rx="12" fill="none" stroke="#e0a458" stroke-width="1.5"/>
+    <text x="25" y="37" font-family="Georgia, serif" font-size="32" font-style="italic" fill="#e0a458" text-anchor="middle">G</text>
+    <text x="70" y="34" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" letter-spacing="2">GoodVibe</text>
+    <text x="195" y="34" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" font-weight="300" fill="#e0a458" letter-spacing="2">Daily</text>
+  </g>
+
+  <!-- Quote Section Centered -->
+  <g transform="translate(600, 315)">
+    <!-- Large Stylized Opening Quote Mark -->
+    <text x="-480" y="-80" font-family="Georgia, serif" font-size="160" font-style="italic" fill="#e0a458" fill-opacity="0.15" text-anchor="start">“</text>
+    
+    <!-- Multi-line Quote Text -->
+    <text font-family="Georgia, serif" font-size="44" font-style="italic" fill="#f8fafc" text-anchor="middle">
+      <tspan x="0" dy="-20">Every moment is a fresh beginning.</tspan>
+    </text>
+
+    <!-- Author -->
+    <text x="0" y="70" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" font-weight="500" fill="#e0a458" letter-spacing="4" text-anchor="middle">— T.S. ELIOT —</text>
+  </g>
+
+  <!-- Footer Info / Website -->
+  <text x="600" y="550" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#94a3b8" letter-spacing="3" text-anchor="middle">GOODVIBE.DAILY</text>
+</svg>

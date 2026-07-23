@@ -4,6 +4,10 @@ const PEXELS_PROXY = 'https://rjtbagfuuijgiemtpnlm.supabase.co/functions/v1/pexe
 const SUPABASE_ANON_KEY = 'sb_publishable_xWqySzc3hIPkn_46WbcmOQ_yAG-4Ulu';
 const CACHE_PREFIX = 'gv_img_';
 const CACHE_TTL = 24 * 60 * 60 * 1000;
+const PEXELS_TIMEOUT_MS = 3500;
+const PEXELS_COOLDOWN_MS = 5 * 60 * 1000;
+const PEXELS_AUTH_FAIL_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+const DAILY_QUOTE_KEY = 'gv_daily_quote';
 
 const state = {
   quotes: [],
@@ -16,6 +20,31 @@ const state = {
 };
 
 const memCache = {};
+const inFlightCache = {};
+const proxyHealth = {
+  consecutiveFailures: 0,
+  cooldownUntil: 0,
+};
+
+function fallbackImageData(keyword) {
+  const seed = encodeURIComponent((keyword || 'inspiration').toLowerCase());
+  return {
+    small: `https://picsum.photos/seed/${seed}-small/480/320`,
+    regular: `https://picsum.photos/seed/${seed}-regular/1400/1000`,
+    photographerName: 'Lorem Picsum',
+    photographerUrl: 'https://picsum.photos/',
+    photoUrl: 'https://picsum.photos/',
+  };
+}
+
+function prefersReducedMotion() {
+  return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+try {
+  const storedCooldown = Number(localStorage.getItem('gv_pexels_cooldown_until') || '0');
+  if (storedCooldown > Date.now()) proxyHealth.cooldownUntil = storedCooldown;
+} catch (e) {}
 
 async function loadQuotes() {
   try {
@@ -54,10 +83,21 @@ function brightnessFromHex(hex) {
 }
 
 async function getImageData(keywords) {
-  const keyword = pickRandom(keywords);
+  // Use a stable keyword for much higher cache-hit rate across rerenders.
+  const keyword = (Array.isArray(keywords) && keywords.length)
+    ? String(keywords[0]).trim().toLowerCase()
+    : 'inspiration';
   const sizePref = state.imageSizePref || 'auto';
   const cacheKey = CACHE_PREFIX + keyword + '::' + sizePref;
   if (memCache[cacheKey]) return memCache[cacheKey];
+  if (inFlightCache[cacheKey]) return inFlightCache[cacheKey];
+
+  // If proxy recently failed repeatedly, fail fast to avoid UI lag.
+  if (Date.now() < proxyHealth.cooldownUntil) {
+    return fallbackImageData(keyword);
+  }
+
+  const fetchPromise = (async () => {
   try {
     const stored = localStorage.getItem(cacheKey);
     if (stored) {
@@ -66,26 +106,39 @@ async function getImageData(keywords) {
     }
   } catch(e) {}
   try {
-    const res = await fetch(
-      `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=15`,
-      {
-        headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        },
-      }
-    );
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), PEXELS_TIMEOUT_MS);
+    let res;
+    try {
+      res = await fetch(
+        `${PEXELS_PROXY}?query=${encodeURIComponent(keyword)}&per_page=8`,
+        {
+          signal: controller.signal,
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+        }
+      );
+    } finally {
+      clearTimeout(timeout);
+    }
     if (!res.ok) {
       const errText = await res.text().catch(() => '');
       console.warn('[GoodVibe] Pexels proxy HTTP', res.status, errText.slice(0, 200));
+      // Unauthorized API key means further attempts are unlikely to succeed soon.
+      if (res.status === 401 || /invalid api key|unauthorized/i.test(errText)) {
+        proxyHealth.cooldownUntil = Date.now() + PEXELS_AUTH_FAIL_COOLDOWN_MS;
+        try { localStorage.setItem('gv_pexels_cooldown_until', String(proxyHealth.cooldownUntil)); } catch (e) {}
+      }
       throw new Error('Pexels error ' + res.status);
     }
     const json = await res.json();
     if (json.error) {
       console.warn('[GoodVibe] Pexels proxy error payload', json);
-      return null;
+      return fallbackImageData(keyword);
     }
-    if (!json.photos || !json.photos.length) return null;
+    if (!json.photos || !json.photos.length) return fallbackImageData(keyword);
     const darkSortedPhotos = json.photos
       .filter(photo => photo.avg_color)
       .sort((a, b) => brightnessFromHex(a.avg_color) - brightnessFromHex(b.avg_color));
@@ -120,6 +173,8 @@ async function getImageData(keywords) {
       photoUrl: photo.url,
     };
     memCache[cacheKey] = data;
+    proxyHealth.consecutiveFailures = 0;
+    try { localStorage.removeItem('gv_pexels_cooldown_until'); } catch (e) {}
     try { localStorage.setItem(cacheKey, JSON.stringify({ data, ts: Date.now() })); } catch(e) {}
     // If we don't have the small image dataURL cached, fetch and store it asynchronously (limit attempts)
     if (!smallData) {
@@ -150,12 +205,39 @@ async function getImageData(keywords) {
       })();
     }
     return data;
-  } catch(e) { console.warn('[GoodVibe] getImageData failed', e); return null; }
+  } catch(e) {
+    proxyHealth.consecutiveFailures += 1;
+    if (proxyHealth.consecutiveFailures >= 2) {
+      proxyHealth.cooldownUntil = Date.now() + PEXELS_COOLDOWN_MS;
+      try { localStorage.setItem('gv_pexels_cooldown_until', String(proxyHealth.cooldownUntil)); } catch (e2) {}
+    }
+    console.warn('[GoodVibe] getImageData failed', e);
+    return fallbackImageData(keyword);
+  }
+  })();
+
+  inFlightCache[cacheKey] = fetchPromise;
+  try {
+    return await fetchPromise;
+  } finally {
+    delete inFlightCache[cacheKey];
+  }
 }
 
 function applyBlurUp(el, data) {
   if (!data) return Promise.resolve();
   return new Promise((resolve) => {
+  if (prefersReducedMotion()) {
+    const lowReduced = el.querySelector('.bg-low');
+    const highReduced = el.querySelector('.bg-high');
+    if (lowReduced && highReduced) {
+      lowReduced.style.opacity = '0';
+      highReduced.style.backgroundImage = `url('${data.regular}')`;
+      highReduced.style.opacity = '1';
+      resolve();
+      return;
+    }
+  }
   // If element contains layered children (.bg-low and .bg-high), use crossfade technique
   const low = el.querySelector('.bg-low');
   const high = el.querySelector('.bg-high');
@@ -249,6 +331,14 @@ function setAttribution(data) {
   el.innerHTML = I18N.t('photo_by', data.photographerName, data.photographerUrl, 'https://www.pexels.com');
 }
 
+function showHeroStatus(show, key = 'image_fallback_msg') {
+  const status = document.getElementById('hero-status');
+  const text = document.getElementById('hero-status-text');
+  if (!status || !text) return;
+  status.classList.toggle('show', !!show);
+  if (show) text.textContent = I18N.t(key);
+}
+
 function fallbackGradient(category) {
   const gradients = {
     Motivation: 'linear-gradient(135deg,#f6941c,#e0524d)',
@@ -277,10 +367,13 @@ async function renderHero(item) {
   // remember previous quote for "Prev" functionality
   if (state.currentQuote && state.currentQuote !== item) state.lastQuote = state.currentQuote;
   state.currentQuote = item;
+  const quoteCardEl = document.getElementById('quote-card');
   // Show tag immediately, but wait to display text/author until background image is ready
   document.getElementById('quote-tag').textContent = I18N.catLabel(item.category);
   const quoteTextEl = document.getElementById('quote-text');
   const quoteAuthorEl = document.getElementById('quote-author');
+  if (quoteCardEl) quoteCardEl.classList.add('is-loading');
+  showHeroStatus(false);
   // display text immediately with low-res background for faster perceived load
   quoteTextEl.textContent = `\u201c${getQuoteText(item)}\u201d`;
   quoteAuthorEl.textContent = getQuoteAuthor(item);
@@ -294,9 +387,41 @@ async function renderHero(item) {
   setAttribution(null);
   const data = await getImageData(item.keywords);
   // apply blur-up; do not wait — show low-res quickly then let high-res load
-  applyBlurUp(bgEl, data).then(() => { /* high-res applied */ }).catch(() => {});
+  applyBlurUp(bgEl, data)
+    .then(() => {
+      if (quoteCardEl) quoteCardEl.classList.remove('is-loading');
+    })
+    .catch(() => {
+      if (quoteCardEl) quoteCardEl.classList.remove('is-loading');
+    });
   setAttribution(data);
+  const isFallback = data && data.photographerName === 'Lorem Picsum';
+  showHeroStatus(isFallback, isFallback ? 'image_fallback_msg' : '');
   preloadNext();
+}
+
+function getDailyQuote(pool) {
+  if (!pool.length) return null;
+  const dayId = new Date().toISOString().slice(0, 10);
+  const storageKey = `${DAILY_QUOTE_KEY}_${dayId}`;
+  try {
+    const cached = localStorage.getItem(storageKey);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      const hit = pool.find(q => q.quote === parsed.quote && q.author === parsed.author);
+      if (hit) return hit;
+    }
+  } catch (e) {}
+
+  const hashBase = `${dayId}|goodvibe|${pool.length}`;
+  let h = 0;
+  for (let i = 0; i < hashBase.length; i++) h = (h << 5) - h + hashBase.charCodeAt(i);
+  const index = Math.abs(h) % pool.length;
+  const chosen = pool[index];
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({ quote: chosen.quote, author: chosen.author }));
+  } catch (e) {}
+  return chosen;
 }
 
 function preloadNext() {
@@ -310,6 +435,14 @@ function newRandomQuote() {
   const pool = filteredQuotes();
   if (!pool.length) return;
   renderHero(pickRandom(pool));
+}
+
+function setInitialQuote() {
+  const pool = filteredQuotes();
+  if (!pool.length) return;
+  const daily = getDailyQuote(pool);
+  if (daily) renderHero(daily);
+  else renderHero(pickRandom(pool));
 }
 
 function getGridBatchSize() {
@@ -453,6 +586,29 @@ function setupActions() {
     downloadQuoteImage();
   });
 
+  const shareBtn = document.getElementById('btn-share');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      if (!state.currentQuote) return;
+      const shareText = `\u201c${getQuoteText(state.currentQuote)}\u201d \u2014 ${getQuoteAuthor(state.currentQuote)}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'GoodVibe Daily',
+            text: shareText,
+            url: location.href,
+          });
+          return;
+        } catch (err) {}
+      }
+      navigator.clipboard.writeText(`${shareText}\n${location.href}`);
+      const original = shareBtn.textContent;
+      shareBtn.textContent = I18N.t('copied_label');
+      setTimeout(() => { shareBtn.textContent = original; }, 1200);
+    });
+  }
+
   // Previous quote button
   const prevBtn = document.getElementById('btn-prev');
   if (prevBtn) prevBtn.addEventListener('click', (e) => {
@@ -469,6 +625,42 @@ function setupActions() {
   // Set initial hint text and update on language change
   updateTapHintText();
   document.addEventListener('langchange', updateTapHintText);
+
+  const retryBtn = document.getElementById('hero-retry');
+  if (retryBtn) {
+    retryBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      proxyHealth.cooldownUntil = 0;
+      proxyHealth.consecutiveFailures = 0;
+      try { localStorage.removeItem('gv_pexels_cooldown_until'); } catch (err) {}
+      if (state.currentQuote) await renderHero(state.currentQuote);
+    });
+  }
+}
+
+function setupOfflineBanner() {
+  const banner = document.getElementById('offline-banner');
+  const dismiss = document.getElementById('offline-dismiss');
+  if (!banner || !dismiss) return;
+  const hideKey = 'gv_hide_offline_banner';
+
+  function update() {
+    const dismissed = localStorage.getItem(hideKey) === '1';
+    if (!navigator.onLine && !dismissed) banner.classList.add('show');
+    else banner.classList.remove('show');
+  }
+
+  dismiss.addEventListener('click', () => {
+    try { localStorage.setItem(hideKey, '1'); } catch (e) {}
+    banner.classList.remove('show');
+  });
+
+  window.addEventListener('online', () => {
+    try { localStorage.removeItem(hideKey); } catch (e) {}
+    update();
+  });
+  window.addEventListener('offline', update);
+  update();
 }
 
 async function downloadQuoteImage() {
@@ -546,13 +738,14 @@ function shouldPrefetchImages() {
   setupNav();
   setupLoadMore();
   setupActions();
-  newRandomQuote();
+  setupOfflineBanner();
+  setInitialQuote();
   renderGrid(true);
   scheduleHintAutoDismiss();
   // Prefetch small images for a few initial quotes only on faster connections
   try {
     if (shouldPrefetchImages()) {
-      const pool = state.quotes.slice(0, 8);
+      const pool = state.quotes.slice(0, 3);
       pool.forEach(q => getImageData(q.keywords));
     }
   } catch(e) {}
