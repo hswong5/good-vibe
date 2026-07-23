@@ -1518,3 +1518,106 @@ body.theme-light .theme-option.active {
     top: var(--gv-header-offset, 170px);
   }
 }
+
+/* Mobile header: logo left, controls top-right, direct navigation below */
+@media (max-width: 640px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 102px;
+    grid-template-areas:
+      "logo controls"
+      "nav nav";
+    align-items: start;
+    gap: 14px 10px;
+    padding: 14px;
+  }
+
+  .logo {
+    grid-area: logo;
+    min-width: 0;
+    padding-top: 3px;
+  }
+
+  .logo small {
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    max-width: 220px;
+  }
+
+  /* No mobile hamburger */
+  .menu-toggle {
+    display: none !important;
+  }
+
+  /* Keep EN/繁/簡 and theme options in the top-right */
+  .header-actions {
+    grid-area: controls;
+    width: 102px;
+    margin: 0;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 7px;
+  }
+
+  .header-actions .lang-switch,
+  .header-actions .theme-switch {
+    display: grid !important;
+    grid-template-columns: repeat(3, 28px);
+    justify-content: end;
+    width: 102px !important;
+    gap: 5px;
+  }
+
+  .header-actions .lang-btn,
+  .header-actions .theme-option {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    padding: 0;
+  }
+
+  /* Always show direct navigation below the top row */
+  .main-nav-wrap,
+  .main-nav-wrap.open {
+    grid-area: nav;
+    position: static;
+    display: block !important;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .main-nav-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-nav-wrap .category-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: max-content;
+    min-width: 100%;
+    gap: 7px;
+    padding: 0 1px 2px;
+  }
+
+  .main-nav-wrap .nav-btn {
+    width: auto;
+    flex: 0 0 auto;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 999px;
+    padding: 7px 11px;
+    font-size: 0.8rem;
+  }
+}
