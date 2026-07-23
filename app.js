@@ -768,7 +768,7 @@ function shouldPrefetchImages() {
   try {
     if (shouldPrefetchImages()) {
       const pool = state.quotes.slice(0, 3);
-      pool.forEach(q => getImageData(q.keywords));
+      pool.forEach(q => getImageData(q.keywords, makeQuoteSeed(q)));
     }
   } catch(e) {}
 })();
