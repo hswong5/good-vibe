@@ -1448,3 +1448,73 @@ body.theme-light .theme-option.active {
     padding: 0.24rem 0.6rem;
   }
 }
+
+/* Mobile header: controls must never overflow horizontally */
+@media (max-width: 640px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "logo menu"
+      "controls controls";
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .logo {
+    grid-area: logo;
+    min-width: 0;
+  }
+
+  .logo small {
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+    line-height: 1.45;
+  }
+
+  .menu-toggle {
+    grid-area: menu;
+    justify-self: end;
+  }
+
+  .header-actions {
+    grid-area: controls;
+    width: 100%;
+    margin: 0;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 8px;
+  }
+
+  /* Row 2: language buttons */
+  .header-actions .lang-switch {
+    display: grid !important;
+    grid-template-columns: repeat(3, 28px);
+    justify-content: center;
+    width: 102px !important;
+    gap: 5px;
+  }
+
+  /* Row 3: theme buttons */
+  .header-actions .theme-switch {
+    display: grid !important;
+    grid-template-columns: repeat(3, 28px);
+    justify-content: center;
+    width: 102px !important;
+    gap: 5px;
+  }
+
+  .header-actions .lang-btn,
+  .header-actions .theme-option {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    padding: 0;
+  }
+
+  .main-nav-wrap {
+    top: var(--gv-header-offset, 170px);
+  }
+}
